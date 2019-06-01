@@ -7,17 +7,13 @@ import org.springframework.stereotype.Component;
 public class WithoutQualifierArithmeticOperations {
 
     private final CalculationService calculationService;
-    private final NumberService<Long> numberService;
 
     @Autowired
-    public WithoutQualifierArithmeticOperations(CalculationService calculationService,
-                                                NumberService<Long> numberService) {
+    public WithoutQualifierArithmeticOperations(CalculationService calculationService) {
         this.calculationService = calculationService;
-        this.numberService = numberService;
     }
 
-    public void start(){
-        numberService.get();
+    public void start() {
         calculationService.calculate();
     }
 }

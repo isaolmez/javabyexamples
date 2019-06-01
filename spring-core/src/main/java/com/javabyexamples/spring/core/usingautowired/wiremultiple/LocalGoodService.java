@@ -7,4 +7,8 @@ import org.springframework.stereotype.Component;
 @Order(0)
 public class LocalGoodService implements GoodService {
 
+    @Override
+    public void buy() {
+        System.out.println("Buying local goods.");
+    }
 }

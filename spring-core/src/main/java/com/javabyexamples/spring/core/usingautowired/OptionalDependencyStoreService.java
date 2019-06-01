@@ -10,7 +10,7 @@ public class OptionalDependencyStoreService {
     private final ManagerService managerService;
 
     @Autowired(required = false)
-    private ObsoleteOrderService orderService;
+    private OrderService orderService;
 
     @Autowired
     public OptionalDependencyStoreService(EmployeeService employeeService,

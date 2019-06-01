@@ -8,17 +8,13 @@ import org.springframework.stereotype.Component;
 public class WithQualifierArithmeticOperations {
 
     private final CalculationService calculationService;
-    private final NumberService<Long> numberService;
 
     @Autowired
-    public WithQualifierArithmeticOperations(@Qualifier("simple") CalculationService calculationService,
-                                             @Qualifier("longNumberService") NumberService numberService) {
+    public WithQualifierArithmeticOperations(@Qualifier("simple") CalculationService calculationService) {
         this.calculationService = calculationService;
-        this.numberService = numberService;
     }
 
-    public void start(){
-        numberService.get();
+    public void start() {
         calculationService.calculate();
     }
 }

@@ -7,4 +7,8 @@ import org.springframework.stereotype.Component;
 @Order(1)
 public class ImportedGoodService implements GoodService {
 
+    @Override
+    public void buy() {
+        System.out.println("Buying imported goods.");
+    }
 }
