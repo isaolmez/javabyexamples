@@ -12,8 +12,4 @@ public class JsrSetterInjectionPersonService {
     public void setPersonRepository(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
-
-    public void list() {
-        personRepository.list();
-    }
 }

@@ -9,8 +9,4 @@ public class JsrProviderInjectionPersonService {
 
     @Inject
     private Provider<PersonRepository> personRepositoryProvider;
-
-    public void list() {
-        personRepositoryProvider.get().list();
-    }
 }

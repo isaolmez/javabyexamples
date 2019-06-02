@@ -8,8 +8,4 @@ public class JsrFieldInjectionPersonService {
 
     @Inject
     private PersonRepository personRepository;
-
-    public void list() {
-        personRepository.list();
-    }
 }
