@@ -7,15 +7,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AuditConfiguration {
 
-    @Bean
-    @Qualifier("simple")
+    @Bean("simple")
+    @Qualifier("qualifiedSimple")
     public AuditService theSimpleOne() {
         return new SimpleAuditService();
-    }
-
-    @Bean("legacy")
-    public AuditService legacyAuditService() {
-        return new LegacyAuditService();
     }
 
     @Bean

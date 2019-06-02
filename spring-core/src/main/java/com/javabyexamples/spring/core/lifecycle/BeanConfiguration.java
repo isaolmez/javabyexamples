@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Configuration;
 public class BeanConfiguration {
 
     @Bean(destroyMethod = "destroy", initMethod = "initialize")
-    public WithCustomMethodsService withCustomMethodsService() {
-        return new WithCustomMethodsService();
+    public CustomMethodsService withCustomMethodsService() {
+        return new CustomMethodsService();
     }
 
     @Bean(destroyMethod = "customDestroy", initMethod = "customInit")

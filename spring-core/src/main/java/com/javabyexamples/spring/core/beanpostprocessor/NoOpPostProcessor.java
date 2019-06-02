@@ -13,7 +13,7 @@ public class NoOpPostProcessor implements BeanPostProcessor, Ordered {
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
         if (bean instanceof GreetingService) {
-            System.out.printf("postProcessBeforeInitialization() in %s for %s%n", getClass().getSimpleName(), beanName);
+            System.out.println("No op");
         }
 
         return bean;
@@ -23,7 +23,7 @@ public class NoOpPostProcessor implements BeanPostProcessor, Ordered {
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         if (bean instanceof GreetingService) {
-            System.out.printf("postProcessAfterInitialization() in %s for %s%n", getClass().getSimpleName(), beanName);
+            System.out.println("No op");
         }
 
         return bean;

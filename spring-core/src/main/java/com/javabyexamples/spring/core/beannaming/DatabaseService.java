@@ -9,27 +9,23 @@ public class DatabaseService {
 
     @Autowired
     @Qualifier("simple")
-    private AuditService simpleAuditServiceFromQualifier;
+    private AuditService simpleAuditServiceFromBean;
 
     @Autowired
-    @Qualifier("theSimpleOne")
-    private AuditService simpleAuditServiceFromMethodName;
+    @Qualifier("qualifiedSimple")
+    private AuditService simpleAuditServiceFromQualifier;
 
     @Autowired
     @Qualifier("advanced")
     private AuditService advancedAuditServiceFromComponent;
 
     @Autowired
-    @Qualifier("advanced")
+    @Qualifier("qualifiedAdvanced")
     private AuditService advancedAuditServiceFromQualifier;
 
     @Autowired
-    @Qualifier("legacy")
-    private AuditService legacyAuditServiceFromBean;
-
-    @Autowired
     @Qualifier("legacyAuditService")
-    private AuditService legacyAuditServiceFromMethodName;
+    private AuditService legacyAuditServiceFromDefault;
 
     @Autowired
     @Qualifier("obsolete")

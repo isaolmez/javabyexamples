@@ -1,7 +1,7 @@
 package com.javabyexamples.spring.core.stereotypes.metaannotation;
 
 @PrimaryComponent
-public class AdvancedGenerator implements Generator{
+public class PrimaryGenerator implements Generator{
 
     @Override
     public void generate() {

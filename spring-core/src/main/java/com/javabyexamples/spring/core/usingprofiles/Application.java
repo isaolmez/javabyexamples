@@ -15,7 +15,19 @@ public class Application {
     private Environment environment;
 
     public static void main(String[] args) {
-        withNoProfie();
+        withProd();
+    }
+
+    private static void withProd() {
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
+        applicationContext.register(Application.class);
+        applicationContext.getEnvironment().setActiveProfiles("prod");
+        applicationContext.refresh();
+
+        Map<String, EmployeeService> services = applicationContext.getBeansOfType(EmployeeService.class);
+        System.out.println(services.keySet());
+
+        applicationContext.close();
     }
 
     private static void withProdAndFast() {

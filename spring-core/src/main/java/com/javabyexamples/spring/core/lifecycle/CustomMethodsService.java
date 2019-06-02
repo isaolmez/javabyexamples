@@ -3,7 +3,7 @@ package com.javabyexamples.spring.core.lifecycle;
 import org.springframework.stereotype.Component;
 
 @Component
-public class WithCustomMethodsService {
+public class CustomMethodsService {
 
     public void initialize() throws Exception {
         System.out.println("Initializing " + getClass().getSimpleName());
