@@ -1,10 +1,12 @@
 package com.javabyexamples.apache.httpclient.introduction;
 
+import static com.javabyexamples.apache.httpclient.Constants.GET_URL;
+
+import com.javabyexamples.apache.httpclient.Constants;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.text.html.parser.Entity;
 import org.apache.http.NameValuePair;
 import org.apache.http.StatusLine;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -22,8 +24,9 @@ import org.apache.http.util.EntityUtils;
 public class DefaultHttpClient {
 
     public void executeGet() throws Exception {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        final HttpGet httpGet = new HttpGet("http://httpbin.org/get");
+        final CloseableHttpClient httpClient = HttpClients.createDefault();
+
+        final HttpGet httpGet = new HttpGet(GET_URL);
         try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
             StatusLine statusLine = response.getStatusLine();
             System.out.println(statusLine.getStatusCode() + " " + statusLine.getReasonPhrase());
@@ -34,8 +37,9 @@ public class DefaultHttpClient {
     }
 
     public void executeGetWithHeaders() throws Exception {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        final HttpGet httpGet = new HttpGet("http://httpbin.org/get");
+        final CloseableHttpClient httpClient = HttpClients.createDefault();
+
+        final HttpGet httpGet = new HttpGet(GET_URL);
         httpGet.addHeader("HttpClient-Header", "test");
 
         try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
@@ -48,13 +52,14 @@ public class DefaultHttpClient {
     }
 
     public void handleStatusCodes() throws Exception {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        final HttpGet httpGet = new HttpGet("http://httpbin.org/get");
+        final CloseableHttpClient httpClient = HttpClients.createDefault();
+
+        final HttpGet httpGet = new HttpGet(GET_URL);
         httpGet.addHeader("HttpClient-Header", "test");
 
         try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
             StatusLine statusLine = response.getStatusLine();
-            if(statusLine.getStatusCode() != 200){
+            if (statusLine.getStatusCode() != 200) {
                 System.out.println("Response is not OK");
                 EntityUtils.consumeQuietly(response.getEntity());
             }
@@ -65,8 +70,9 @@ public class DefaultHttpClient {
     }
 
     public void executePost() throws Exception {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        final HttpPost httpPost = new HttpPost("http://httpbin.org/post");
+        final CloseableHttpClient httpClient = HttpClients.createDefault();
+
+        final HttpPost httpPost = new HttpPost(GET_URL);
 
         final List<NameValuePair> nameValuePairs = new ArrayList<>();
         nameValuePairs.add(new BasicNameValuePair("name", "John"));
@@ -84,22 +90,22 @@ public class DefaultHttpClient {
 
     public void constructUri() throws Exception {
         URI uri = new URIBuilder()
-                .setScheme("https")
-                .setHost("httpbin.org")
-                .setPath("/get")
-                .setParameter("city", "London")
-                .setParameter("count", "100")
-                .build();
+          .setScheme("https")
+          .setHost(Constants.HOSTNAME)
+          .setPath("/get")
+          .setParameter("city", "London")
+          .setParameter("count", "100")
+          .build();
         System.out.println(uri.toString());
 
     }
 
     public void constructRequest() throws Exception {
         HttpUriRequest getRequest = RequestBuilder.get()
-                .setUri("https://httpbin.org/get")
-                .addParameter("city", "London")
-                .addParameter("count", "100")
-                .build();
+          .setUri(GET_URL)
+          .addParameter("city", "London")
+          .addParameter("count", "100")
+          .build();
         System.out.println(getRequest);
 
     }

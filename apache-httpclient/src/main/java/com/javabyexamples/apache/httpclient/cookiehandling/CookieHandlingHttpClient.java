@@ -18,8 +18,8 @@ public class CookieHandlingHttpClient {
     public void executePostAndListCookies() throws Exception {
         final BasicCookieStore cookieStore = new BasicCookieStore();
         CloseableHttpClient httpClient = HttpClients.custom()
-                .setDefaultCookieStore(cookieStore)
-                .build();
+          .setDefaultCookieStore(cookieStore)
+          .build();
 
         performRequest(cookieStore, httpClient, "https://www.google.com");
 
@@ -27,10 +27,10 @@ public class CookieHandlingHttpClient {
     }
 
     private void performRequest(BasicCookieStore cookieStore, CloseableHttpClient httpClient, String s)
-            throws URISyntaxException, IOException {
+      throws URISyntaxException, IOException {
         HttpUriRequest getGoogle = RequestBuilder.get()
-                .setUri(new URI(s))
-                .build();
+          .setUri(new URI(s))
+          .build();
         try (final CloseableHttpResponse response = httpClient.execute(getGoogle)) {
             EntityUtils.consume(response.getEntity());
 

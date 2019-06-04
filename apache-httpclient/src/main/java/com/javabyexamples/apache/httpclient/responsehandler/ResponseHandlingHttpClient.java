@@ -1,5 +1,7 @@
 package com.javabyexamples.apache.httpclient.responsehandler;
 
+import static com.javabyexamples.apache.httpclient.Constants.GET_URL;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import org.apache.http.HttpResponse;
@@ -15,7 +17,7 @@ public class ResponseHandlingHttpClient {
 
     public void executeGet() throws Exception {
         CloseableHttpClient httpClient = HttpClients.createDefault();
-        final HttpGet httpGet = new HttpGet("http://httpbin.org/get");
+        final HttpGet httpGet = new HttpGet(GET_URL);
         String responseBody = httpClient.execute(httpGet, new ResponseHandler<String>() {
             @Override
             public String handleResponse(HttpResponse httpResponse) throws ClientProtocolException, IOException {

@@ -1,5 +1,8 @@
 package com.javabyexamples.apache.httpclient.authentication;
 
+import static com.javabyexamples.apache.httpclient.Constants.HOSTNAME;
+import static com.javabyexamples.apache.httpclient.Constants.URL_FOR_BASIC_AUTH;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import org.apache.http.HttpHost;
@@ -22,39 +25,39 @@ public class AuthenticatingHttpClient {
     public void executeWithBasicAuth() throws Exception {
         final BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();
         credentialsProvider.setCredentials(
-                new AuthScope("httpbin.org", 80),
-                new UsernamePasswordCredentials("user", "pass"));
+          new AuthScope(HOSTNAME, 80),
+          new UsernamePasswordCredentials("user", "pass"));
         CloseableHttpClient httpClient = HttpClientBuilder
-                .create()
-                .setDefaultCredentialsProvider(credentialsProvider)
-                .build();
-        performRequest(httpClient, "http://httpbin.org/basic-auth/user/pass");
+          .create()
+          .setDefaultCredentialsProvider(credentialsProvider)
+          .build();
+        performRequest(httpClient, URL_FOR_BASIC_AUTH);
     }
 
     public void executeWithBasicAuthPreemptive() throws Exception {
         final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
         credentialsProvider.setCredentials(
-                new AuthScope("httpbin.org", 80),
-                new UsernamePasswordCredentials("user", "pass"));
+          new AuthScope(HOSTNAME, 80),
+          new UsernamePasswordCredentials("user", "pass"));
         CloseableHttpClient httpClient = HttpClientBuilder
-                .create()
-                .setDefaultCredentialsProvider(credentialsProvider)
-                .build();
+          .create()
+          .setDefaultCredentialsProvider(credentialsProvider)
+          .build();
 
-        HttpHost target = new HttpHost("httpbin.org", 80, "http");
+        HttpHost target = new HttpHost(HOSTNAME, 80, "http");
         AuthCache authCache = new BasicAuthCache();
         BasicScheme basicAuth = new BasicScheme();
         authCache.put(target, basicAuth);
 
-        // Add AuthCache to the execution context
         HttpClientContext localContext = HttpClientContext.create();
         localContext.setAuthCache(authCache);
 
-        final String requestUri = "http://httpbin.org/basic-auth/user/passwd";
+        final String requestUri = URL_FOR_BASIC_AUTH;
         final HttpGet httpGet = new HttpGet(requestUri);
         try (CloseableHttpResponse response = httpClient.execute(target, httpGet, localContext);) {
             String responseBody = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
             System.out.println("Response body: " + responseBody);
+            EntityUtils.consumeQuietly(response.getEntity());
         }
     }
 
@@ -63,6 +66,7 @@ public class AuthenticatingHttpClient {
         try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
             String responseBody = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
             System.out.println("Response body: " + responseBody);
+            EntityUtils.consumeQuietly(response.getEntity());
         }
     }
 

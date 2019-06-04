@@ -14,45 +14,47 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.protocol.HttpContext;
+import org.apache.http.util.EntityUtils;
 
 public class RetryingHttpClient {
 
     public void retryThreeTimesImplicitly() throws Exception {
         CloseableHttpClient httpClient = HttpClients.custom()
-                .addInterceptorLast(new HttpRequestInterceptor() {
-                    @Override
-                    public void process(HttpRequest request, HttpContext context) throws HttpException, IOException {
-                        throw new IOException("Planned");
-                    }
-                })
-                .build();
+          .addInterceptorLast(new HttpRequestInterceptor() {
+              @Override
+              public void process(HttpRequest request, HttpContext context) throws HttpException, IOException {
+                  throw new IOException("Planned");
+              }
+          })
+          .build();
 
         executeGetRequest(httpClient);
     }
 
     public void retryThreeTimesExplicitly() throws Exception {
         CloseableHttpClient httpClient = HttpClients.custom()
-                .addInterceptorLast(new HttpRequestInterceptor() {
-                    @Override
-                    public void process(HttpRequest request, HttpContext context) throws HttpException, IOException {
-                        throw new IOException("Planned");
-                    }
-                })
-                .setRetryHandler(new DefaultHttpRequestRetryHandler(3, false))
-                .build();
+          .addInterceptorLast(new HttpRequestInterceptor() {
+              @Override
+              public void process(HttpRequest request, HttpContext context) throws HttpException, IOException {
+                  throw new IOException("Planned");
+              }
+          })
+          .setRetryHandler(new DefaultHttpRequestRetryHandler(3, false))
+          .build();
+
         executeGetRequest(httpClient);
     }
 
     public void disableRetries() throws Exception {
         CloseableHttpClient httpClient = HttpClients.custom()
-                .addInterceptorLast(new HttpRequestInterceptor() {
-                    @Override
-                    public void process(HttpRequest request, HttpContext context) throws HttpException, IOException {
-                        throw new IOException("Planned");
-                    }
-                })
-                .disableAutomaticRetries()
-                .build();
+          .addInterceptorLast(new HttpRequestInterceptor() {
+              @Override
+              public void process(HttpRequest request, HttpContext context) throws HttpException, IOException {
+                  throw new IOException("Planned");
+              }
+          })
+          .disableAutomaticRetries()
+          .build();
 
         executeGetRequest(httpClient);
     }
@@ -67,14 +69,14 @@ public class RetryingHttpClient {
         };
 
         CloseableHttpClient httpClient = HttpClients.custom()
-                .addInterceptorLast(new HttpRequestInterceptor() {
-                    @Override
-                    public void process(HttpRequest request, HttpContext context) throws HttpException, IOException {
-                        throw new IOException("Planned");
-                    }
-                })
-                .setRetryHandler(requestRetryHandler)
-                .build();
+          .addInterceptorLast(new HttpRequestInterceptor() {
+              @Override
+              public void process(HttpRequest request, HttpContext context) throws HttpException, IOException {
+                  throw new IOException("Planned");
+              }
+          })
+          .setRetryHandler(requestRetryHandler)
+          .build();
 
         executeGetRequest(httpClient);
     }
@@ -84,6 +86,7 @@ public class RetryingHttpClient {
         try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
             StatusLine statusLine = response.getStatusLine();
             System.out.println(statusLine.getStatusCode() + " " + statusLine.getReasonPhrase());
+            EntityUtils.consumeQuietly(response.getEntity());
         }
     }
 

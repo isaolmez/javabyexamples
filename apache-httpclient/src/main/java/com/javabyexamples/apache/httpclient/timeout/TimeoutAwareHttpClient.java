@@ -1,5 +1,7 @@
 package com.javabyexamples.apache.httpclient.timeout;
 
+import static com.javabyexamples.apache.httpclient.Constants.GET_URL;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -15,22 +17,24 @@ import org.apache.http.impl.client.FutureRequestExecutionService;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.client.HttpRequestFutureTask;
+import org.apache.http.util.EntityUtils;
 
 public class TimeoutAwareHttpClient {
 
     public void setTimeoutWithRequestConfig() throws Exception {
         RequestConfig requestConfig = RequestConfig.custom()
-                .setConnectionRequestTimeout(1000)
-                .setConnectTimeout(1000)
-                .setSocketTimeout(1000)
-                .build();
+          .setConnectionRequestTimeout(1000)
+          .setConnectTimeout(1000)
+          .setSocketTimeout(1000)
+          .build();
         CloseableHttpClient httpClient = HttpClients.custom()
-                .setDefaultRequestConfig(requestConfig)
-                .build();
-        final HttpGet httpGet = new HttpGet("http://httpbin.org/get");
+          .setDefaultRequestConfig(requestConfig)
+          .build();
+        final HttpGet httpGet = new HttpGet(GET_URL);
         try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
             StatusLine statusLine = response.getStatusLine();
             System.out.println(statusLine.getStatusCode() + " " + statusLine.getReasonPhrase());
+            EntityUtils.consumeQuietly(response.getEntity());
         }
     }
 
@@ -38,27 +42,28 @@ public class TimeoutAwareHttpClient {
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
         final RequestConfig requestConfig = RequestConfig.custom()
-                .setConnectionRequestTimeout(1000)
-                .setConnectTimeout(1000)
-                .setSocketTimeout(1000)
-                .build();
-        final HttpGet httpGet = new HttpGet("http://httpbin.org/get");
+          .setConnectionRequestTimeout(1000)
+          .setConnectTimeout(1000)
+          .setSocketTimeout(1000)
+          .build();
+        final HttpGet httpGet = new HttpGet(GET_URL);
         httpGet.setConfig(requestConfig);
         try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
             StatusLine statusLine = response.getStatusLine();
             System.out.println(statusLine.getStatusCode() + " " + statusLine.getReasonPhrase());
+            EntityUtils.consumeQuietly(response.getEntity());
         }
     }
 
     public void setTimeoutWithFutureTask() throws Exception {
         HttpClient httpclient = HttpClientBuilder.create()
-                .setMaxConnPerRoute(5)
-                .setMaxConnTotal(5)
-                .build();
+          .setMaxConnPerRoute(5)
+          .setMaxConnTotal(5)
+          .build();
         ExecutorService execService = Executors.newFixedThreadPool(5);
         FutureRequestExecutionService requestExecutionService = new FutureRequestExecutionService(httpclient, execService);
         try {
-            HttpGet httpGet = new HttpGet("http://httpbin.org/get");
+            HttpGet httpGet = new HttpGet(GET_URL);
             ResponseHandler<Boolean> handler = response -> response.getStatusLine().getStatusCode() == 200;
 
             HttpRequestFutureTask<Boolean> futureTask = requestExecutionService.execute(httpGet, HttpClientContext.create(), handler);

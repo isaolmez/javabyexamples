@@ -1,5 +1,7 @@
 package com.javabyexamples.apache.httpclient.asynclient;
 
+import static com.javabyexamples.apache.httpclient.Constants.GET_URL;
+
 import java.io.IOException;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutorService;
@@ -20,9 +22,9 @@ public class AsyncHttpClient {
 
     public FutureRequestExecutionService getFutureExecutionService() {
         final HttpClient httpClient = HttpClientBuilder.create()
-                .setMaxConnPerRoute(5)
-                .setMaxConnTotal(5)
-                .build();
+          .setMaxConnPerRoute(5)
+          .setMaxConnTotal(5)
+          .build();
         ExecutorService executorService = Executors.newFixedThreadPool(5);
         return new FutureRequestExecutionService(httpClient, executorService);
     }
@@ -36,7 +38,7 @@ public class AsyncHttpClient {
         };
 
         try (FutureRequestExecutionService executionService = getFutureExecutionService()) {
-            HttpGet httpGet = new HttpGet("http://httpbin.org/get");
+            HttpGet httpGet = new HttpGet(GET_URL);
 
             HttpRequestFutureTask<Integer> futureTask = executionService.execute(httpGet, HttpClientContext.create(), handler);
 
@@ -54,7 +56,7 @@ public class AsyncHttpClient {
         };
 
         try (FutureRequestExecutionService executionService = getFutureExecutionService()) {
-            HttpGet httpGet = new HttpGet("http://httpbin.org/get");
+            HttpGet httpGet = new HttpGet(GET_URL);
 
             HttpRequestFutureTask<Integer> futureTask = executionService.execute(httpGet, HttpClientContext.create(), handler);
 
@@ -76,7 +78,7 @@ public class AsyncHttpClient {
         };
 
         try (FutureRequestExecutionService executionService = getFutureExecutionService()) {
-            HttpGet httpGet = new HttpGet("http://httpbin.org/get");
+            HttpGet httpGet = new HttpGet(GET_URL);
 
             HttpRequestFutureTask<Integer> futureTask = executionService.execute(httpGet, HttpClientContext.create(), handler);
 
@@ -111,7 +113,7 @@ public class AsyncHttpClient {
         };
 
         try (FutureRequestExecutionService executionService = getFutureExecutionService()) {
-            HttpGet httpGet = new HttpGet("http://httpbin.org/get");
+            HttpGet httpGet = new HttpGet(GET_URL);
 
             HttpRequestFutureTask<Integer> futureTask = executionService.execute(httpGet, HttpClientContext.create(), handler, callback);
 
