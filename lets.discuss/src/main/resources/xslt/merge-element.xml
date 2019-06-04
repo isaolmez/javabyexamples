@@ -1,0 +1,8 @@
+<request>
+  <header>
+    <id>123</id>
+  </header>
+  <payload>
+    <data>test</data>
+  </payload>
+</request>

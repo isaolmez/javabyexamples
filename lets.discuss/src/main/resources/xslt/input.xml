@@ -1,0 +1,29 @@
+<products>
+  <product sku="10000" totalSales="10000.00">
+    <!--Comment-->
+    <name>first</name>
+    <price>10</price>
+    warranty
+    <!--Comment-->
+  </product>
+  <product sku="10000" totalSales="990000.00">
+    <name>second</name>
+    <price>15</price>
+  </product>
+  <product sku="10000" totalSales="1110000.00">
+    <name>third</name>
+    <price>30</price>
+  </product>
+  <product sku="20000" totalSales="50000.00">
+    <price>20</price>
+  </product>
+  <product sku="20000" totalSales="150000.00">
+    <price>50</price>
+  </product>
+  <product sku="20000" totalSales="150000.00"/>
+  <product sku="25000" totalSales="920000.00"/>
+  <product sku="25000" totalSales="2920000.00"/>
+  <product sku="30000" totalSales="5500.00"/>
+  <product sku="30000" totalSales="115500.00"/>
+  <product sku="70000" totalSales="10000.00"/>
+</products>

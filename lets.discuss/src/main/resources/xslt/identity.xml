@@ -1,0 +1,10 @@
+<school>
+  <class count="3">
+    <teacher>John</teacher>
+    <students>
+      <student>Tom</student>
+      <student>Kate</student>
+      <student>Steve</student>
+    </students>
+  </class>
+</school>

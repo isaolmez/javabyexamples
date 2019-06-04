@@ -1,0 +1,7 @@
+<book>
+  <chapter topic="animalsTopic"/>
+  <topic name="animalsTopic">
+    <title>Animals</title>
+    <content>Dog is an animal.</content>
+  </topic>
+</book>
