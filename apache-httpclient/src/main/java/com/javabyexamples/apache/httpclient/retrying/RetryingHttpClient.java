@@ -18,7 +18,7 @@ import org.apache.http.util.EntityUtils;
 
 public class RetryingHttpClient {
 
-    public void retryThreeTimesImplicitly() throws Exception {
+    public void executeRetryingThreeTimesImplicitly() throws Exception {
         CloseableHttpClient httpClient = HttpClients.custom()
           .addInterceptorLast(new HttpRequestInterceptor() {
               @Override
@@ -31,7 +31,7 @@ public class RetryingHttpClient {
         executeGetRequest(httpClient);
     }
 
-    public void retryThreeTimesExplicitly() throws Exception {
+    public void executeRetryingThreeTimesExplicitly() throws Exception {
         CloseableHttpClient httpClient = HttpClients.custom()
           .addInterceptorLast(new HttpRequestInterceptor() {
               @Override
@@ -45,7 +45,7 @@ public class RetryingHttpClient {
         executeGetRequest(httpClient);
     }
 
-    public void disableRetries() throws Exception {
+    public void executeWithDisablingRetries() throws Exception {
         CloseableHttpClient httpClient = HttpClients.custom()
           .addInterceptorLast(new HttpRequestInterceptor() {
               @Override
@@ -60,7 +60,7 @@ public class RetryingHttpClient {
     }
 
 
-    public void retryWithCustom() throws Exception {
+    public void executeRetryingWithCustom() throws Exception {
         HttpRequestRetryHandler requestRetryHandler = new HttpRequestRetryHandler() {
             @Override
             public boolean retryRequest(IOException exception, int executionCount, HttpContext context) {
@@ -92,9 +92,9 @@ public class RetryingHttpClient {
 
     public static void main(String[] args) throws Exception {
         RetryingHttpClient httpClient = new RetryingHttpClient();
-//        httpClient.retryThreeTimesImplicitly();
-//        httpClient.retryThreeTimesExplicitly();
-        httpClient.disableRetries();
-//        httpClient.retryWithCustom();
+        httpClient.executeRetryingThreeTimesImplicitly();
+        httpClient.executeRetryingThreeTimesExplicitly();
+        httpClient.executeWithDisablingRetries();
+        httpClient.executeRetryingWithCustom();
     }
 }

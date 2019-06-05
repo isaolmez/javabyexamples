@@ -16,7 +16,7 @@ public class BuilderHttpClient {
     public void executeGet() throws Exception {
         final CloseableHttpClient httpClient = HttpClientBuilder
           .create()
-          .setDefaultRequestConfig(RequestConfig.custom().setMaxRedirects(10).build())
+          .setDefaultRequestConfig(RequestConfig.custom().setMaxRedirects(1).build())
           .build();
 
         final HttpGet httpGet = new HttpGet(GET_URL);

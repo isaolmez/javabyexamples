@@ -72,7 +72,7 @@ public class AuthenticatingHttpClient {
 
     public static void main(String[] args) throws Exception {
         AuthenticatingHttpClient httpClient = new AuthenticatingHttpClient();
-//        httpClient.executeWithBasicAuth();
+        httpClient.executeWithBasicAuth();
         httpClient.executeWithBasicAuthPreemptive();
     }
 }

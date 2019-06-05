@@ -112,11 +112,11 @@ public class DefaultHttpClient {
 
     public static void main(String[] args) throws Exception {
         DefaultHttpClient httpClient = new DefaultHttpClient();
-//        httpClient.executeGet();
-//        httpClient.executeGetWithHeaders();
-//        httpClient.handleStatusCodes();
-//        httpClient.executePost();
-//        httpClient.constructUri();
+        httpClient.executeGet();
+        httpClient.executeGetWithHeaders();
+        httpClient.handleStatusCodes();
+        httpClient.executePost();
+        httpClient.constructUri();
         httpClient.constructRequest();
     }
 }

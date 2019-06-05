@@ -124,9 +124,9 @@ public class AsyncHttpClient {
 
     public static void main(String[] args) throws Exception {
         AsyncHttpClient httpClient = new AsyncHttpClient();
-//        httpClient.executeAndReturnFuture();
-//        httpClient.executeAndCancelRequest();
-//        httpClient.executeAndHandleWithTimeout();
+        httpClient.executeAndReturnFuture();
+        httpClient.executeAndCancelRequest();
+        httpClient.executeAndHandleWithTimeout();
         httpClient.executeAndHandleWithCallback();
     }
 }

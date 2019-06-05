@@ -68,8 +68,8 @@ public class UserAgentHttpClient {
 
     public static void main(String[] args) throws Exception {
         UserAgentHttpClient httpClient = new UserAgentHttpClient();
-//        httpClient.executeAndSetUserAgent();
-//        httpClient.executeAndDisableUserAgent();
+        httpClient.executeAndSetUserAgent();
+        httpClient.executeAndDisableUserAgent();
         httpClient.executeAndSetUserAgentWithInterceptor();
     }
 }

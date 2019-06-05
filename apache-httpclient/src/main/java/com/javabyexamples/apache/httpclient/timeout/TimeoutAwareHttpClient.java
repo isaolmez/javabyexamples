@@ -21,7 +21,7 @@ import org.apache.http.util.EntityUtils;
 
 public class TimeoutAwareHttpClient {
 
-    public void setTimeoutWithRequestConfig() throws Exception {
+    public void executeAndSetTimeoutWithRequestConfig() throws Exception {
         RequestConfig requestConfig = RequestConfig.custom()
           .setConnectionRequestTimeout(1000)
           .setConnectTimeout(1000)
@@ -38,7 +38,7 @@ public class TimeoutAwareHttpClient {
         }
     }
 
-    public void setTimeoutWithRequestConfigPerRequest() throws Exception {
+    public void executeAndSetTimeoutWithRequestConfigPerRequest() throws Exception {
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
         final RequestConfig requestConfig = RequestConfig.custom()
@@ -55,7 +55,7 @@ public class TimeoutAwareHttpClient {
         }
     }
 
-    public void setTimeoutWithFutureTask() throws Exception {
+    public void executeAndSetTimeoutWithFutureTask() throws Exception {
         HttpClient httpclient = HttpClientBuilder.create()
           .setMaxConnPerRoute(5)
           .setMaxConnTotal(5)
@@ -77,8 +77,8 @@ public class TimeoutAwareHttpClient {
 
     public static void main(String[] args) throws Exception {
         TimeoutAwareHttpClient httpClient = new TimeoutAwareHttpClient();
-        httpClient.setTimeoutWithRequestConfig();
-        httpClient.setTimeoutWithRequestConfigPerRequest();
-        httpClient.setTimeoutWithFutureTask();
+        httpClient.executeAndSetTimeoutWithRequestConfig();
+        httpClient.executeAndSetTimeoutWithRequestConfigPerRequest();
+        httpClient.executeAndSetTimeoutWithFutureTask();
     }
 }
