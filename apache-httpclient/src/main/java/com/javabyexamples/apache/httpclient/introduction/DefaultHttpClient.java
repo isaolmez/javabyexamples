@@ -7,6 +7,7 @@ import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.StatusLine;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -24,67 +25,67 @@ import org.apache.http.util.EntityUtils;
 public class DefaultHttpClient {
 
     public void executeGet() throws Exception {
-        final CloseableHttpClient httpClient = HttpClients.createDefault();
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+            final HttpGet httpGet = new HttpGet(GET_URL);
+            try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                StatusLine statusLine = response.getStatusLine();
+                System.out.println(statusLine.getStatusCode() + " " + statusLine.getReasonPhrase());
 
-        final HttpGet httpGet = new HttpGet(GET_URL);
-        try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-            StatusLine statusLine = response.getStatusLine();
-            System.out.println(statusLine.getStatusCode() + " " + statusLine.getReasonPhrase());
-
-            String responseBody = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
-            System.out.println("Response body: " + responseBody);
+                String responseBody = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
+                System.out.println("Response body: " + responseBody);
+            }
         }
     }
 
     public void executeGetWithHeaders() throws Exception {
-        final CloseableHttpClient httpClient = HttpClients.createDefault();
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+            final HttpGet httpGet = new HttpGet(GET_URL);
+            httpGet.addHeader("HttpClient-Header", "test");
 
-        final HttpGet httpGet = new HttpGet(GET_URL);
-        httpGet.addHeader("HttpClient-Header", "test");
+            try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                StatusLine statusLine = response.getStatusLine();
+                System.out.println(statusLine.getStatusCode() + " " + statusLine.getReasonPhrase());
 
-        try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-            StatusLine statusLine = response.getStatusLine();
-            System.out.println(statusLine.getStatusCode() + " " + statusLine.getReasonPhrase());
-
-            String responseBody = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
-            System.out.println("Response body: " + responseBody);
+                String responseBody = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
+                System.out.println("Response body: " + responseBody);
+            }
         }
     }
 
     public void handleStatusCodes() throws Exception {
-        final CloseableHttpClient httpClient = HttpClients.createDefault();
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+            final HttpGet httpGet = new HttpGet(GET_URL);
+            httpGet.addHeader("HttpClient-Header", "test");
 
-        final HttpGet httpGet = new HttpGet(GET_URL);
-        httpGet.addHeader("HttpClient-Header", "test");
+            try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                StatusLine statusLine = response.getStatusLine();
+                if (statusLine.getStatusCode() != HttpStatus.SC_OK) {
+                    System.out.println("Response is not OK");
+                    EntityUtils.consumeQuietly(response.getEntity());
+                }
 
-        try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-            StatusLine statusLine = response.getStatusLine();
-            if (statusLine.getStatusCode() != 200) {
-                System.out.println("Response is not OK");
-                EntityUtils.consumeQuietly(response.getEntity());
+                String responseBody = EntityUtils.toString(response.getEntity());
+                System.out.println("Response body: " + responseBody);
             }
-
-            String responseBody = EntityUtils.toString(response.getEntity());
-            System.out.println("Response body: " + responseBody);
         }
     }
 
     public void executePost() throws Exception {
-        final CloseableHttpClient httpClient = HttpClients.createDefault();
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+            final HttpPost httpPost = new HttpPost(GET_URL);
 
-        final HttpPost httpPost = new HttpPost(GET_URL);
+            final List<NameValuePair> nameValuePairs = new ArrayList<>();
+            nameValuePairs.add(new BasicNameValuePair("name", "John"));
+            nameValuePairs.add(new BasicNameValuePair("message", "Hello"));
+            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
-        final List<NameValuePair> nameValuePairs = new ArrayList<>();
-        nameValuePairs.add(new BasicNameValuePair("name", "John"));
-        nameValuePairs.add(new BasicNameValuePair("message", "Hello"));
-        httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            try (final CloseableHttpResponse response = httpClient.execute(httpPost)) {
+                StatusLine statusLine = response.getStatusLine();
+                System.out.println(statusLine.getStatusCode() + " " + statusLine.getReasonPhrase());
 
-        try (final CloseableHttpResponse response = httpClient.execute(httpPost)) {
-            StatusLine statusLine = response.getStatusLine();
-            System.out.println(statusLine.getStatusCode() + " " + statusLine.getReasonPhrase());
-
-            String responseBody = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
-            System.out.println("Response body: " + responseBody);
+                String responseBody = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
+                System.out.println("Response body: " + responseBody);
+            }
         }
     }
 
@@ -97,17 +98,15 @@ public class DefaultHttpClient {
           .setParameter("count", "100")
           .build();
         System.out.println(uri.toString());
-
     }
 
-    public void constructRequest() throws Exception {
+    public void constructRequest() {
         HttpUriRequest getRequest = RequestBuilder.get()
           .setUri(GET_URL)
           .addParameter("city", "London")
           .addParameter("count", "100")
           .build();
         System.out.println(getRequest);
-
     }
 
     public static void main(String[] args) throws Exception {

@@ -16,6 +16,7 @@ import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.FileEntity;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
@@ -60,9 +61,23 @@ public class FormHandlingHttpClient {
         final CloseableHttpClient httpClient = HttpClients.createDefault();
 
         File file = new File("/notes/todo.txt");
-        FileEntity entity = new FileEntity(file, ContentType.create("text/plain", "UTF-8"));
+        FileEntity fileEntity = new FileEntity(file, ContentType.create("text/plain", "UTF-8"));
         HttpPost httpPost = new HttpPost(POST_URL);
-        httpPost.setEntity(entity);
+        httpPost.setEntity(fileEntity);
+
+        try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
+            StatusLine statusLine = response.getStatusLine();
+            System.out.println(statusLine.getStatusCode() + " " + statusLine.getReasonPhrase());
+            EntityUtils.consumeQuietly(response.getEntity());
+        }
+    }
+
+    public void postFormWithJson() throws Exception {
+        final CloseableHttpClient httpClient = HttpClients.createDefault();
+
+        StringEntity jsonEntity = new StringEntity("{\"java\":\"byexamples\"}", ContentType.APPLICATION_JSON);
+        HttpPost httpPost = new HttpPost(POST_URL);
+        httpPost.setEntity(jsonEntity);
 
         try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
             StatusLine statusLine = response.getStatusLine();
@@ -74,8 +89,9 @@ public class FormHandlingHttpClient {
 
     public static void main(String[] args) throws Exception {
         FormHandlingHttpClient httpClient = new FormHandlingHttpClient();
-        httpClient.postForm();
-        httpClient.postFormWithBuilder();
-        httpClient.postFormWithFile();
+//        httpClient.postForm();
+//        httpClient.postFormWithBuilder();
+//        httpClient.postFormWithFile();
+        httpClient.postFormWithJson();
     }
 }
