@@ -17,40 +17,41 @@ public class PoolingHttpClient {
         connectionManager.setMaxTotal(100);
         connectionManager.setDefaultMaxPerRoute(20);
 
-        final CloseableHttpClient httpClient = HttpClients.custom()
-          .setConnectionManager(connectionManager)
-          .build();
-
-        final HttpGet httpGet = new HttpGet(GET_URL);
-        try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-            StatusLine statusLine = response.getStatusLine();
-            System.out.println(statusLine.getStatusCode() + " " + statusLine.getReasonPhrase());
-            EntityUtils.consumeQuietly(response.getEntity());
+        try (CloseableHttpClient httpClient = HttpClients.custom()
+                                                         .setConnectionManager(connectionManager)
+                                                         .build()) {
+            final HttpGet httpGet = new HttpGet(GET_URL);
+            try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                StatusLine statusLine = response.getStatusLine();
+                System.out.println(statusLine.getStatusCode() + " " + statusLine.getReasonPhrase());
+                EntityUtils.consumeQuietly(response.getEntity());
+            }
         }
     }
 
     public void executeWithPooledUsingHttpClientBuilder() throws Exception {
-        final CloseableHttpClient httpClient = HttpClients.custom()
-          .setMaxConnTotal(100)
-          .setMaxConnPerRoute(20)
-          .build();
-
-        final HttpGet httpGet = new HttpGet(GET_URL);
-        try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-            StatusLine statusLine = response.getStatusLine();
-            System.out.println(statusLine.getStatusCode() + " " + statusLine.getReasonPhrase());
-            EntityUtils.consumeQuietly(response.getEntity());
+        try (CloseableHttpClient httpClient = HttpClients.custom()
+                                                         .setMaxConnTotal(100)
+                                                         .setMaxConnPerRoute(20)
+                                                         .build()) {
+            final HttpGet httpGet = new HttpGet(GET_URL);
+            try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                StatusLine statusLine = response.getStatusLine();
+                System.out.println(statusLine.getStatusCode() + " " + statusLine.getReasonPhrase());
+                EntityUtils.consumeQuietly(response.getEntity());
+            }
         }
     }
 
     public void executeWithDefaultHttpClient() throws Exception {
-        final CloseableHttpClient httpClient = HttpClients.createDefault();
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
 
-        final HttpGet httpGet = new HttpGet(GET_URL);
-        try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-            StatusLine statusLine = response.getStatusLine();
-            System.out.println(statusLine.getStatusCode() + " " + statusLine.getReasonPhrase());
-            EntityUtils.consumeQuietly(response.getEntity());
+            final HttpGet httpGet = new HttpGet(GET_URL);
+            try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                StatusLine statusLine = response.getStatusLine();
+                System.out.println(statusLine.getStatusCode() + " " + statusLine.getReasonPhrase());
+                EntityUtils.consumeQuietly(response.getEntity());
+            }
         }
     }
 
