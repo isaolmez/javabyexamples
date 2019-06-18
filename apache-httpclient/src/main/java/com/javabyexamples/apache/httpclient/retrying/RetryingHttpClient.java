@@ -19,34 +19,36 @@ import org.apache.http.util.EntityUtils;
 public class RetryingHttpClient {
 
     public void executeRetryingThreeTimesImplicitly() throws Exception {
-        CloseableHttpClient httpClient = HttpClients.custom()
+        try (CloseableHttpClient httpClient = HttpClients.custom()
           .addInterceptorLast(new HttpRequestInterceptor() {
               @Override
               public void process(HttpRequest request, HttpContext context) throws HttpException, IOException {
                   throw new IOException("Planned");
               }
           })
-          .build();
+          .build()) {
 
-        executeGetRequest(httpClient);
+            executeGetRequest(httpClient);
+        }
     }
 
-    public void executeRetryingThreeTimesExplicitly() throws Exception {
-        CloseableHttpClient httpClient = HttpClients.custom()
+    public void executeRetryingTenTimesExplicitly() throws Exception {
+        try (CloseableHttpClient httpClient = HttpClients.custom()
           .addInterceptorLast(new HttpRequestInterceptor() {
               @Override
               public void process(HttpRequest request, HttpContext context) throws HttpException, IOException {
                   throw new IOException("Planned");
               }
           })
-          .setRetryHandler(new DefaultHttpRequestRetryHandler(3, false))
-          .build();
+          .setRetryHandler(new DefaultHttpRequestRetryHandler(10, false))
+          .build()) {
 
-        executeGetRequest(httpClient);
+            executeGetRequest(httpClient);
+        }
     }
 
     public void executeWithDisablingRetries() throws Exception {
-        CloseableHttpClient httpClient = HttpClients.custom()
+        try (CloseableHttpClient httpClient = HttpClients.custom()
           .addInterceptorLast(new HttpRequestInterceptor() {
               @Override
               public void process(HttpRequest request, HttpContext context) throws HttpException, IOException {
@@ -54,9 +56,10 @@ public class RetryingHttpClient {
               }
           })
           .disableAutomaticRetries()
-          .build();
+          .build()) {
 
-        executeGetRequest(httpClient);
+            executeGetRequest(httpClient);
+        }
     }
 
 
@@ -68,7 +71,7 @@ public class RetryingHttpClient {
             }
         };
 
-        CloseableHttpClient httpClient = HttpClients.custom()
+        try (CloseableHttpClient httpClient = HttpClients.custom()
           .addInterceptorLast(new HttpRequestInterceptor() {
               @Override
               public void process(HttpRequest request, HttpContext context) throws HttpException, IOException {
@@ -76,9 +79,10 @@ public class RetryingHttpClient {
               }
           })
           .setRetryHandler(requestRetryHandler)
-          .build();
+          .build()) {
 
-        executeGetRequest(httpClient);
+            executeGetRequest(httpClient);
+        }
     }
 
     private void executeGetRequest(CloseableHttpClient httpClient) throws IOException {
@@ -93,7 +97,7 @@ public class RetryingHttpClient {
     public static void main(String[] args) throws Exception {
         RetryingHttpClient httpClient = new RetryingHttpClient();
         httpClient.executeRetryingThreeTimesImplicitly();
-        httpClient.executeRetryingThreeTimesExplicitly();
+        httpClient.executeRetryingTenTimesExplicitly();
         httpClient.executeWithDisablingRetries();
         httpClient.executeRetryingWithCustom();
     }
