@@ -27,31 +27,32 @@ public class TimeoutAwareHttpClient {
           .setConnectTimeout(1000)
           .setSocketTimeout(1000)
           .build();
-        CloseableHttpClient httpClient = HttpClients.custom()
+        try (CloseableHttpClient httpClient = HttpClients.custom()
           .setDefaultRequestConfig(requestConfig)
-          .build();
-        final HttpGet httpGet = new HttpGet(GET_URL);
-        try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-            StatusLine statusLine = response.getStatusLine();
-            System.out.println(statusLine.getStatusCode() + " " + statusLine.getReasonPhrase());
-            EntityUtils.consumeQuietly(response.getEntity());
+          .build()) {
+            final HttpGet httpGet = new HttpGet(GET_URL);
+            try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                StatusLine statusLine = response.getStatusLine();
+                System.out.println(statusLine.getStatusCode() + " " + statusLine.getReasonPhrase());
+                EntityUtils.consumeQuietly(response.getEntity());
+            }
         }
     }
 
     public void executeAndSetTimeoutWithRequestConfigPerRequest() throws Exception {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-
-        final RequestConfig requestConfig = RequestConfig.custom()
-          .setConnectionRequestTimeout(1000)
-          .setConnectTimeout(1000)
-          .setSocketTimeout(1000)
-          .build();
-        final HttpGet httpGet = new HttpGet(GET_URL);
-        httpGet.setConfig(requestConfig);
-        try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-            StatusLine statusLine = response.getStatusLine();
-            System.out.println(statusLine.getStatusCode() + " " + statusLine.getReasonPhrase());
-            EntityUtils.consumeQuietly(response.getEntity());
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+            final RequestConfig requestConfig = RequestConfig.custom()
+              .setConnectionRequestTimeout(1000)
+              .setConnectTimeout(1000)
+              .setSocketTimeout(1000)
+              .build();
+            final HttpGet httpGet = new HttpGet(GET_URL);
+            httpGet.setConfig(requestConfig);
+            try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                StatusLine statusLine = response.getStatusLine();
+                System.out.println(statusLine.getStatusCode() + " " + statusLine.getReasonPhrase());
+                EntityUtils.consumeQuietly(response.getEntity());
+            }
         }
     }
 

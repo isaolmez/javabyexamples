@@ -17,25 +17,36 @@ public class CookieHandlingHttpClient {
 
     public void executePostAndListCookies() throws Exception {
         final BasicCookieStore cookieStore = new BasicCookieStore();
-        CloseableHttpClient httpClient = HttpClients.custom()
-          .setDefaultCookieStore(cookieStore)
-          .build();
+        try (CloseableHttpClient httpClient = HttpClients.custom().setDefaultCookieStore(cookieStore).build()) {
 
-        performRequest(cookieStore, httpClient, "https://www.google.com");
+            performRequest(cookieStore, httpClient, "https://www.google.com");
 
-        performRequest(cookieStore, httpClient, "https://www.facebook.com");
+            performRequest(cookieStore, httpClient, "https://www.facebook.com");
+        }
     }
 
-    private void performRequest(BasicCookieStore cookieStore, CloseableHttpClient httpClient, String s)
+    private void performRequest(BasicCookieStore cookieStore, CloseableHttpClient httpClient, String url)
       throws URISyntaxException, IOException {
         HttpUriRequest getGoogle = RequestBuilder.get()
-          .setUri(new URI(s))
+          .setUri(new URI(url))
           .build();
         try (final CloseableHttpResponse response = httpClient.execute(getGoogle)) {
             EntityUtils.consume(response.getEntity());
 
             List<Cookie> cookies = cookieStore.getCookies();
             cookies.stream().forEach(System.out::println);
+        }
+    }
+
+    private void performRequestAndClearCookies(BasicCookieStore cookieStore, CloseableHttpClient httpClient, String url)
+      throws URISyntaxException, IOException {
+        HttpUriRequest getGoogle = RequestBuilder.get()
+          .setUri(new URI(url))
+          .build();
+        try (final CloseableHttpResponse response = httpClient.execute(getGoogle)) {
+            EntityUtils.consume(response.getEntity());
+
+            cookieStore.clear();
         }
     }
 
