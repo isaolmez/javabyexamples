@@ -25,73 +25,71 @@ import org.apache.http.util.EntityUtils;
 public class FormHandlingHttpClient {
 
     public void postFormWithBuilder() throws Exception {
-
-        final CloseableHttpClient httpClient = HttpClients.createDefault();
-
-        final HttpUriRequest postRequest = RequestBuilder.post()
-          .setUri(new URI(POST_URL))
-          .addParameter("username", "user1")
-          .addParameter("credentials", "pass1")
-          .build();
-        try (CloseableHttpResponse response = httpClient.execute(postRequest)) {
-            StatusLine statusLine = response.getStatusLine();
-            System.out.println(statusLine.getStatusCode() + " " + statusLine.getReasonPhrase());
-            EntityUtils.consumeQuietly(response.getEntity());
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+            final HttpUriRequest postRequest = RequestBuilder.post()
+              .setUri(new URI(POST_URL))
+              .addParameter("username", "user1")
+              .addParameter("credentials", "pass1")
+              .build();
+            try (CloseableHttpResponse response = httpClient.execute(postRequest)) {
+                handleResponse(response);
+            }
         }
     }
 
     public void postForm() throws Exception {
-        final CloseableHttpClient httpClient = HttpClients.createDefault();
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+            List<NameValuePair> formParameters = new ArrayList<>();
+            formParameters.add(new BasicNameValuePair("username", "user1"));
+            formParameters.add(new BasicNameValuePair("credentials", "pass1"));
+            UrlEncodedFormEntity entity = new UrlEncodedFormEntity(formParameters, Consts.UTF_8);
+            HttpPost httpPost = new HttpPost(POST_URL);
+            httpPost.setEntity(entity);
 
-        List<NameValuePair> formParameters = new ArrayList<>();
-        formParameters.add(new BasicNameValuePair("username", "user1"));
-        formParameters.add(new BasicNameValuePair("credentials", "pass1"));
-        UrlEncodedFormEntity entity = new UrlEncodedFormEntity(formParameters, Consts.UTF_8);
-        HttpPost httpPost = new HttpPost(POST_URL);
-        httpPost.setEntity(entity);
-
-        try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
-            StatusLine statusLine = response.getStatusLine();
-            System.out.println(statusLine.getStatusCode() + " " + statusLine.getReasonPhrase());
-            EntityUtils.consumeQuietly(response.getEntity());
+            try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
+                handleResponse(response);
+            }
         }
     }
 
     public void postFormWithFile() throws Exception {
-        final CloseableHttpClient httpClient = HttpClients.createDefault();
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
 
-        File file = new File("/notes/todo.txt");
-        FileEntity fileEntity = new FileEntity(file, ContentType.create("text/plain", "UTF-8"));
-        HttpPost httpPost = new HttpPost(POST_URL);
-        httpPost.setEntity(fileEntity);
+            File file = new File("/notes/todo.txt");
+            FileEntity fileEntity = new FileEntity(file, ContentType.create("text/plain", "UTF-8"));
+            HttpPost httpPost = new HttpPost(POST_URL);
+            httpPost.setEntity(fileEntity);
 
-        try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
-            StatusLine statusLine = response.getStatusLine();
-            System.out.println(statusLine.getStatusCode() + " " + statusLine.getReasonPhrase());
-            EntityUtils.consumeQuietly(response.getEntity());
+            try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
+                handleResponse(response);
+            }
         }
     }
 
     public void postFormWithJson() throws Exception {
-        final CloseableHttpClient httpClient = HttpClients.createDefault();
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+            StringEntity jsonEntity = new StringEntity("{\"java\":\"byexamples\"}", ContentType.APPLICATION_JSON);
+            HttpPost httpPost = new HttpPost(POST_URL);
+            httpPost.setEntity(jsonEntity);
 
-        StringEntity jsonEntity = new StringEntity("{\"java\":\"byexamples\"}", ContentType.APPLICATION_JSON);
-        HttpPost httpPost = new HttpPost(POST_URL);
-        httpPost.setEntity(jsonEntity);
-
-        try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
-            StatusLine statusLine = response.getStatusLine();
-            System.out.println(statusLine.getStatusCode() + " " + statusLine.getReasonPhrase());
-            EntityUtils.consumeQuietly(response.getEntity());
+            try (CloseableHttpResponse response = httpClient.execute(httpPost)) {
+                handleResponse(response);
+            }
         }
     }
 
 
+    private void handleResponse(CloseableHttpResponse response) {
+        StatusLine statusLine = response.getStatusLine();
+        System.out.println(statusLine.getStatusCode() + " " + statusLine.getReasonPhrase());
+        EntityUtils.consumeQuietly(response.getEntity());
+    }
+
     public static void main(String[] args) throws Exception {
         FormHandlingHttpClient httpClient = new FormHandlingHttpClient();
-//        httpClient.postForm();
-//        httpClient.postFormWithBuilder();
-//        httpClient.postFormWithFile();
+        httpClient.postForm();
+        httpClient.postFormWithBuilder();
+        httpClient.postFormWithFile();
         httpClient.postFormWithJson();
     }
 }
