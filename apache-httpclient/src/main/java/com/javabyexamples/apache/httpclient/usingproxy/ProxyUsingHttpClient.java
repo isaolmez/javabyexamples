@@ -20,9 +20,7 @@ public class ProxyUsingHttpClient {
           .build();
         final HttpGet httpGet = new HttpGet(GET_URL);
         try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-            StatusLine statusLine = response.getStatusLine();
-            System.out.println(statusLine.getStatusCode() + " " + statusLine.getReasonPhrase());
-            EntityUtils.consumeQuietly(response.getEntity());
+            handleResponse(response);
         }
     }
 
@@ -36,14 +34,12 @@ public class ProxyUsingHttpClient {
         httpGet.setConfig(requestConfig);
 
         try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-            StatusLine statusLine = response.getStatusLine();
-            System.out.println(statusLine.getStatusCode() + " " + statusLine.getReasonPhrase());
-            EntityUtils.consumeQuietly(response.getEntity());
+            handleResponse(response);
         }
     }
 
     public void executeWithProxyAndRoute() throws Exception {
-        HttpHost proxy = new HttpHost("someproxy", 8080);
+        HttpHost proxy = new HttpHost("some-proxy.com", 8080);
         DefaultProxyRoutePlanner routePlanner = new DefaultProxyRoutePlanner(proxy);
         CloseableHttpClient httpClient = HttpClients.custom()
           .setRoutePlanner(routePlanner)
@@ -52,14 +48,18 @@ public class ProxyUsingHttpClient {
         final HttpGet httpGet = new HttpGet(GET_URL);
 
         try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-            StatusLine statusLine = response.getStatusLine();
-            System.out.println(statusLine.getStatusCode() + " " + statusLine.getReasonPhrase());
-            EntityUtils.consumeQuietly(response.getEntity());
+            handleResponse(response);
         }
     }
 
     public void executeAndSupplyProxyAuthentication() throws Exception {
         // TODO
+    }
+
+    private void handleResponse(CloseableHttpResponse response) {
+        StatusLine statusLine = response.getStatusLine();
+        System.out.println(statusLine.getStatusCode() + " " + statusLine.getReasonPhrase());
+        EntityUtils.consumeQuietly(response.getEntity());
     }
 
     public static void main(String[] args) throws Exception {

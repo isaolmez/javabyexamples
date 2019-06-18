@@ -12,40 +12,45 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
 
 public class UserAgentHttpClient {
 
+    public void executeAndDefaultUserAgent() throws Exception {
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+            final HttpGet httpGet = new HttpGet(GET_URL);
+            try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                handleResponse(response);
+            }
+        }
+    }
+
     public void executeAndSetUserAgent() throws Exception {
-        final CloseableHttpClient httpClient = HttpClientBuilder
-          .create()
+        try (CloseableHttpClient httpClient = HttpClientBuilder.create()
           .setUserAgent("HttpClient Custom User Agent")
-          .build();
-        final HttpGet httpGet = new HttpGet(GET_URL);
-        try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-            String responseBody = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
-            System.out.println("Response body: " + responseBody);
-            EntityUtils.consumeQuietly(response.getEntity());
+          .build()) {
+            final HttpGet httpGet = new HttpGet(GET_URL);
+            try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                handleResponse(response);
+            }
         }
     }
 
     public void executeAndDisableUserAgent() throws Exception {
-        final CloseableHttpClient httpClient = HttpClientBuilder
-          .create()
+        try (CloseableHttpClient httpClient = HttpClientBuilder.create()
           .disableDefaultUserAgent()
-          .build();
-        final HttpGet httpGet = new HttpGet(GET_URL);
-        try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-            String responseBody = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
-            System.out.println("Response body: " + responseBody);
-            EntityUtils.consumeQuietly(response.getEntity());
+          .build()) {
+            final HttpGet httpGet = new HttpGet(GET_URL);
+            try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                handleResponse(response);
+            }
         }
     }
 
     public void executeAndSetUserAgentWithInterceptor() throws Exception {
-        final CloseableHttpClient httpClient = HttpClientBuilder
-          .create()
+        try (CloseableHttpClient httpClient = HttpClientBuilder.create()
           .addInterceptorLast(new HttpRequestInterceptor() {
               private final String[] userAgents = new String[]{"UserAgent1", "UserAgent2", "UserAgent3"};
               private final Random random = new Random();
@@ -55,19 +60,25 @@ public class UserAgentHttpClient {
                   httpRequest.setHeader("User-Agent", userAgents[random.nextInt(3)]);
               }
           })
-          .build();
+          .build()) {
 
-        final HttpGet httpGet = new HttpGet(GET_URL);
+            final HttpGet httpGet = new HttpGet(GET_URL);
 
-        try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-            String responseBody = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
-            System.out.println("Response body: " + responseBody);
-            EntityUtils.consumeQuietly(response.getEntity());
+            try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                handleResponse(response);
+            }
         }
+    }
+
+    private void handleResponse(CloseableHttpResponse response) throws IOException {
+        String responseBody = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
+        System.out.println("Response body: " + responseBody);
+        EntityUtils.consumeQuietly(response.getEntity());
     }
 
     public static void main(String[] args) throws Exception {
         UserAgentHttpClient httpClient = new UserAgentHttpClient();
+        httpClient.executeAndDefaultUserAgent();
         httpClient.executeAndSetUserAgent();
         httpClient.executeAndDisableUserAgent();
         httpClient.executeAndSetUserAgentWithInterceptor();
