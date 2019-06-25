@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.mvc1.restwithxml;
+package com.javabyexamples.spring.mvc1.restwithxml.jaxb;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

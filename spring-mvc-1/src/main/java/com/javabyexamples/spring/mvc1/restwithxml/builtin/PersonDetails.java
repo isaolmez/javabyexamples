@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.mvc1.restwithxml;
+package com.javabyexamples.spring.mvc1.restwithxml.builtin;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -8,7 +8,7 @@ import lombok.Data;
 
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "person")
+@XmlRootElement(name = "details")
 public class PersonDetails {
 
     @XmlElement(name = "name")
