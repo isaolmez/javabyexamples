@@ -31,6 +31,6 @@ public class MarshallingJaxbXmlControllerTest {
                 .content(personCriteriaXml))
                 .andExpect(status().isOk())
                 .andExpect(content()
-                        .string(containsString("<details><name>java</name><lastName>rocks</lastName><age>30</age></details>")));
+                        .string(containsString("<details><name>java</name><lastName>rocks</lastName><age>20</age></details>")));
     }
 }

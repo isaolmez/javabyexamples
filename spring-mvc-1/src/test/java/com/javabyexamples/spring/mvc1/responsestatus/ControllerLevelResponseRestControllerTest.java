@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@AutoConfigureMockMvc(print = MockMvcPrint.SYSTEM_OUT, printOnlyOnFailure = false)
+@AutoConfigureMockMvc(printOnlyOnFailure = false)
 public class ControllerLevelResponseRestControllerTest {
 
     @Autowired
