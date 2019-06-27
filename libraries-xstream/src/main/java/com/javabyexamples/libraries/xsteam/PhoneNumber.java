@@ -1,7 +1,9 @@
 package com.javabyexamples.libraries.xsteam;
 
+import lombok.Value;
+
+@Value
 public class PhoneNumber {
 
-    private int code;
-    private String number;
+    private final String number;
 }

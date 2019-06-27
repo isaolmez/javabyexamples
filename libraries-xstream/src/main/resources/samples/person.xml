@@ -1,0 +1,10 @@
+<employee>
+    <name>John</name>
+    <lastname>Doe</lastname>
+    <personal>
+        <number>0221</number>
+    </personal>
+    <work>
+        <number>0222</number>
+    </work>
+</employee>
