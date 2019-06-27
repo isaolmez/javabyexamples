@@ -17,7 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@AutoConfigureMockMvc(print = MockMvcPrint.SYSTEM_OUT, printOnlyOnFailure = false)
+@AutoConfigureMockMvc(printOnlyOnFailure = false)
 public class DefaultJaxbXmlControllerTest {
 
     @Autowired
@@ -32,6 +32,6 @@ public class DefaultJaxbXmlControllerTest {
                 .content(personCriteriaXml))
                 .andExpect(status().isOk())
                 .andExpect(content()
-                        .string(containsString("<details><name>java</name><lastName>rocks</lastName><age>30</age></details>")));
+                        .string(containsString("<details><name>java</name><lastName>rocks</lastName><age>20</age></details>")));
     }
 }

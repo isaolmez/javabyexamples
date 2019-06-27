@@ -15,7 +15,7 @@ public class MarshallingXstreamXmlController {
         PersonDetails personDetails = new PersonDetails();
         personDetails.setName(personCriteria.getName());
         personDetails.setLastName(personCriteria.getLastName());
-        personDetails.setAge(30);
+        personDetails.setAge(20);
         return personDetails;
     }
 }

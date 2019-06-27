@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.mvc1.restwithxml.castor;
+package com.javabyexamples.spring.mvc1.restwithxml.xstream;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -17,7 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc(printOnlyOnFailure = false)
-public class MarshallingCastorXmlControllerTest {
+public class MarshallingXstreamXmlControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -25,7 +25,7 @@ public class MarshallingCastorXmlControllerTest {
     @Test
     public void shouldPerformGet() throws Exception {
         String personCriteriaXml = "<criteria><name>java</name><lastName>rocks</lastName></criteria>";
-        mockMvc.perform(post("/marshallingCastor/person")
+        mockMvc.perform(post("/marshallingXstream/person")
                 .contentType(MediaType.APPLICATION_XML_VALUE)
                 .accept(MediaType.APPLICATION_XML_VALUE)
                 .content(personCriteriaXml))
