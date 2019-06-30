@@ -10,5 +10,4 @@ public class HealthRestController {
     public String health() {
         return "OK";
     }
-
 }
