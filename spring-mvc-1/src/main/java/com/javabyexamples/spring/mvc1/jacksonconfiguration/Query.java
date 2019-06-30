@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.mvc1.jacksonconfiguration.explicit;
+package com.javabyexamples.spring.mvc1.jacksonconfiguration;
 
 import lombok.Data;
 
