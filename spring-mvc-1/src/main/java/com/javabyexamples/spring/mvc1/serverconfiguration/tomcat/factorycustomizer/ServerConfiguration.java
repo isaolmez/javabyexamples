@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.mvc1.serverconfiguration.programmatic;
+package com.javabyexamples.spring.mvc1.serverconfiguration.tomcat.factorycustomizer;
 
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;

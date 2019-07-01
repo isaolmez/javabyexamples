@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.mvc1.serverconfiguration.programmatic;
+package com.javabyexamples.spring.mvc1.serverconfiguration.tomcat.customizer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
