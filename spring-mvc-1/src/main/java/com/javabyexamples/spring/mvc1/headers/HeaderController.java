@@ -2,6 +2,7 @@ package com.javabyexamples.spring.mvc1.headers;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,8 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class HeaderController {
 
     @GetMapping("/getHeader")
-    public String getHeader(@RequestHeader("Accept") String accept) {
-        return accept;
+    public String getHeader(@RequestHeader("Accept") String acceptHeader) {
+        return acceptHeader;
+    }
+
+    @GetMapping("/getHeaderAsList")
+    public List<String> getHeaders(@RequestHeader("Accept") List<String> acceptHeaders) {
+        return acceptHeaders;
     }
 
     @GetMapping("/getHeaderFromRequest")
@@ -34,23 +40,24 @@ public class HeaderController {
     }
 
     @GetMapping("/getHeaders")
-    public HttpHeaders getHeaders(@RequestHeader HttpHeaders httpHeaders) {
-        return httpHeaders;
+    public Set<String> getHeaders(@RequestHeader HttpHeaders httpHeaders) {
+        return httpHeaders.keySet();
     }
 
     @GetMapping("/getHeadersFromMap")
-    public Map<String, String> getHeadersFromMap(@RequestHeader Map<String, String> httpHeaders) {
-        return httpHeaders;
+    public Set<String> getHeadersFromMap(@RequestHeader Map<String, String> httpHeaders) {
+        return httpHeaders.keySet();
     }
 
     @GetMapping("/getHeadersFromMultiValue")
-    public MultiValueMap<String, String> getHeadersFromMultiValue(@RequestHeader MultiValueMap<String, String> httpHeaders) {
-        return httpHeaders;
+    public Set<String> getHeadersFromMultiValue(@RequestHeader MultiValueMap<String, String> httpHeaders) {
+        return httpHeaders.keySet();
     }
 
     @GetMapping("/setHeader")
     public void setHeader(HttpServletResponse servletResponse) {
         servletResponse.setHeader("X-Source", "Spring");
+        servletResponse.addHeader("X-Source", "Java");
     }
 
     @GetMapping("/setHeaderWithHttpEntity")
