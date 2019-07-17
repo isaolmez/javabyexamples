@@ -1,6 +1,6 @@
 package com.javabyexamples.spring.mvc1.currentrequest;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.Test;
@@ -22,7 +22,7 @@ public class PersonControllerTest {
 
     @Test
     public void shouldStore() throws Exception {
-        mockMvc.perform(get("/person").content("{\"name\":\"John\"}").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(post("/person").content("{\"name\":\"John\"}").contentType(MediaType.APPLICATION_JSON))
           .andExpect(status().isInternalServerError());
     }
 }
