@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public class HelloService {
 
     public String sayHello() {
-        log.info("saying Hello");
+        log.info("Entered sayHello");
         return "Hello";
     }
 }

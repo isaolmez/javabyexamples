@@ -26,5 +26,9 @@ public class HelloControllerTest {
         ResponseEntity<String> responseEntity = restTemplate.getForEntity("/hello", String.class);
 
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+
+        responseEntity = restTemplate.getForEntity("/hello", String.class);
+
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 }
