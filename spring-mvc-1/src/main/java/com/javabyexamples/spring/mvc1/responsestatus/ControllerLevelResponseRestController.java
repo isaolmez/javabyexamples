@@ -14,13 +14,13 @@ public class ControllerLevelResponseRestController {
 
     @PostMapping("/status")
     public String status() {
-        return "Hello";
+        return "Done";
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/statusWithAnnotation")
+    @PostMapping("/statusOverride")
     public String statusWithAnnotation() {
-        return "Hello";
+        return "Done";
     }
 
     @PostMapping("/statusWithThrowing")

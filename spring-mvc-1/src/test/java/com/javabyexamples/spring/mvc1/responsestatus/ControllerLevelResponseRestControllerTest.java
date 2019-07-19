@@ -28,7 +28,7 @@ public class ControllerLevelResponseRestControllerTest {
 
     @Test
     public void shouldOverrideStatusOnMethod() throws Exception {
-        mockMvc.perform(post("/controller/statusWithAnnotation"))
+        mockMvc.perform(post("/controller/statusOverride"))
                 .andExpect(status().isCreated());
     }
 
