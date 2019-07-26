@@ -7,3 +7,4 @@
 - http://www.javabyexamples.com/setting-response-status-with-spring-mvc
 - http://www.javabyexamples.com/quick-guide-to-requestbodyadvice-in-spring-mvc
 - http://www.javabyexamples.com/quick-guide-to-responsebodyadvice-in-spring-mvc
+- http://www.javabyexamples.com/using-requestbody-and-responsebody-with-spring-mvc
