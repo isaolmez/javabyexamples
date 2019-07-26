@@ -22,6 +22,7 @@ public class CustomResponseBodyAdvice implements ResponseBodyAdvice<Answer> {
                                   Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
                                   ServerHttpResponse response) {
         System.out.println("In beforeBodyWrite() method of " + getClass().getSimpleName());
+        answer.setAnswerMessage(answer.getAnswerMessage() + " by Spring");
         return answer;
     }
 }

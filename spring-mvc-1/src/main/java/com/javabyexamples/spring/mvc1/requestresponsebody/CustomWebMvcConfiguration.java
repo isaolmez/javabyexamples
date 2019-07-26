@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration;
 import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 @Configuration
 @Profile("manualRegistration")
@@ -17,9 +18,14 @@ public class CustomWebMvcConfiguration extends DelegatingWebMvcConfiguration {
     @Override
     public RequestMappingHandlerAdapter requestMappingHandlerAdapter() {
         RequestMappingHandlerAdapter requestMappingHandlerAdapter = super.requestMappingHandlerAdapter();
-        List<RequestBodyAdvice> additionalAdvices = new ArrayList<>();
-        additionalAdvices.add(new CustomRequestBodyAdvice());
-        requestMappingHandlerAdapter.setRequestBodyAdvice(additionalAdvices);
+        List<RequestBodyAdvice> requestBodyAdvices = new ArrayList<>();
+        requestBodyAdvices.add(new CustomRequestBodyAdvice());
+        requestMappingHandlerAdapter.setRequestBodyAdvice(requestBodyAdvices);
+
+        List<ResponseBodyAdvice<?>> responseBodyAdvices = new ArrayList<>();
+        responseBodyAdvices.add(new CustomResponseBodyAdvice());
+        requestMappingHandlerAdapter.setResponseBodyAdvice(responseBodyAdvices);
+
         return requestMappingHandlerAdapter;
     }
 }

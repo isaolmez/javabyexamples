@@ -6,3 +6,4 @@
 - http://www.javabyexamples.com/logging-with-request-correlation-using-mdc
 - http://www.javabyexamples.com/setting-response-status-with-spring-mvc
 - http://www.javabyexamples.com/quick-guide-to-requestbodyadvice-in-spring-mvc
+- http://www.javabyexamples.com/quick-guide-to-responsebodyadvice-in-spring-mvc
