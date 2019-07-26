@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.mvc1.requestresponsebody;
+package com.javabyexamples.spring.mvc1.requestresponsebodyadvice;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;

@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.mvc1.requestresponsebody;
+package com.javabyexamples.spring.mvc1.requestresponsebodyadvice;
 
 import java.io.IOException;
 import java.lang.reflect.Type;

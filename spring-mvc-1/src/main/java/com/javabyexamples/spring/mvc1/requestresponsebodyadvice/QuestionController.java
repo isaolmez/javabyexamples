@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.mvc1.requestresponsebody;
+package com.javabyexamples.spring.mvc1.requestresponsebodyadvice;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;

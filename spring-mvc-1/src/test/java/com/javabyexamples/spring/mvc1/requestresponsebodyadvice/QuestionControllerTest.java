@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.mvc1.requestresponsebody;
+package com.javabyexamples.spring.mvc1.requestresponsebodyadvice;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
