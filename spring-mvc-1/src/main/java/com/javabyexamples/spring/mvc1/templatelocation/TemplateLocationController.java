@@ -20,4 +20,9 @@ public class TemplateLocationController {
     public String sayBye() {
         return "bye";
     }
+
+    @RequestMapping("/farewell")
+    public String sayFarewell() {
+        return "farewell";
+    }
 }

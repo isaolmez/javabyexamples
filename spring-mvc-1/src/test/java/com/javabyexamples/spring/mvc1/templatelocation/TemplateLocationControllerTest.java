@@ -45,4 +45,12 @@ public class TemplateLocationControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string("Bye"));
     }
+
+    @Test
+    public void shouldGetTemplateFromSpringResource() throws Exception {
+        mockMvc.perform(get("/farewell")
+          .accept(MediaType.TEXT_HTML))
+          .andExpect(status().isOk())
+          .andExpect(content().string("Farewell"));
+    }
 }
