@@ -7,12 +7,10 @@ import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdviceAdapter;
+import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdvice;
 
 @ControllerAdvice
-public class CustomRequestBodyAdvice extends RequestBodyAdviceAdapter {
+public class CustomRequestBodyAdvice implements RequestBodyAdvice {
 
     @Override
     public boolean supports(MethodParameter methodParameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
@@ -34,7 +32,6 @@ public class CustomRequestBodyAdvice extends RequestBodyAdviceAdapter {
         if (body instanceof Question) {
             Question question = (Question) body;
             question.setDate(new Date());
-            RequestContextHolder.currentRequestAttributes().setAttribute("question", question, RequestAttributes.SCOPE_REQUEST);
             return question;
         }
 

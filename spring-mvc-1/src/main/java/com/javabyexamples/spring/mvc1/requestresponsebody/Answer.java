@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class Answer {
 
-    private Question question;
     private String answerMessage;
+    private Question question;
 }
