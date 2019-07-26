@@ -8,3 +8,4 @@
 - http://www.javabyexamples.com/quick-guide-to-requestbodyadvice-in-spring-mvc
 - http://www.javabyexamples.com/quick-guide-to-responsebodyadvice-in-spring-mvc
 - http://www.javabyexamples.com/using-requestbody-and-responsebody-with-spring-mvc
+- http://www.javabyexamples.com/thymeleaf-multiple-template-locations-using-spring-boot
