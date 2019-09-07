@@ -1,0 +1,2 @@
+*/exclude/*
+%regex[.*IT.*|.*Live.*]

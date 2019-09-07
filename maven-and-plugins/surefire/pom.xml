@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.javabyexamples</groupId>
+    <artifactId>maven.plugins.surefire</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <!--Skip tests by default-->
+        <profile>
+            <id>skipTests-by-configuration</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.22.0</version>
+                        <configuration>
+                            <skipTests>true</skipTests>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!--Skip tests by default-->
+        <profile>
+            <id>skipTests-by-property</id>
+            <properties>
+                <skipTests>true</skipTests>
+            </properties>
+        </profile>
+
+        <!--Skip tests and test-compile by default-->
+        <profile>
+            <id>skipTests-and-testCompile-by-property</id>
+            <properties>
+                <maven.test.skip>true</maven.test.skip>
+            </properties>
+        </profile>
+
+        <!--Skip tests by default-->
+        <profile>
+            <id>skipTests-and-testCompile-by-configuration</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.22.0</version>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!--Filter tests-->
+        <profile>
+            <id>category</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.22.0</version>
+                        <configuration>
+                            <groups>
+                                com.javabyexamples.maven.plugins.surefire.groups.FastTest
+                            </groups>
+                            <excludedGroups>
+                                com.javabyexamples.maven.plugins.surefire.groups.SlowTest
+                            </excludedGroups>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!--Include tests-->
+        <profile>
+            <id>include</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.22.0</version>
+                        <configuration>
+                            <includes>
+                                <include>**/*E2E.java</include>
+                                <include>**/E2E*.java</include>
+                                <include>**/Test*.java</include>
+                                <include>**/*Test.java</include>
+                                <include>**/*Tests.java</include>
+                                <include>**/*TestCase.java</include>
+                            </includes>
+                            <includesFile>src/test/resources/includes.txt</includesFile>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!--Exclude tests-->
+        <profile>
+            <id>exclude</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.22.0</version>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/norun/*.java</exclude>
+                                <exclude>%regex[com.*Heavy.*.class], Ignored*</exclude>
+                                <exclude>**/*$*</exclude>
+                            </excludes>
+                            <excludesFile>src/test/resources/excludes.txt</excludesFile>
+                            <excludedGroups>
+                                com.javabyexamples.maven.plugins.surefire.groups.SlowTest
+                            </excludedGroups>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!--Specify tests-->
+        <profile>
+            <id>specify</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.22.0</version>
+                        <configuration>
+                            <test>*Test,Test*,E2E*</test>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!--System Property-->
+        <profile>
+            <id>systemProperty</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.22.0</version>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <greet.english>Hello</greet.english>
+                            </systemPropertyVariables>
+                            <systemProperties>
+                                <property>
+                                    <name>greet.spanish</name>
+                                    <value>Hola</value>
+                                </property>
+                                <property>
+                                    <name>greet.spanish</name>
+                                    <value>Hola</value>
+                                </property>
+                            </systemProperties>
+                            <systemPropertiesFile>src/test/resources/sample.properties</systemPropertiesFile>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

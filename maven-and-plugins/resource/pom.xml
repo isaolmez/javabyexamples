@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.javabyexamples</groupId>
+    <artifactId>maven.plugins.resources</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <myDate>2018</myDate>
+    </properties>
+
+    <profiles>
+        <!--Copy resources-->
+        <profile>
+            <id>copy-resources</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>copy-resources</id>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${basedir}/target/extra-resources</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>extra-resources</directory>
+                                            <filtering>true</filtering>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!--Include-exclude resource locations-->
+        <profile>
+            <id>include-exclude</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>config/environment/int</directory>
+                        <excludes>
+                            <exclude>**/*.xml</exclude>
+                        </excludes>
+                    </resource>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+
+        <!--Multiple resource locations-->
+        <profile>
+            <id>multiple-resources</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>config/environment/int</directory>
+                    </resource>
+                    <resource>
+                        <directory>config/environment/prod</directory>
+                    </resource>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+
+        <!--Setting encoding-->
+        <profile>
+            <id>encoding-by-plugin-configuration</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <configuration>
+                            <encoding>UTF-8</encoding>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>encoding-by-maven-property</id>
+            <properties>
+                <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+            </properties>
+        </profile>
+
+        <!--Resource copy operation-->
+        <profile>
+            <id>resources-output</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <configuration>
+                            <outputDirectory>
+                                ${project.build.outputDirectory}/resources
+                            </outputDirectory>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!--Filtering-->
+        <profile>
+            <id>filtering</id>
+            <build>
+                <plugins>
+                    <!--Configure resources plugin to also use @ as delimiter-->
+                    <plugin>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <configuration>
+                            <delimiters>
+                                <delimiter>@</delimiter>
+                                <!--Can also use @*@-->
+                                <!--<delimiter>@*@</delimiter>-->
+                            </delimiters>
+                        </configuration>
+                    </plugin>
+                </plugins>
+                <!--Enable filtering for resources-->
+                <resources>
+                    <resource>
+                        <filtering>true</filtering>
+                        <directory>src/main/resources</directory>
+                    </resource>
+                </resources>
+                <!--Enable filtering for test resources-->
+                <testResources>
+                    <testResource>
+                        <filtering>true</filtering>
+                        <directory>src/test/resources</directory>
+                    </testResource>
+                </testResources>
+                <filters>
+                    <filter>config/filtering/myFilter.properties</filter>
+                </filters>
+            </build>
+        </profile>
+    </profiles>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
