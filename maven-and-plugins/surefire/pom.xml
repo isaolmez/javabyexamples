@@ -180,10 +180,6 @@
                                     <name>greet.spanish</name>
                                     <value>Hola</value>
                                 </property>
-                                <property>
-                                    <name>greet.spanish</name>
-                                    <value>Hola</value>
-                                </property>
                             </systemProperties>
                             <systemPropertiesFile>src/test/resources/sample.properties</systemPropertiesFile>
                         </configuration>
