@@ -1,0 +1,13 @@
+mvn -Dmaven.surefire.debug="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8090 -Xnoagent -Djava.compiler=NONE" test
+mvn -Dmaven.surefire.debug="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8090" test
+mvn -Dmaven.surefire.debug test
+MAVEN_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8090" mvn -DforkCount=0 test
+
+Test*.java
+*Test.java
+*Tests.java
+*TestCase.java
+
+IT*.java
+*IT.java
+*ITCase.java

@@ -4,7 +4,7 @@ import com.javabyexamples.maven.plugins.surefire.Person;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class Person1Test {
+public class RegularPersonTest {
 
     private Person person = new Person();
 

@@ -1,9 +1,12 @@
-package com.javabyexamples.maven.plugins.surefire;
+package com.javabyexamples.maven.plugins.surefire.groups;
 
+import com.javabyexamples.maven.plugins.surefire.Person;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
-public class PersonTest {
+@Category(SlowTest.class)
+public class SlowPersonTest {
 
     private Person person = new Person();
 
