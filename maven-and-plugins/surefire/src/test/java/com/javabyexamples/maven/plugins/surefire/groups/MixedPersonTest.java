@@ -5,13 +5,21 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-@Category(SlowTest.class)
-public class SlowPersonTest {
+public class MixedPersonTest {
 
     private Person person = new Person();
 
+    @Category(FastTest.class)
     @Test
-    public void run() {
+    public void runsFast() {
+        String result = person.run();
+
+        Assert.assertEquals("Running", result);
+    }
+
+    @Category(SlowTest.class)
+    @Test
+    public void runsSlow() {
         String result = person.runTenLaps();
 
         Assert.assertEquals("Running ten laps", result);

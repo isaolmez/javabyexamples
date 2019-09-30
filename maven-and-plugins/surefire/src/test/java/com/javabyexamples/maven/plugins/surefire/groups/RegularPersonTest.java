@@ -9,9 +9,9 @@ public class RegularPersonTest {
     private Person person = new Person();
 
     @Test
-    public void shouldSayHello() {
-        String result = person.sayHello();
+    public void run() {
+        String result = person.run();
 
-        Assert.assertEquals("Hello", result);
+        Assert.assertEquals("Running", result);
     }
 }
