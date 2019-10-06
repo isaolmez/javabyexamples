@@ -26,8 +26,8 @@
         <profile>
             <id>set-java-version-by-property</id>
             <properties>
-                <maven.compiler.source>1.8</maven.compiler.source>
-                <maven.compiler.target>1.8</maven.compiler.target>
+                <maven.compiler.source>8</maven.compiler.source>
+                <maven.compiler.target>8</maven.compiler.target>
             </properties>
         </profile>
 
@@ -62,6 +62,49 @@
                                 <arg>1.8</arg>
                                 <arg>-target</arg>
                                 <arg>1.8</arg>
+                            </compilerArgs>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Java 9 and Beyond-->
+        <profile>
+            <id>set-java-version-9-by-property</id>
+            <properties>
+                <maven.compiler.release>8</maven.compiler.release>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>set-java-version-9-by-configuration</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <version>3.8.0</version>
+                        <configuration>
+                            <release>9</release>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>set-java-version-9-by-compiler-args</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <version>3.8.0</version>
+                        <configuration>
+                            <compilerArgs>
+                                <arg>--release</arg>
+                                <arg>9</arg>
                             </compilerArgs>
                         </configuration>
                     </plugin>

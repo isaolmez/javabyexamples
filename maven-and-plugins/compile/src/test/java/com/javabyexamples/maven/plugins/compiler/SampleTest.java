@@ -17,3 +17,4 @@ public class SampleTest {
         Assert.assertTrue(upperNames.contains("JOHN"));
     }
 }
+

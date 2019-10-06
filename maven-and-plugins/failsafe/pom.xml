@@ -31,7 +31,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>2.22.0</version>
+                        <version>2.22.2</version>
                         <configuration>
                             <skipITs>true</skipITs>
                         </configuration>
@@ -64,7 +64,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>2.22.0</version>
+                        <version>2.22.2</version>
                         <configuration>
                             <skip>true</skip>
                         </configuration>
@@ -81,7 +81,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>2.22.0</version>
+                        <version>2.22.2</version>
                         <configuration>
                             <groups>
                                 com.javabyexamples.maven.plugins.failsafe.groups.FastTest
@@ -103,7 +103,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>2.22.0</version>
+                        <version>2.22.2</version>
                         <configuration>
                             <includes>
                                 <include>**/*E2E.java</include>
@@ -127,7 +127,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>2.22.0</version>
+                        <version>2.22.2</version>
                         <configuration>
                             <excludes>
                                 <exclude>**/norun/*.java</exclude>
@@ -152,7 +152,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>2.22.0</version>
+                        <version>2.22.2</version>
                         <configuration>
                             <test>*Test,Test*,E2E*</test>
                         </configuration>
@@ -169,7 +169,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>2.22.0</version>
+                        <version>2.22.2</version>
                         <configuration>
                             <systemPropertyVariables>
                                 <greet.english>Hello</greet.english>
@@ -197,7 +197,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.22.0</version>
+                <version>2.22.2</version>
                 <executions>
                     <execution>
                         <id>integration-test</id>
