@@ -32,6 +32,6 @@ public class MixedService implements InitializingBean, DisposableBean {
     }
 
     public void customDestroy() {
-        System.out.println("Initializing since destroy-method");
+        System.out.println("Destroying since destroy-method");
     }
 }
