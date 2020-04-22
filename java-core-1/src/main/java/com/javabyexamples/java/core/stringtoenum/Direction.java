@@ -14,7 +14,8 @@ public enum Direction {
     private static Map<String, Direction> nameToValue;
 
     static {
-        nameToValue = Stream.of(values()).collect(Collectors.toMap(Direction::getName, Function.identity()));
+        nameToValue = Stream.of(values())
+          .collect(Collectors.toMap(Direction::getName, Function.identity()));
     }
 
     private final String name;
@@ -39,9 +40,9 @@ public enum Direction {
 
     public static Direction fromValueVersion2(String givenName) {
         return Stream.of(values())
-                     .filter(direction -> direction.name.equals(givenName))
-                     .findFirst()
-                     .orElse(null);
+          .filter(direction -> direction.name.equals(givenName))
+          .findFirst()
+          .orElse(null);
     }
 
     public static Direction fromValueVersion3(String givenName) {

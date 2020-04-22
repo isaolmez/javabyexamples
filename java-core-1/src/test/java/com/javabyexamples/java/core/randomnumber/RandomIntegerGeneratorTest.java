@@ -85,7 +85,8 @@ public class RandomIntegerGeneratorTest {
         executeThenVerifyOccurrences(5, 15, () -> generator.randomUsingStreams(5, 15));
     }
 
-    private void executeThenVerifyOccurrences(int minInclusive, int maxExclusive, Supplier<Integer> supplier) {
+    private void executeThenVerifyOccurrences(int minInclusive, int maxExclusive,
+      Supplier<Integer> supplier) {
         final Boolean[] occurrences = new Boolean[maxExclusive - minInclusive];
         IntStream.range(0, 10000)
           .mapToObj(i -> {
@@ -98,7 +99,7 @@ public class RandomIntegerGeneratorTest {
           .ifPresent(failure -> Assertions.fail("Not in the range: " + failure));
 
         IntStream.range(minInclusive, maxExclusive)
-          .filter(occurrence -> BooleanUtils.isNotTrue(occurrences[occurrence]))
+          .filter(occurrence -> BooleanUtils.isNotTrue(occurrences[occurrence - minInclusive]))
           .findFirst()
           .ifPresent(failure -> Assertions.fail("Not occurred: " + failure));
     }
@@ -107,7 +108,8 @@ public class RandomIntegerGeneratorTest {
         execute(10000, minInclusive, maxExclusive, supplier);
     }
 
-    private void execute(int times, int minInclusive, int maxExclusive, Supplier<Integer> supplier) {
+    private void execute(int times, int minInclusive, int maxExclusive,
+      Supplier<Integer> supplier) {
         IntStream.range(0, times)
           .mapToObj(i -> supplier.get())
           .filter(number -> number < minInclusive || number >= maxExclusive)

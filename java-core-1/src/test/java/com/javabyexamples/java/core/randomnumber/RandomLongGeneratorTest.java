@@ -87,7 +87,8 @@ public class RandomLongGeneratorTest {
         executeThenVerifyOccurrences(5, 15, () -> generator.randomUsingStreams(5, 15));
     }
 
-    private void executeThenVerifyOccurrences(long minInclusive, long maxExclusive, Supplier<Long> supplier) {
+    private void executeThenVerifyOccurrences(long minInclusive, long maxExclusive,
+      Supplier<Long> supplier) {
         final Map<Long, Boolean> occurrences = new HashMap<>();
         IntStream.range(0, 10000)
           .mapToObj(i -> {
@@ -109,7 +110,8 @@ public class RandomLongGeneratorTest {
         execute(10000, minInclusive, maxExclusive, supplier);
     }
 
-    private void execute(long times, long minInclusive, long maxExclusive, Supplier<Long> supplier) {
+    private void execute(long times, long minInclusive, long maxExclusive,
+      Supplier<Long> supplier) {
         LongStream.range(0, times)
           .mapToObj(i -> supplier.get())
           .filter(number -> number < minInclusive || number >= maxExclusive)

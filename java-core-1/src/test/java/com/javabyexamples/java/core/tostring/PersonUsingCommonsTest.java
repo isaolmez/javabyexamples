@@ -18,7 +18,8 @@ public class PersonUsingCommonsTest {
         final String toString = person.toString();
 
         System.out.println(toString);
-        assertThat(toString).containsPattern("com.javabyexamples.java.core.tostring.PersonUsingCommons@.*[firstName=john,lastName=doe]");
+        assertThat(toString).containsPattern(
+          "com.javabyexamples.java.core.tostring.PersonUsingCommons@.*[firstName=john,lastName=doe]");
     }
 
     @Test
@@ -28,7 +29,8 @@ public class PersonUsingCommonsTest {
         final String toString = ReflectionToStringBuilder.toString(person);
 
         System.out.println(toString);
-        assertThat(toString).containsPattern("com.javabyexamples.java.core.tostring.PersonUsingCommons@.*[firstName=john,lastName=doe]");
+        assertThat(toString).containsPattern(
+          "com.javabyexamples.java.core.tostring.PersonUsingCommons@.*[firstName=john,lastName=doe]");
     }
 
     @Test
@@ -36,7 +38,8 @@ public class PersonUsingCommonsTest {
         final String toString = executeToString(ToStringStyle.DEFAULT_STYLE);
 
         System.out.println(toString);
-        assertThat(toString).containsPattern("com.javabyexamples.java.core.tostring.PersonUsingCommons@.*[firstName=john,lastName=doe]");
+        assertThat(toString).containsPattern(
+          "com.javabyexamples.java.core.tostring.PersonUsingCommons@.*[firstName=john,lastName=doe]");
     }
 
     @Test
@@ -60,7 +63,8 @@ public class PersonUsingCommonsTest {
         final String toString = executeToString(ToStringStyle.NO_FIELD_NAMES_STYLE);
 
         System.out.println(toString);
-        assertThat(toString).containsPattern("com.javabyexamples.java.core.tostring.PersonUsingCommons@.*[john,doe]");
+        assertThat(toString)
+          .containsPattern("com.javabyexamples.java.core.tostring.PersonUsingCommons@.*[john,doe]");
     }
 
     @Test

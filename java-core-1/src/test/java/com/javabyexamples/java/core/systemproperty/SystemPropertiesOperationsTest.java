@@ -13,9 +13,9 @@ public class SystemPropertiesOperationsTest {
 
     @Test
     public void testGet() {
-        final String os = operations.get("os.name");
+        final String os = operations.get("java.version");
 
-        assertThat(os).isEqualTo("Linux");
+        assertThat(os).isNotEmpty();
     }
 
     @Test
@@ -54,7 +54,7 @@ public class SystemPropertiesOperationsTest {
         final String actualValue = operations.get(key);
         assertThat(actualValue).isEqualTo(value);
 
-        final String os = operations.get("os.name");
+        final String os = operations.get("java.version");
         assertThat(os).isNull();
     }
 
@@ -68,7 +68,7 @@ public class SystemPropertiesOperationsTest {
         final String actualValue = operations.get(key);
         assertThat(actualValue).isEqualTo(value);
 
-        final String os = operations.get("os.name");
+        final String os = operations.get("java.version");
         assertThat(os).isNotNull();
     }
 }

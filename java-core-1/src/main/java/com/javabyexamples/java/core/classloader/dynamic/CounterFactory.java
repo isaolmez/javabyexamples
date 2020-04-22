@@ -8,17 +8,19 @@ public class CounterFactory {
 
     public static Counter newInstance() throws Exception {
         URLClassLoader urlClassLoader = new URLClassLoader(new URL[]{getClassPath()}) {
-                    @Override
-                    public Class loadClass(String name) throws ClassNotFoundException {
-                        if ("com.isa.java.core.classloader.dynamic.DefaultCounter".equals(name)) {
-                            return findClass(name);
-                        }
+            @Override
+            public Class loadClass(String name) throws ClassNotFoundException {
+                if ("com.isa.java.core.classloader.dynamic.DefaultCounter".equals(name)) {
+                    return findClass(name);
+                }
 
-                        return super.loadClass(name);
-                    }
-                };
+                return super.loadClass(name);
+            }
+        };
 
-        return (Counter) urlClassLoader.loadClass("com.javabyexamples.java.core.classloader.dynamic.DefaultCounter").newInstance();
+        return (Counter) urlClassLoader
+          .loadClass("com.javabyexamples.java.core.classloader.dynamic.DefaultCounter")
+          .newInstance();
     }
 
     private static URL getClassPath() {

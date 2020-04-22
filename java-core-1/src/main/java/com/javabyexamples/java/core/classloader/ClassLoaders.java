@@ -1,6 +1,6 @@
 package com.javabyexamples.java.core.classloader;
 
-import com.sun.javafx.util.Logging;
+//import com.sun.javafx.util.Logging;
 import java.util.ArrayList;
 
 public class ClassLoaders {
@@ -14,7 +14,7 @@ public class ClassLoaders {
     public void printClassLoaders() {
         System.out.println("Classloader of this class:" + ClassLoaders.class.getClassLoader());
 
-        System.out.println("Classloader of Logging:" + Logging.class.getClassLoader());
+//        System.out.println("Classloader of Logging:" + Logging.class.getClassLoader());
 
         System.out.println("Classloader of ArrayList:" + ArrayList.class.getClassLoader());
     }
@@ -22,7 +22,7 @@ public class ClassLoaders {
     public void printClassLoadersWithContextClassLoader() {
         System.out.println("Classloader of this class:" + ClassLoaders.class.getClassLoader());
 
-        System.out.println("Classloader of Logging:" + Logging.class.getClassLoader());
+//        System.out.println("Classloader of Logging:" + Logging.class.getClassLoader());
 
         System.out.println("Classloader of ArrayList:" + ArrayList.class.getClassLoader());
 

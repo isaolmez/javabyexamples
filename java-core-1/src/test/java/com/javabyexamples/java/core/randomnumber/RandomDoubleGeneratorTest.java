@@ -63,7 +63,8 @@ public class RandomDoubleGeneratorTest {
         execute(10000, minInclusive, maxExclusive, supplier);
     }
 
-    private void execute(int times, double minInclusive, double maxExclusive, Supplier<Double> supplier) {
+    private void execute(int times, double minInclusive, double maxExclusive,
+      Supplier<Double> supplier) {
         IntStream.range(0, times)
           .mapToObj(i -> supplier.get())
           .filter(number -> number < minInclusive || number >= maxExclusive)
