@@ -39,11 +39,11 @@ public class RandomStringGenerator {
     }
 
     public void randomUsingCommonsText(int length) {
-        final org.apache.commons.text.RandomStringGenerator generaterWithRange = new org.apache.commons.text.RandomStringGenerator.Builder()
+        final org.apache.commons.text.RandomStringGenerator generatorWithRange = new org.apache.commons.text.RandomStringGenerator.Builder()
           .withinRange('0', 'z')
           .filteredBy(CharacterPredicates.LETTERS, CharacterPredicates.DIGITS)
           .build();
-        System.out.println(generaterWithRange.generate(length));
+        System.out.println(generatorWithRange.generate(length));
 
         final org.apache.commons.text.RandomStringGenerator generatorWithSelection = new org.apache.commons.text.RandomStringGenerator.Builder()
           .selectFrom("abcdefghij".toCharArray())
@@ -57,11 +57,11 @@ public class RandomStringGenerator {
 
     public static void main(String[] args) {
         final RandomStringGenerator randomStringGenerator = new RandomStringGenerator();
+        randomStringGenerator.randomUsingPlain(5);
+        randomStringGenerator.randomUsingStreams(5);
         randomStringGenerator.randomUsingUuid();
         randomStringGenerator.randomUsingCommons(5);
         randomStringGenerator.randomUsingCommonsText(5);
-        randomStringGenerator.randomUsingPlain(5);
-        randomStringGenerator.randomUsingStreams(5);
 
     }
 }
