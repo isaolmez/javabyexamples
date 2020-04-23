@@ -27,17 +27,17 @@ public class RandomIntegerGeneratorTest {
 
     @Test
     public void testRandomUsingJdk() {
-        execute(0, Integer.MAX_VALUE, () -> generator.randomUsingJdk());
+        execute(0, Integer.MAX_VALUE, () -> generator.randomUsingRandom());
     }
 
     @Test
     public void testRandomUsingJdk_WithRange() {
-        execute(0, 100, () -> generator.randomUsingJdk(0, 100));
+        execute(0, 100, () -> generator.randomUsingRandom(0, 100));
     }
 
     @Test
     public void testRandomUsingJdk_ThenVerifyOccurrences() {
-        executeThenVerifyOccurrences(5, 15, () -> generator.randomUsingJdk(5, 15));
+        executeThenVerifyOccurrences(5, 15, () -> generator.randomUsingRandom(5, 15));
     }
 
     @Test

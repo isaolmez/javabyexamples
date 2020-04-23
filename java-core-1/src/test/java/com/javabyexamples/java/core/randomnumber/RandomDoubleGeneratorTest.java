@@ -21,12 +21,12 @@ public class RandomDoubleGeneratorTest {
 
     @Test
     public void testRandomUsingJdk() {
-        execute(0, Double.MAX_VALUE, () -> generator.randomUsingJdk());
+        execute(0, Double.MAX_VALUE, () -> generator.randomUsingRandom());
     }
 
     @Test
     public void testRandomUsingJdk_WithRange() {
-        execute(0, 100, () -> generator.randomUsingJdk(0, 100));
+        execute(0, 100, () -> generator.randomUsingRandom(0, 100));
     }
 
     @Test

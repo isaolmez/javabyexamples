@@ -6,7 +6,7 @@ import org.apache.commons.math3.random.RandomDataGenerator;
 
 public class RandomIntegerGenerator {
 
-    public int randomUsingJdk(int minInclusive, int maxExclusive) {
+    public int randomUsingRandom(int minInclusive, int maxExclusive) {
         final Random random = new Random();
         if (minInclusive == maxExclusive) {
             return minInclusive;
@@ -15,8 +15,8 @@ public class RandomIntegerGenerator {
         return minInclusive + random.nextInt(maxExclusive - minInclusive);
     }
 
-    public int randomUsingJdk() {
-        return randomUsingJdk(0, Integer.MAX_VALUE);
+    public int randomUsingRandom() {
+        return randomUsingRandom(0, Integer.MAX_VALUE);
     }
 
     public int randomUsingStreams(int minInclusive, int maxExclusive) {
