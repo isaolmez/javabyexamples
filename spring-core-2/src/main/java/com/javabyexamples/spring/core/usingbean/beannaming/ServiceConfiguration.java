@@ -10,18 +10,18 @@ import org.springframework.context.annotation.Configuration;
 public class ServiceConfiguration {
 
     @Bean
-    public DefaultServiceOne serviceOne() {
-        return new DefaultServiceOne();
+    public DefaultGreetingService greetingService() {
+        return new DefaultGreetingService();
     }
 
-    @Bean({"firstService", "onlyService"})
-    public DefaultServiceOne serviceOneWithName() {
-        return new DefaultServiceOne();
+    @Bean({"firstGreetingService", "theGreetingService"})
+    public DefaultGreetingService serviceWithName() {
+        return new DefaultGreetingService();
     }
 
     @Bean
-    @Qualifier("qualifiedService")
-    public DefaultServiceOne serviceOneWithQualifier() {
-        return new DefaultServiceOne();
+    @Qualifier("qualifiedGreetingService")
+    public DefaultGreetingService serviceWithQualifier() {
+        return new DefaultGreetingService();
     }
 }

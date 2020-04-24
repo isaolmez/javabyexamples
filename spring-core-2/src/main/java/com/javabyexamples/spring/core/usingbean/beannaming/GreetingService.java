@@ -1,6 +1,6 @@
 package com.javabyexamples.spring.core.usingbean.beannaming;
 
-public interface ServiceOne {
+public interface GreetingService {
 
-    void one();
+    void greet();
 }
