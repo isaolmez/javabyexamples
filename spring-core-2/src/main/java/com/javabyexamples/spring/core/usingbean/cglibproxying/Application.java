@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.core.usingbean.finalrule;
+package com.javabyexamples.spring.core.usingbean.cglibproxying;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -7,9 +7,9 @@ public class Application {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext applicationContext =
-          new AnnotationConfigApplicationContext(RepositoryConfiguration.class);
+          new AnnotationConfigApplicationContext(ApplicationConfiguration.class);
 
-        applicationContext.getBean(RepositoryOne.class).save();
+        applicationContext.getBean(PostRepository.class).save();
 
         applicationContext.close();
     }

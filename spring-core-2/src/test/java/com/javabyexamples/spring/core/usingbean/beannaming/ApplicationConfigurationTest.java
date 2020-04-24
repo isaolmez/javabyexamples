@@ -10,8 +10,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = ServiceConfiguration.class)
-public class ServiceConfigurationTest {
+@ContextConfiguration(classes = ApplicationConfiguration.class)
+public class ApplicationConfigurationTest {
 
     @Autowired
     private ApplicationContext context;

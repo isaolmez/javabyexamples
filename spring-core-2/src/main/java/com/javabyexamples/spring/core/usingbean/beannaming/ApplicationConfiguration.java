@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ComponentScan
-public class ServiceConfiguration {
+public class ApplicationConfiguration {
 
     @Bean
     public DefaultGreetingService greetingService() {
