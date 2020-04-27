@@ -12,7 +12,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 @Component
-public class LoggerService implements ApplicationContextAware, EnvironmentAware, BeanNameAware, ApplicationEventPublisherAware {
+public class LoggerService implements ApplicationContextAware, EnvironmentAware, BeanNameAware,
+  ApplicationEventPublisherAware {
 
     private ApplicationContext applicationContext;
     private Environment environment;

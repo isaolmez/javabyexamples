@@ -14,7 +14,7 @@ public class OptionalDependencyStoreService {
 
     @Autowired
     public OptionalDependencyStoreService(EmployeeService employeeService,
-                                          ManagerService managerService) {
+      ManagerService managerService) {
         this.employeeService = employeeService;
         this.managerService = managerService;
     }

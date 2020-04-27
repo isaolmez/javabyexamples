@@ -19,7 +19,7 @@ public class SetterInjectedStoreService {
         this.managerService = managerService;
     }
 
-    public void start(){
+    public void start() {
         managerService.manage();
         employeeService.work();
     }

@@ -17,12 +17,12 @@ public class SchoolConfiguration {
     }
 
     @Bean
-    public TeacherService teacherService(){
+    public TeacherService teacherService() {
         return new TeacherService();
     }
 
     @Bean
-    public PrincipalService principalService(){
+    public PrincipalService principalService() {
         return new PrincipalService();
     }
 }

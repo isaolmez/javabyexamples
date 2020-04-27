@@ -12,10 +12,12 @@ public class Application {
     public static void main(String[] args) {
         ConfigurableApplicationContext applicationContext = new AnnotationConfigApplicationContext(Application.class);
 
-        WithoutQualifierArithmeticOperations withoutQualifier = applicationContext.getBean(WithoutQualifierArithmeticOperations.class);
+        WithoutQualifierArithmeticOperations withoutQualifier = applicationContext
+          .getBean(WithoutQualifierArithmeticOperations.class);
         withoutQualifier.start();
 
-        WithQualifierArithmeticOperations withQualifier = applicationContext.getBean(WithQualifierArithmeticOperations.class);
+        WithQualifierArithmeticOperations withQualifier = applicationContext
+          .getBean(WithQualifierArithmeticOperations.class);
         withQualifier.start();
 
         applicationContext.close();

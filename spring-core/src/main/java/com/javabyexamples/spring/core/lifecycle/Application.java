@@ -14,7 +14,8 @@ public class Application {
     private Environment environment;
 
     public static void main(String[] args) {
-        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(Application.class);
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(
+          Application.class);
         applicationContext.close();
     }
 }

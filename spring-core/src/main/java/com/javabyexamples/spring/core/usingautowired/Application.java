@@ -13,22 +13,28 @@ public class Application {
     public static void main(String[] args) {
         ConfigurableApplicationContext applicationContext = new AnnotationConfigApplicationContext(Application.class);
 
-        ConstructorInjectedStoreService constructorInjectedStoreService = applicationContext.getBean(ConstructorInjectedStoreService.class);
+        ConstructorInjectedStoreService constructorInjectedStoreService = applicationContext
+          .getBean(ConstructorInjectedStoreService.class);
         constructorInjectedStoreService.start();
 
-        FieldInjectedStoreService fieldInjectedStoreService = applicationContext.getBean(FieldInjectedStoreService.class);
+        FieldInjectedStoreService fieldInjectedStoreService = applicationContext
+          .getBean(FieldInjectedStoreService.class);
         fieldInjectedStoreService.start();
 
-        SetterInjectedStoreService setterInjectedStoreService = applicationContext.getBean(SetterInjectedStoreService.class);
+        SetterInjectedStoreService setterInjectedStoreService = applicationContext
+          .getBean(SetterInjectedStoreService.class);
         setterInjectedStoreService.start();
 
-        WithoutAutowiredStoreService withoutAutowiredStoreService = applicationContext.getBean(WithoutAutowiredStoreService.class);
+        WithoutAutowiredStoreService withoutAutowiredStoreService = applicationContext
+          .getBean(WithoutAutowiredStoreService.class);
         withoutAutowiredStoreService.start();
 
-        OptionalDependencyStoreService optionalDependencyStoreService = applicationContext.getBean(OptionalDependencyStoreService.class);
+        OptionalDependencyStoreService optionalDependencyStoreService = applicationContext
+          .getBean(OptionalDependencyStoreService.class);
         optionalDependencyStoreService.start();
 
-        MixedInjectedStoreService mixedInjectedStoreService = applicationContext.getBean(MixedInjectedStoreService.class);
+        MixedInjectedStoreService mixedInjectedStoreService = applicationContext
+          .getBean(MixedInjectedStoreService.class);
         mixedInjectedStoreService.start();
 
         GoodManager goodManager = applicationContext.getBean(GoodManager.class);

@@ -12,7 +12,7 @@ public class FieldInjectedStoreService {
     @Autowired
     private ManagerService managerService;
 
-    public void start(){
+    public void start() {
         managerService.manage();
         employeeService.work();
     }

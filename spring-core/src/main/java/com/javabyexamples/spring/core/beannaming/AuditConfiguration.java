@@ -14,7 +14,7 @@ public class AuditConfiguration {
     }
 
     @Bean
-    public AuditService obsolete(){
-       return new LegacyAuditService();
+    public AuditService obsolete() {
+        return new LegacyAuditService();
     }
 }

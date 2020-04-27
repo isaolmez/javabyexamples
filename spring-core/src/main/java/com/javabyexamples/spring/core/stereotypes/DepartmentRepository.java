@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class DepartmentRepository {
 
-    public void save(){
+    public void save() {
         throw new RuntimeException("Planned exception");
     }
 }

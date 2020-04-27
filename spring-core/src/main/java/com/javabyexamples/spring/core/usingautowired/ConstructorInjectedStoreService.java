@@ -11,12 +11,12 @@ public class ConstructorInjectedStoreService {
 
     @Autowired
     public ConstructorInjectedStoreService(EmployeeService employeeService,
-                                           ManagerService managerService) {
+      ManagerService managerService) {
         this.employeeService = employeeService;
         this.managerService = managerService;
     }
 
-    public void start(){
+    public void start() {
         managerService.manage();
         employeeService.work();
     }

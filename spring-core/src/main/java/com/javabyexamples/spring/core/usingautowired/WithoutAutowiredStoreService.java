@@ -9,12 +9,12 @@ public class WithoutAutowiredStoreService {
     private final ManagerService managerService;
 
     public WithoutAutowiredStoreService(EmployeeService employeeService,
-                                        ManagerService managerService) {
+      ManagerService managerService) {
         this.employeeService = employeeService;
         this.managerService = managerService;
     }
 
-    public void start(){
+    public void start() {
         managerService.manage();
         employeeService.work();
     }

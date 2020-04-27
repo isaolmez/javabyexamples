@@ -1,5 +1,5 @@
 package com.javabyexamples.spring.core.beannaming;
 
-public class SimpleAuditService implements AuditService{
+public class SimpleAuditService implements AuditService {
 
 }

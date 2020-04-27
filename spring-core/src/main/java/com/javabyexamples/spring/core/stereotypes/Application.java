@@ -17,7 +17,8 @@ public class Application {
     }
 
     public static void main(String[] args) {
-        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(Application.class);
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(
+          Application.class);
 
         Generator generator = applicationContext.getBean(Generator.class);
         generator.generate();

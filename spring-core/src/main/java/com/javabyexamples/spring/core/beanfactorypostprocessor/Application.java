@@ -9,7 +9,8 @@ import org.springframework.context.annotation.Configuration;
 public class Application {
 
     public static void main(String[] args) {
-        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(Application.class);
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(
+          Application.class);
 
         applicationContext.close();
     }

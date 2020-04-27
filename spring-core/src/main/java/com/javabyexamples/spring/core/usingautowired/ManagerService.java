@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ManagerService {
 
-    public void manage(){
+    public void manage() {
         System.out.println("Managing");
     }
 }

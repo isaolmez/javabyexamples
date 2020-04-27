@@ -16,7 +16,7 @@ public class MixedInjectedStoreService {
         this.employeeService = employeeService;
     }
 
-    public void start(){
+    public void start() {
         managerService.manage();
         employeeService.work();
     }

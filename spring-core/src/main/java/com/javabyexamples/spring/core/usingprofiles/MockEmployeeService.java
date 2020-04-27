@@ -5,6 +5,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Profile("!prod")
-public class MockEmployeeService implements EmployeeService{
+public class MockEmployeeService implements EmployeeService {
 
 }

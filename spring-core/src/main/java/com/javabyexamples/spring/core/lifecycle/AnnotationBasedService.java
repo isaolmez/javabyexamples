@@ -8,12 +8,12 @@ import org.springframework.stereotype.Component;
 public class AnnotationBasedService {
 
     @PostConstruct
-    public void init(){
+    public void init() {
         System.out.println("Initializing " + getClass().getSimpleName());
     }
 
     @PreDestroy
-    public void destroy(){
+    public void destroy() {
         System.out.println("Destroying " + getClass().getSimpleName());
     }
 }

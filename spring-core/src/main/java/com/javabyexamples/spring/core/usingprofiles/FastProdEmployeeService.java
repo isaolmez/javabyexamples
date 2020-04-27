@@ -5,6 +5,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Profile("prod & fast")
-public class FastProdEmployeeService implements EmployeeService{
+public class FastProdEmployeeService implements EmployeeService {
 
 }
