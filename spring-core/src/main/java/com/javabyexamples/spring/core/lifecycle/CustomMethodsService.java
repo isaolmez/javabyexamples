@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class CustomMethodsService {
 
-    public void initialize() throws Exception {
+    public void initialize() {
         System.out.println("Initializing " + getClass().getSimpleName());
     }
 

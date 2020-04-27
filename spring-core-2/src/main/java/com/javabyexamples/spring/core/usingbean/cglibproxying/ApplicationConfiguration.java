@@ -3,7 +3,7 @@ package com.javabyexamples.spring.core.usingbean.cglibproxying;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+@Configuration(proxyBeanMethods = true)
 public /*final*/ class ApplicationConfiguration {
 
     @Bean
