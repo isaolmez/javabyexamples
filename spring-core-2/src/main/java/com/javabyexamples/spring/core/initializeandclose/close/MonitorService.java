@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.core.closecontext;
+package com.javabyexamples.spring.core.initializeandclose.close;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;

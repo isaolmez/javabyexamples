@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.core.closecontext;
+package com.javabyexamples.spring.core.initializeandclose.close;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;

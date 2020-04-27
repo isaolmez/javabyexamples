@@ -1,16 +1,16 @@
-package com.javabyexamples.spring.core.initializecontainer;
+package com.javabyexamples.spring.core.initializeandclose.initialize;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-public class ContainerInitialization {
+public class Application {
 
     public static void main(String[] args) {
-        describe("Configuration In Constructor");
-        withConfiguration();
+        describe("Configurations In Constructor");
+        withConfigurationsInConstructor();
 
-        describe("Bean In Constructor");
-        withBeans();
+        describe("Components In Constructor");
+        withComponentsInConstructor();
 
         describe("Register Configurations Manually");
         withRegistration();
@@ -19,9 +19,9 @@ public class ContainerInitialization {
         withComponentScan();
     }
 
-    private static void withConfiguration() {
+    private static void withConfigurationsInConstructor() {
         ConfigurableApplicationContext applicationContext =
-          new AnnotationConfigApplicationContext(ServiceConfiguration.class);
+          new AnnotationConfigApplicationContext(ApplicationConfiguration.class);
 
         final GreetService greetService = applicationContext.getBean(GreetService.class);
         greetService.greet();
@@ -29,7 +29,7 @@ public class ContainerInitialization {
         applicationContext.close();
     }
 
-    private static void withBeans() {
+    private static void withComponentsInConstructor() {
         ConfigurableApplicationContext applicationContext =
           new AnnotationConfigApplicationContext(DefaultGreetService.class);
 
@@ -41,7 +41,7 @@ public class ContainerInitialization {
 
     private static void withRegistration() {
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
-        applicationContext.register(ServiceConfiguration.class);
+        applicationContext.register(ApplicationConfiguration.class);
         applicationContext.refresh();
 
         final GreetService greetService = applicationContext.getBean(GreetService.class);
@@ -53,7 +53,6 @@ public class ContainerInitialization {
     private static void withComponentScan() {
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
         applicationContext.scan(GreetService.class.getPackage().getName());
-        System.out.println("Package:" + GreetService.class.getPackage().getName());
         applicationContext.refresh();
 
         final GreetService greetService = applicationContext.getBean(GreetService.class);
