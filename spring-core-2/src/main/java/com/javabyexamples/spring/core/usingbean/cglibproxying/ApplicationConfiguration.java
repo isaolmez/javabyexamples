@@ -22,7 +22,7 @@ public /*final*/ class ApplicationConfiguration {
     }
 
     @Bean
-    public static LogService logService(){
+    public static LogService logService() {
         return new LogService();
     }
 }
