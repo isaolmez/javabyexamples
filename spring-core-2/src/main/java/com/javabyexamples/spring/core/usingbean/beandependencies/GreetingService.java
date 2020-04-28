@@ -1,6 +1,6 @@
 package com.javabyexamples.spring.core.usingbean.beandependencies;
 
-public interface ServiceTwo {
+public interface GreetingService {
 
-    void two();
+    void greet();
 }
