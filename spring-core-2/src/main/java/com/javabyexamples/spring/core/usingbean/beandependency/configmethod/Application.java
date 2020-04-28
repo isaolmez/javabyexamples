@@ -1,6 +1,6 @@
-package com.javabyexamples.spring.core.usingbean.beandependencies.methodparameter;
+package com.javabyexamples.spring.core.usingbean.beandependency.configmethod;
 
-import com.javabyexamples.spring.core.usingbean.beandependencies.GreetingService;
+import com.javabyexamples.spring.core.usingbean.beandependency.GreetingService;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 

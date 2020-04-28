@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.core.usingbean.beandependencies;
+package com.javabyexamples.spring.core.usingbean.beandependency;
 
 public class GreetingProperties {
 

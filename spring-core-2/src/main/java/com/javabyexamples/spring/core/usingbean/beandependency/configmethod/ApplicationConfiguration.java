@@ -1,6 +1,6 @@
-package com.javabyexamples.spring.core.usingbean.beandependencies.configmethod;
+package com.javabyexamples.spring.core.usingbean.beandependency.configmethod;
 
-import com.javabyexamples.spring.core.usingbean.beandependencies.DefaultGreetingService;
+import com.javabyexamples.spring.core.usingbean.beandependency.DefaultGreetingService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;

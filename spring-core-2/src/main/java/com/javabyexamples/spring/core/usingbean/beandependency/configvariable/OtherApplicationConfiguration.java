@@ -1,6 +1,6 @@
-package com.javabyexamples.spring.core.usingbean.beandependencies.configmethod;
+package com.javabyexamples.spring.core.usingbean.beandependency.configvariable;
 
-import com.javabyexamples.spring.core.usingbean.beandependencies.GreetingProperties;
+import com.javabyexamples.spring.core.usingbean.beandependency.GreetingProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

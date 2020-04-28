@@ -1,14 +1,14 @@
-package com.javabyexamples.spring.core.usingbean.beandependencies.configvariable;
+package com.javabyexamples.spring.core.usingbean.beandependency.interbean;
 
-import com.javabyexamples.spring.core.usingbean.beandependencies.GreetingService;
+import com.javabyexamples.spring.core.usingbean.beandependency.GreetingService;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Application {
 
     public static void main(String[] args) {
-        ConfigurableApplicationContext applicationContext = new AnnotationConfigApplicationContext(
-          ApplicationConfiguration.class);
+        ConfigurableApplicationContext applicationContext =
+          new AnnotationConfigApplicationContext(ApplicationConfiguration.class);
 
         applicationContext.getBean(GreetingService.class).greet();
 
