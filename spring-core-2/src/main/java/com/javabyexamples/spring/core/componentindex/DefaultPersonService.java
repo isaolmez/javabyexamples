@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.core.beanindexing;
+package com.javabyexamples.spring.core.componentindex;
 
 import org.springframework.stereotype.Component;
 

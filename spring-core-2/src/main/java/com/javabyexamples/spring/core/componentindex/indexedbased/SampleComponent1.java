@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.core.beanindexing.indexedbased;
+package com.javabyexamples.spring.core.componentindex.indexedbased;
 
 import org.springframework.stereotype.Component;
 

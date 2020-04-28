@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.core.beanindexing.javaxbased;
+package com.javabyexamples.spring.core.componentindex.javaxbased;
 
 import javax.inject.Named;
 

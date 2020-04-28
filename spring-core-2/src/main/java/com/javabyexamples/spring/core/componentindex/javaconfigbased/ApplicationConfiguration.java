@@ -1,6 +1,6 @@
-package com.javabyexamples.spring.core.beanindexing.javaconfigbased;
+package com.javabyexamples.spring.core.componentindex.javaconfigbased;
 
-import com.javabyexamples.spring.core.beanindexing.DefaultPersonService;
+import com.javabyexamples.spring.core.componentindex.DefaultPersonService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

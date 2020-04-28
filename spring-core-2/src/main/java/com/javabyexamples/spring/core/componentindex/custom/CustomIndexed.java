@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.core.beanindexing.custom;
+package com.javabyexamples.spring.core.componentindex.custom;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
