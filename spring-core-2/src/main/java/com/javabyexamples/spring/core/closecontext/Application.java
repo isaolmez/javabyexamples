@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.core.initializeandclose.close;
+package com.javabyexamples.spring.core.closecontext;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -18,15 +18,18 @@ public class Application {
     private static void closeManually() {
         ConfigurableApplicationContext applicationContext = new AnnotationConfigApplicationContext(
           Application.class);
+
         // Additional logic...
+
         applicationContext.close();
     }
 
     private static void closeAutomatically() {
         ConfigurableApplicationContext applicationContext = new AnnotationConfigApplicationContext(
           Application.class);
-        // Additional logic...
         applicationContext.registerShutdownHook();
+
+        // Additional logic...
     }
 
     private static void closeAsCloseable() {

@@ -1,5 +1,7 @@
-package com.javabyexamples.spring.core.initializeandclose.initialize;
+package com.javabyexamples.spring.core.initializecontext;
 
+import com.javabyexamples.spring.core.initializecontext.service.DefaultGreetService;
+import com.javabyexamples.spring.core.initializecontext.service.GreetService;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 

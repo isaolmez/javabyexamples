@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.core.initializeandclose.initialize;
+package com.javabyexamples.spring.core.initializecontext.service;
 
 import org.springframework.stereotype.Component;
 

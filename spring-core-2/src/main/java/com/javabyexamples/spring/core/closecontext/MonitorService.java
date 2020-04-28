@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.core.initializeandclose.close;
+package com.javabyexamples.spring.core.closecontext;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -16,5 +16,4 @@ public class MonitorService {
     public void destroy() {
         System.out.println("Destroying...");
     }
-
 }
