@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.core.componentscan.including;
+package com.javabyexamples.spring.core.componentscan.custom;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -14,8 +14,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = IncludingConfiguration.class)
-public class IncludingConfigurationTest {
+@ContextConfiguration(classes = CustomFilterConfiguration.class)
+public class CustomFilterConfigurationTest {
 
     @Autowired
     private ApplicationContext context;

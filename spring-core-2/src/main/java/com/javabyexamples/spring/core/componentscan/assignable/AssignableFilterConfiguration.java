@@ -1,14 +1,14 @@
-package com.javabyexamples.spring.core.componentscan.excluding;
+package com.javabyexamples.spring.core.componentscan.assignable;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Repository;
+import org.springframework.context.annotation.FilterType;
 
 @Configuration
 @ComponentScan(
   basePackages = "com.javabyexamples.spring.core.componentscan.level1",
-  excludeFilters = {@Filter(Repository.class)})
-public class ExcludingConfiguration {
+  includeFilters = {@Filter(type = FilterType.ASSIGNABLE_TYPE, classes = Object.class)})
+public class AssignableFilterConfiguration {
 
 }

@@ -9,7 +9,7 @@ import org.springframework.context.annotation.FilterType;
 @ComponentScan(
   basePackages = "com.javabyexamples.spring.core.componentscan.level1",
   includeFilters = {
-    @Filter(type = FilterType.ASPECTJ, pattern = "com.javabyexamples.spring.core.componentscan.level1.level2.MockRepository")})
-public class AspectJIncludeConfiguration {
+    @Filter(type = FilterType.ASPECTJ, pattern = "com.javabyexamples..*MockRepository")})
+public class AspectJFilterConfiguration {
 
 }

@@ -1,6 +1,6 @@
 package com.javabyexamples.spring.core.eventlistener;
 
-import com.javabyexamples.spring.core.componentscan.Application;
+import com.javabyexamples.spring.core.componentscan.aspectj.Application;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;

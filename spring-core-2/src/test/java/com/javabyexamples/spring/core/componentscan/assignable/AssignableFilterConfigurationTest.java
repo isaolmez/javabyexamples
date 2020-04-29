@@ -14,8 +14,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = AssignableIncludeConfiguration.class)
-public class AssignableIncludeConfigurationTest {
+@ContextConfiguration(classes = AssignableFilterConfiguration.class)
+public class AssignableFilterConfigurationTest {
 
     @Autowired
     private ApplicationContext context;

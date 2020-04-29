@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.core.componentscan.excluding;
+package com.javabyexamples.spring.core.componentscan.annotation;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -14,8 +14,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = ExcludingConfiguration.class)
-public class ExcludingConfigurationTest {
+@ContextConfiguration(classes = AnnotationFilterConfiguration.class)
+public class AnnotationFilterConfigurationTest {
 
     @Autowired
     private ApplicationContext context;
