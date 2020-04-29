@@ -7,14 +7,14 @@ import org.springframework.context.annotation.Configuration;
 public class ServiceConfiguration {
 
     @Bean(initMethod = "init", destroyMethod = "stop")
-    public DefaultServiceOne serviceOne() {
-        return new DefaultServiceOne();
+    public DefaultPersonService defaultPersonService() {
+        return new DefaultPersonService();
     }
 
     @Bean(destroyMethod = "stop")
-    public DefaultServiceOne serviceOneManualInit() {
-        final DefaultServiceOne serviceOne = new DefaultServiceOne();
-        serviceOne.init();
-        return serviceOne;
+    public DefaultPersonService personServiceManualInit() {
+        final DefaultPersonService personService = new DefaultPersonService();
+        personService.init();
+        return personService;
     }
 }

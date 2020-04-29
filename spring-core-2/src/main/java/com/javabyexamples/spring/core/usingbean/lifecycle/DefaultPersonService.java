@@ -1,14 +1,14 @@
 package com.javabyexamples.spring.core.usingbean.lifecycle;
 
-public class DefaultServiceOne implements ServiceOne {
+public class DefaultPersonService implements PersonService {
 
     public void init() {
         System.out.println("Initializing.");
     }
 
     @Override
-    public void perform() {
-        System.out.println("Performing.");
+    public void work() {
+        System.out.println("Working.");
     }
 
     public void stop() {

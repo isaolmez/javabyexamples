@@ -1,6 +1,6 @@
 package com.javabyexamples.spring.core.usingbean.lifecycle;
 
-public interface ServiceOne {
+public interface PersonService {
 
-    void perform();
+    void work();
 }
