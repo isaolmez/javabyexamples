@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.core.beanlookup;
+package com.javabyexamples.spring.core.scopeddependency.beanfactory;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -13,7 +13,10 @@ public class Application {
         ConfigurableApplicationContext applicationContext =
           new AnnotationConfigApplicationContext(Application.class);
 
-        applicationContext.getBean(CommandManager.class).process();
+        final ClientService clientService = applicationContext.getBean(ClientService.class);
+        clientService.doWork();
+        clientService.doWork();
+        clientService.doWork();
 
         applicationContext.close();
     }
