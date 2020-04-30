@@ -9,10 +9,10 @@ public class Application {
         ConfigurableApplicationContext applicationContext =
           new AnnotationConfigApplicationContext(MainConfiguration.class);
 
-        final Counter counter = applicationContext.getBean(Counter.class);
-        counter.count();
-        counter.count();
-        counter.count();
+        final ImpressionService impressionService = applicationContext.getBean(ImpressionService.class);
+        impressionService.countImpression();
+        impressionService.countImpression();
+        impressionService.countImpression();
 
         applicationContext.close();
     }

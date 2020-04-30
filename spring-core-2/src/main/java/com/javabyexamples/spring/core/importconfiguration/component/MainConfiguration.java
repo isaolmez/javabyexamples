@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@Import(CounterManager.class)
+@Import(ImpressionService.class)
 public class MainConfiguration {
 
 }
