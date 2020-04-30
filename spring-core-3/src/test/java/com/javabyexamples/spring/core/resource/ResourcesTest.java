@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.FileUrlResource;
 import org.springframework.core.io.UrlResource;
 
 public class ResourcesTest {
@@ -62,6 +63,7 @@ public class ResourcesTest {
     @Test
     public void givenFileSystemResource_HandlesFile() throws Exception {
         final File temp1 = temporaryFolder.newFile("temp1");
+        System.out.println(temp1.getAbsolutePath());
         final FileSystemResource fileSystemResource = new FileSystemResource(temp1.getAbsolutePath());
 
         assertThat(fileSystemResource.exists()).isTrue();
@@ -73,10 +75,21 @@ public class ResourcesTest {
     @Test
     public void givenFileSystemResource_NotHandles_WithPrefix() throws Exception {
         final File temp1 = temporaryFolder.newFile("temp1");
-        final FileSystemResource fileSystemResource = new FileSystemResource(
-          "file://" + temp1.getAbsolutePath());
+        final FileSystemResource fileSystemResource = new FileSystemResource("file://" + temp1.getAbsolutePath());
 
         assertThat(fileSystemResource.exists()).isFalse();
+    }
+
+    @Test
+    public void givenFileUrlResource_HandlesFile() throws Exception {
+        final File temp1 = temporaryFolder.newFile("temp1");
+        System.out.println(temp1.getAbsolutePath());
+        final FileUrlResource fileUrlResource = new FileUrlResource(temp1.getAbsolutePath());
+
+        assertThat(fileUrlResource.exists()).isTrue();
+        assertThat(fileUrlResource.isFile()).isTrue();
+        assertThat(fileUrlResource.isReadable()).isTrue();
+        assertThat(fileUrlResource.isOpen()).isFalse();
     }
 
 }
