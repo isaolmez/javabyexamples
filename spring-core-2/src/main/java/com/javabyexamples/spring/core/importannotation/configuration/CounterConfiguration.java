@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.core.importconfiguration.config;
+package com.javabyexamples.spring.core.importannotation.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

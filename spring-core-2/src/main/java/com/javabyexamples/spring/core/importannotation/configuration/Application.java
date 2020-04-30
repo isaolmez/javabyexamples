@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.core.importconfiguration.enable;
+package com.javabyexamples.spring.core.importannotation.configuration;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;

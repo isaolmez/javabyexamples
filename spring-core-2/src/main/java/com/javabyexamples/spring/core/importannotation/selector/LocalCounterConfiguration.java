@@ -1,13 +1,13 @@
-package com.javabyexamples.spring.core.importconfiguration.enable;
+package com.javabyexamples.spring.core.importannotation.selector;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class CounterConfiguration {
+public class LocalCounterConfiguration {
 
     @Bean
     public Counter counter() {
-        return new Counter();
+        return new Counter("local");
     }
 }

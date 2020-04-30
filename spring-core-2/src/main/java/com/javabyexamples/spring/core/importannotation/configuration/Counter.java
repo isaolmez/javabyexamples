@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.core.importconfiguration.component;
+package com.javabyexamples.spring.core.importannotation.configuration;
 
 public class Counter {
 

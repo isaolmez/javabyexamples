@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.core.importconfiguration.config;
+package com.javabyexamples.spring.core.importannotation.metaannotation;
 
 public class Counter {
 

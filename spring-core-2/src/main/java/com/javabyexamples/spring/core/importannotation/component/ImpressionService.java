@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.core.importconfiguration.component;
+package com.javabyexamples.spring.core.importannotation.component;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;

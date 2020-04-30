@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.core.importconfiguration.selector;
+package com.javabyexamples.spring.core.importannotation.metaannotation;
 
 public class ImpressionService {
 
@@ -8,7 +8,7 @@ public class ImpressionService {
         this.counter = counter;
     }
 
-    public void perform() {
+    public void countImpression() {
         counter.count();
     }
 }

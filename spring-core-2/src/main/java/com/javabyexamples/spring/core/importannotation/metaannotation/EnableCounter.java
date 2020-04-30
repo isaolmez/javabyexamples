@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.core.importconfiguration.enable;
+package com.javabyexamples.spring.core.importannotation.metaannotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
