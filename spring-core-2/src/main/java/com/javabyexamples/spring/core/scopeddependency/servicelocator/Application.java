@@ -15,8 +15,7 @@ public class Application {
         ConfigurableApplicationContext applicationContext =
           new AnnotationConfigApplicationContext(Application.class);
 
-        final ClientService clientService = applicationContext.getBean(
-          ClientService.class);
+        final ClientService clientService = applicationContext.getBean(ClientService.class);
         clientService.doWork();
         clientService.doWork();
         clientService.doWork();
@@ -25,9 +24,9 @@ public class Application {
     }
 
     @Bean
-    public ServiceLocatorFactoryBean counterLocator() {
+    public ServiceLocatorFactoryBean timerLocator() {
         final ServiceLocatorFactoryBean locator = new ServiceLocatorFactoryBean();
-        locator.setServiceLocatorInterface(CounterFactory.class);
+        locator.setServiceLocatorInterface(TimerFactory.class);
         return locator;
     }
 }

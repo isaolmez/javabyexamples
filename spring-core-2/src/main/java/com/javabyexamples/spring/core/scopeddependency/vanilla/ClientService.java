@@ -5,13 +5,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class ClientService {
 
-    private final Counter counter;
+    private final Timer timer;
 
-    public ClientService(Counter counter) {
-        this.counter = counter;
+    public ClientService(Timer timer) {
+        this.timer = timer;
     }
 
     public void doWork() {
-        System.out.println(counter.count());
+        timer.start();
+        System.out.println("Doing work...");
+        timer.stop();
     }
 }

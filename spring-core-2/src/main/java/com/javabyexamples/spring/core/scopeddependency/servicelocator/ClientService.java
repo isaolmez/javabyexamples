@@ -1,19 +1,19 @@
 package com.javabyexamples.spring.core.scopeddependency.servicelocator;
 
-import org.springframework.beans.factory.ObjectFactory;
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ClientService {
 
-    private final ObjectFactory<Counter> counterProvider;
+    private final TimerFactory timerFactory;
 
-    public ClientService(ObjectProvider<Counter> counterProvider) {
-        this.counterProvider = counterProvider;
+    public ClientService(TimerFactory timerFactory) {
+        this.timerFactory = timerFactory;
     }
 
     public void doWork() {
-        System.out.println(counterProvider.getObject().count());
+        final Timer timer = timerFactory.getTimer();
+        timer.start();
+        timer.stop();
     }
 }

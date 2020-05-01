@@ -7,20 +7,20 @@ import org.springframework.stereotype.Component;
 public abstract class ClientService {
 
     public void doWork() {
-        System.out.println("Processing...");
-        Counter counter = getCounter();
-        System.out.println(counter.count());
+        Timer timer = getTimer();
+        timer.start();
+        timer.stop();
     }
 
     public void doWorkWithQualifier() {
-        System.out.println("Processing with qualifier...");
-        Counter counter = getCounterWithQualifier();
-        System.out.println(counter.count());
+        Timer timer = getTimerWithQualifier();
+        timer.start();
+        timer.stop();
     }
 
     @Lookup
-    protected abstract Counter getCounter();
+    protected abstract Timer getTimer();
 
-    @Lookup(value = "counter")
-    protected abstract Counter getCounterWithQualifier();
+    @Lookup(value = "timer")
+    protected abstract Timer getTimerWithQualifier();
 }

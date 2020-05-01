@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.core.scopeddependency.beanfactory;
+package com.javabyexamples.spring.core.scopeddependency.context;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;

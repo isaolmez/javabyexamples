@@ -6,14 +6,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class ClientService {
 
-    private final ObjectProvider<Counter> counterProvider;
+    private final ObjectProvider<Timer> timerObjectProvider;
 
-    public ClientService(
-      ObjectProvider<Counter> counterProvider) {
-        this.counterProvider = counterProvider;
+    public ClientService(ObjectProvider<Timer> timerObjectProvider) {
+        this.timerObjectProvider = timerObjectProvider;
     }
 
     public void doWork() {
-        System.out.println(counterProvider.getIfAvailable().count());
+        final Timer timer = timerObjectProvider.getIfAvailable();
+        timer.start();
+        timer.stop();
     }
 }

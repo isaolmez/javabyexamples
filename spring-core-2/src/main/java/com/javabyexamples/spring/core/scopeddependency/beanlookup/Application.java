@@ -9,8 +9,7 @@ public class Application {
         ConfigurableApplicationContext applicationContext =
           new AnnotationConfigApplicationContext(ApplicationConfiguration.class);
 
-        final ClientService clientService = applicationContext.getBean(
-          ClientService.class);
+        final ClientService clientService = applicationContext.getBean(ClientService.class);
         clientService.doWork();
         clientService.doWork();
         clientService.doWork();

@@ -7,13 +7,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class ClientService {
 
-    private final ObjectFactory<Counter> counterProvider;
+    private final ObjectFactory<Timer> timerObjectFactory;
 
-    public ClientService(ObjectProvider<Counter> counterProvider) {
-        this.counterProvider = counterProvider;
+    public ClientService(ObjectProvider<Timer> timerObjectFactory) {
+        this.timerObjectFactory = timerObjectFactory;
     }
 
     public void doWork() {
-        System.out.println(counterProvider.getObject().count());
+        final Timer timer = timerObjectFactory.getObject();
+        timer.start();
+        timer.stop();
     }
 }

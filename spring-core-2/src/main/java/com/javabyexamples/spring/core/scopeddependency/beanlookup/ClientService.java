@@ -3,9 +3,10 @@ package com.javabyexamples.spring.core.scopeddependency.beanlookup;
 public abstract class ClientService {
 
     public void doWork() {
-        Counter counter = getCounter();
-        System.out.println(counter.count());
+        Timer timer = getTimer();
+        timer.start();
+        timer.stop();
     }
 
-    protected abstract Counter getCounter();
+    protected abstract Timer getTimer();
 }
