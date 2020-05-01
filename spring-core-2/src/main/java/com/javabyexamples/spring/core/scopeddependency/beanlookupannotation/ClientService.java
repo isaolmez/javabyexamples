@@ -12,8 +12,8 @@ public abstract class ClientService {
         timer.stop();
     }
 
-    public void doWorkWithQualifier() {
-        Timer timer = getTimerWithQualifier();
+    public void doWorkWithName() {
+        Timer timer = getTimerWithName();
         timer.start();
         timer.stop();
     }
@@ -22,5 +22,5 @@ public abstract class ClientService {
     protected abstract Timer getTimer();
 
     @Lookup(value = "timer")
-    protected abstract Timer getTimerWithQualifier();
+    protected abstract Timer getTimerWithName();
 }

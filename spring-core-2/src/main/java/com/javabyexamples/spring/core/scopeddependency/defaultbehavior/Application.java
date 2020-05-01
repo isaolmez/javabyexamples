@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.core.scopeddependency.vanilla;
+package com.javabyexamples.spring.core.scopeddependency.defaultbehavior;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;

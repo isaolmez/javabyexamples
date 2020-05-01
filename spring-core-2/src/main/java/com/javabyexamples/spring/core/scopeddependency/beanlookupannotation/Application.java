@@ -18,9 +18,9 @@ public class Application {
         clientService.doWork();
         clientService.doWork();
 
-        clientService.doWorkWithQualifier();
-        clientService.doWorkWithQualifier();
-        clientService.doWorkWithQualifier();
+        clientService.doWorkWithName();
+        clientService.doWorkWithName();
+        clientService.doWorkWithName();
 
         applicationContext.close();
     }

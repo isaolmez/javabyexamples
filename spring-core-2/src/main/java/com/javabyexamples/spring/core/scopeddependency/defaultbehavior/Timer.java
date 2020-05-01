@@ -1,4 +1,4 @@
-package com.javabyexamples.spring.core.scopeddependency.vanilla;
+package com.javabyexamples.spring.core.scopeddependency.defaultbehavior;
 
 import java.util.UUID;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
