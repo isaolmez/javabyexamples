@@ -7,4 +7,8 @@ import org.springframework.stereotype.Component;
 @Conditional(MissingServiceCondition.class)
 public class DummyAuditService implements AuditService {
 
+    @Override
+    public void audit() {
+        // Do nothing.
+    }
 }

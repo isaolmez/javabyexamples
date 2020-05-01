@@ -7,4 +7,8 @@ import org.springframework.stereotype.Component;
 @Conditional(AuditEnabledCondition.class)
 public class DefaultAuditService implements AuditService {
 
+    @Override
+    public void audit() {
+        // Do audit...
+    }
 }

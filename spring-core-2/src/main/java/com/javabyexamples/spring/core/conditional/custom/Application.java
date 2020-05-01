@@ -13,6 +13,9 @@ public class Application {
         ConfigurableApplicationContext applicationContext =
           new AnnotationConfigApplicationContext(Application.class);
 
+        final AuditService auditService = applicationContext.getBean(AuditService.class);
+        auditService.audit();
+
         applicationContext.close();
     }
 }
