@@ -1,0 +1,12 @@
+{
+  "id": "9c8dc74d-af5b-48ff-a443-9d3d5bfd7841",
+  "request": {
+    "url": "/bye",
+    "method": "GET"
+  },
+  "response": {
+    "status": 200,
+    "body": "Bye"
+  },
+  "uuid": "9c8dc74d-af5b-48ff-a443-9d3d5bfd7841"
+}
