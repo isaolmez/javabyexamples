@@ -1,4 +1,4 @@
-package com.isa.java.test.testng.general;
+package com.javabyexamples.java.test.testng.general;
 
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;

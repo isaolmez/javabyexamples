@@ -1,4 +1,4 @@
-package com.isa.java.test.testng;
+package com.javabyexamples.java.test.testng;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;

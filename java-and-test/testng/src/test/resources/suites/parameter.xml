@@ -2,10 +2,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="parameters">
     <test name="test">
-        <parameter name="name" value="isa"/>
+        <parameter name="name" value="javabyexamples"/>
 
         <classes>
-            <class name="com.isa.java.test.testng.general.ParametersTest"/>
+            <class name="com.javabyexamples.java.test.testng.general.ParametersTest"/>
         </classes>
     </test>
 </suite>

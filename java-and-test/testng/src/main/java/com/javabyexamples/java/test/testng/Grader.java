@@ -1,4 +1,4 @@
-package com.isa.java.test.testng;
+package com.javabyexamples.java.test.testng;
 
 public interface Grader {
 

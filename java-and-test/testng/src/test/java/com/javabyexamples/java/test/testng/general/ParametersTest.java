@@ -1,4 +1,4 @@
-package com.isa.java.test.testng.general;
+package com.javabyexamples.java.test.testng.general;
 
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;

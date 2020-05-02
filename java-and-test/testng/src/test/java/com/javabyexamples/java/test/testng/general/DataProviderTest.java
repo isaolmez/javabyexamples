@@ -1,4 +1,4 @@
-package com.isa.java.test.testng.general;
+package com.javabyexamples.java.test.testng.general;
 
 import java.util.Random;
 import org.testng.annotations.DataProvider;

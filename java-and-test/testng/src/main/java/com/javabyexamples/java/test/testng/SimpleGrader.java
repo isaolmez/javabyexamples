@@ -1,4 +1,4 @@
-package com.isa.java.test.testng;
+package com.javabyexamples.java.test.testng;
 
 import com.google.common.base.Preconditions;
 import java.util.TreeMap;

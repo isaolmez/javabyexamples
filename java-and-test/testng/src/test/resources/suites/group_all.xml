@@ -14,7 +14,7 @@
         </groups>
 
         <classes>
-            <class name="com.isa.java.test.testng.general.GroupTest"/>
+            <class name="com.javabyexamples.java.test.testng.general.GroupTest"/>
         </classes>
     </test>
 </suite>
