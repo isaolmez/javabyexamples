@@ -1,13 +1,9 @@
-package com.isa.java.test.cucumber.lesson4;
+package com.javabyexamples.java.test.cucumber.lesson4;
 
-import static com.isa.java.test.cucumber.common.Constants.Facebook.LOGIN;
-import static com.isa.java.test.cucumber.common.Constants.Facebook.PASSWORD;
-import static com.isa.java.test.cucumber.common.Constants.Facebook.RE_LOGIN;
-import static com.isa.java.test.cucumber.common.Constants.Facebook.SUBMIT;
-import static com.isa.java.test.cucumber.common.Constants.Facebook.USERNAME;
 import static org.junit.Assert.fail;
 
-import com.isa.java.test.cucumber.common.CustomExpectedConditions;
+import com.javabyexamples.java.test.cucumber.common.CustomExpectedConditions;
+import com.javabyexamples.java.test.cucumber.common.Constants.Facebook;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -34,24 +30,24 @@ public class Lesson4StepDefinitions {
 
     @Given("^I am on Facebook login page$")
     public void goToFacebook() {
-        driver.navigate().to(LOGIN);
+        driver.navigate().to(Facebook.LOGIN);
     }
 
     @When("^I enter username as \"(.*)\"$")
     public void enterUsername(String username) {
-        driver.findElement(By.id(USERNAME)).sendKeys(username);
+        driver.findElement(By.id(Facebook.USERNAME)).sendKeys(username);
     }
 
     @When("^I enter password as \"(.*)\"$")
     public void enterPassword(String password) {
-        driver.findElement(By.id(PASSWORD)).sendKeys(password);
-        driver.findElement(By.cssSelector(SUBMIT)).click();
+        driver.findElement(By.id(Facebook.PASSWORD)).sendKeys(password);
+        driver.findElement(By.cssSelector(Facebook.SUBMIT)).click();
     }
 
     @Then("^Login should fail$")
     public void checkFail() {
         CustomExpectedConditions.waitUntilSubmitIsFinished(driver);
-        if (driver.getCurrentUrl().equalsIgnoreCase(RE_LOGIN)) {
+        if (driver.getCurrentUrl().equalsIgnoreCase(Facebook.RE_LOGIN)) {
             System.out.println("Test1 Pass");
         } else {
             System.out.println("Test1 Failed");

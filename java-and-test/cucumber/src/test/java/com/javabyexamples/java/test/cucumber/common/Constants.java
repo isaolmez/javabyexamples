@@ -1,4 +1,4 @@
-package com.isa.java.test.cucumber.common;
+package com.javabyexamples.java.test.cucumber.common;
 
 public class Constants {
 

@@ -1,12 +1,7 @@
-package com.isa.java.test.cucumber.lesson3;
+package com.javabyexamples.java.test.cucumber.lesson3;
 
-import static com.isa.java.test.cucumber.common.Constants.Facebook.LOGIN;
-import static com.isa.java.test.cucumber.common.Constants.Facebook.PASSWORD;
-import static com.isa.java.test.cucumber.common.Constants.Facebook.RE_LOGIN;
-import static com.isa.java.test.cucumber.common.Constants.Facebook.SUBMIT;
-import static com.isa.java.test.cucumber.common.Constants.Facebook.USERNAME;
-
-import com.isa.java.test.cucumber.common.CustomExpectedConditions;
+import com.javabyexamples.java.test.cucumber.common.CustomExpectedConditions;
+import com.javabyexamples.java.test.cucumber.common.Constants.Facebook;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -38,14 +33,14 @@ public class Lesson3StepDefinitions {
 
     @Given("^I am on Facebook login page$")
     public void goToFacebookLogin() {
-        driver.navigate().to(LOGIN);
+        driver.navigate().to(Facebook.LOGIN);
     }
 
     @When("^I enter username as \"([^\"]*)\" and password as \"([^\"]*)\"$")
     public void enterUsernameAndPassword(String username, String password) {
-        driver.findElement(By.id(USERNAME)).sendKeys(username);
-        driver.findElement(By.id(PASSWORD)).sendKeys(password);
-        driver.findElement(By.cssSelector(SUBMIT)).click();
+        driver.findElement(By.id(Facebook.USERNAME)).sendKeys(username);
+        driver.findElement(By.id(Facebook.PASSWORD)).sendKeys(password);
+        driver.findElement(By.cssSelector(Facebook.SUBMIT)).click();
     }
 
     @Then("^Login should succeed$")
@@ -53,8 +48,8 @@ public class Lesson3StepDefinitions {
         new FluentWait<>(driver)
           .withTimeout(5, TimeUnit.SECONDS)
           .pollingEvery(100, TimeUnit.MILLISECONDS)
-          .until(ExpectedConditions.elementToBeClickable(By.cssSelector(SUBMIT)));
-        boolean attemptFailed = driver.getCurrentUrl().equalsIgnoreCase(RE_LOGIN);
+          .until(ExpectedConditions.elementToBeClickable(By.cssSelector(Facebook.SUBMIT)));
+        boolean attemptFailed = driver.getCurrentUrl().equalsIgnoreCase(Facebook.RE_LOGIN);
         System.out.println("attemptfailed:" + attemptFailed);
         if (attemptFailed) {
             Assert.fail();
@@ -64,7 +59,7 @@ public class Lesson3StepDefinitions {
     @Then("^Login should fail$")
     public void shouldFail() {
         CustomExpectedConditions.waitUntilSubmitIsFinished(driver);
-        boolean attemptFailed = driver.getCurrentUrl().equalsIgnoreCase(RE_LOGIN);
+        boolean attemptFailed = driver.getCurrentUrl().equalsIgnoreCase(Facebook.RE_LOGIN);
         System.out.println("attemptfailed:" + attemptFailed);
         if (!attemptFailed) {
             Assert.fail();

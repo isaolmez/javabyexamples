@@ -1,14 +1,14 @@
-package com.isa.java.test.cucumber.lesson1;
+package com.javabyexamples.java.test.cucumber.lesson1;
 
-import static com.isa.java.test.cucumber.common.Constants.Facebook.LOGIN;
-import static com.isa.java.test.cucumber.common.Constants.Facebook.PASSWORD;
-import static com.isa.java.test.cucumber.common.Constants.Facebook.RE_LOGIN;
-import static com.isa.java.test.cucumber.common.Constants.Facebook.SUBMIT;
-import static com.isa.java.test.cucumber.common.Constants.Facebook.USERNAME;
+import static com.javabyexamples.java.test.cucumber.common.Constants.Facebook.LOGIN;
+import static com.javabyexamples.java.test.cucumber.common.Constants.Facebook.PASSWORD;
+import static com.javabyexamples.java.test.cucumber.common.Constants.Facebook.RE_LOGIN;
+import static com.javabyexamples.java.test.cucumber.common.Constants.Facebook.SUBMIT;
+import static com.javabyexamples.java.test.cucumber.common.Constants.Facebook.USERNAME;
 import static org.junit.Assert.fail;
 
-import com.isa.java.test.cucumber.common.Constants;
-import com.isa.java.test.cucumber.common.CustomExpectedConditions;
+import com.javabyexamples.java.test.cucumber.common.Constants;
+import com.javabyexamples.java.test.cucumber.common.CustomExpectedConditions;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -27,7 +27,6 @@ public class Lesson1StepDefinitions {
 
     @Before
     public void setUp(Scenario scenario) {
-        System.setProperty("webdriver.gecko.driver", "src/test/resources/geckodriver");
         System.out.printf("%s is starting%n", scenario.getName());
         FirefoxOptions options = new FirefoxOptions().setProfile(new FirefoxProfile());
         driver = new FirefoxDriver(options);

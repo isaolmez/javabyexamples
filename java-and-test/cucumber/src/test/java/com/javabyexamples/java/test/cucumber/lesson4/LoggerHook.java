@@ -1,4 +1,4 @@
-package com.isa.java.test.cucumber.lesson4;
+package com.javabyexamples.java.test.cucumber.lesson4;
 
 import cucumber.api.Scenario;
 import cucumber.api.java.After;

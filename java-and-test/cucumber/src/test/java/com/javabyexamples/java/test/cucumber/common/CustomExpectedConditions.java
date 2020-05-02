@@ -1,6 +1,6 @@
-package com.isa.java.test.cucumber.common;
+package com.javabyexamples.java.test.cucumber.common;
 
-import static com.isa.java.test.cucumber.common.Constants.Facebook.SUBMIT;
+import static com.javabyexamples.java.test.cucumber.common.Constants.Facebook.SUBMIT;
 
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
