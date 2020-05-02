@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Suites" verbose="1" configfailurepolicy="continue">
+    <suite-files>
+        <suite-file path="resources/suites/annotation_order.xml"></suite-file>
+        <suite-file path="resources/suites/basic.xml"></suite-file>
+        <suite-file path="resources/suites/dataprovider.xml"></suite-file>
+        <suite-file path="resources/suites/depends.xml"></suite-file>
+        <suite-file path="resources/suites/group_all.xml"></suite-file>
+        <suite-file path="resources/suites/group_basketball.xml"></suite-file>
+        <suite-file path="resources/suites/group_football.xml"></suite-file>
+        <suite-file path="resources/suites/parameter.xml"></suite-file>
+    </suite-files>
+</suite>

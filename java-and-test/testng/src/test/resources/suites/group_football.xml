@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="football_group">
+    <test name="test">
+        <groups>
+            <run>
+                <include name="football"/>
+            </run>
+        </groups>
+
+        <classes>
+            <class name="com.isa.java.test.testng.general.GroupTest"/>
+        </classes>
+    </test>
+</suite>
