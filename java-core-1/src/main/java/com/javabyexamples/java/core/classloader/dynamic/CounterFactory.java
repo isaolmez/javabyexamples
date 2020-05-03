@@ -10,7 +10,7 @@ public class CounterFactory {
         URLClassLoader urlClassLoader = new URLClassLoader(new URL[]{getClassPath()}) {
             @Override
             public Class loadClass(String name) throws ClassNotFoundException {
-                if ("com.isa.java.core.classloader.dynamic.DefaultCounter".equals(name)) {
+                if ("com.javabyexamples.java.core.classloader.dynamic.DefaultCounter".equals(name)) {
                     return findClass(name);
                 }
 
