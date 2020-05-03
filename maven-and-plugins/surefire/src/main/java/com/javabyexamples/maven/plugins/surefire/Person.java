@@ -2,11 +2,11 @@ package com.javabyexamples.maven.plugins.surefire;
 
 public class Person {
 
-    public String run(){
+    public String run() {
         return "Running";
     }
 
-    public String runTenLaps(){
+    public String runTenLaps() {
         return "Running ten laps";
     }
 }
