@@ -27,8 +27,6 @@ public class MonitorRule extends TestWatcher {
      */
     @Override
     protected void skipped(AssumptionViolatedException e, Description description) {
-        // For backwards compatibility with JUnit 4.11 and earlier, call the legacy version
-        org.junit.internal.AssumptionViolatedException asInternalException = e;
         System.out.printf("%s skipped%n", description.getMethodName());
     }
 
