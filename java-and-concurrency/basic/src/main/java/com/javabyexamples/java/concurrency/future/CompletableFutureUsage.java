@@ -9,21 +9,21 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-public class CompletableFutureTest {
+public class CompletableFutureUsage {
 
     private static final LongRunningOperation LONG_RUNNING = new LongRunningOperation();
 
     public static void main(String[] args) {
-        runStaticMethods(CompletableFutureTest.class, 1000);
+        runStaticMethods(CompletableFutureUsage.class, 1000);
     }
 
-    public static void create() {
+    public void create() {
         CompletableFuture<String> completableFuture = new CompletableFuture<>();
 
         printStatus(completableFuture);
     }
 
-    public static void getWithoutComplete() {
+    public void getWithoutComplete() {
         CompletableFuture<String> completableFuture = new CompletableFuture<>();
         try {
             completableFuture.get(100, TimeUnit.MILLISECONDS);
@@ -34,7 +34,7 @@ public class CompletableFutureTest {
         printStatus(completableFuture);
     }
 
-    public static void complete() {
+    public void complete() {
         CompletableFuture<String> completableFuture = new CompletableFuture<>();
         try {
             completableFuture.complete("Test result");
@@ -47,14 +47,14 @@ public class CompletableFutureTest {
         printStatus(completableFuture);
     }
 
-    public static void completeExceptionally() {
+    public void completeExceptionally() {
         CompletableFuture<String> completableFuture = new CompletableFuture<>();
         completableFuture.completeExceptionally(new RuntimeException("Planned exception"));
 
         printStatus(completableFuture);
     }
 
-    public static void runAsync() {
+    public void runAsync() {
         CompletableFuture<Void> completableFuture = CompletableFuture.runAsync(() -> LONG_RUNNING.perform())
           .thenRunAsync(() -> LONG_RUNNING.perform());
 
@@ -62,7 +62,7 @@ public class CompletableFutureTest {
         printStatus(completableFuture);
     }
 
-    public static void supplyAsync() {
+    public void supplyAsync() {
         CompletableFuture<String> completableFuture = CompletableFuture
           .supplyAsync(() -> LONG_RUNNING.performAndReturn());
 
@@ -70,7 +70,7 @@ public class CompletableFutureTest {
         printStatus(completableFuture);
     }
 
-    public static void whenCompleteAsyncWithSuccess() {
+    public void whenCompleteAsyncWithSuccess() {
         CompletableFuture<String> completableFuture = CompletableFuture
           .supplyAsync(() -> LONG_RUNNING.performAndReturn())
           .whenCompleteAsync((result, exception) -> {
@@ -86,7 +86,7 @@ public class CompletableFutureTest {
         printStatus(completableFuture);
     }
 
-    public static void whenCompleteAsyncWithException() {
+    public void whenCompleteAsyncWithException() {
         CompletableFuture<String> completableFuture = CompletableFuture
           .supplyAsync(LONG_RUNNING::performAndThrow)
           .whenCompleteAsync((result, exception) -> {
@@ -102,7 +102,7 @@ public class CompletableFutureTest {
         printStatus(completableFuture);
     }
 
-    public static void thenAcceptAsync() {
+    public void thenAcceptAsync() {
         CompletableFuture<Void> completableFuture = CompletableFuture
           .supplyAsync(LONG_RUNNING::performAndReturn)
           .thenAcceptAsync(System.out::println);
@@ -110,7 +110,7 @@ public class CompletableFutureTest {
         printStatus(completableFuture);
     }
 
-    public static void thenComposeAsync() {
+    public void thenComposeAsync() {
         CompletableFuture<Void> completableFuture = CompletableFuture
           .supplyAsync(LONG_RUNNING::performAndReturn)
           .thenComposeAsync(result -> CompletableFuture.supplyAsync(() -> LONG_RUNNING.performAndReturn(result)))
@@ -119,7 +119,7 @@ public class CompletableFutureTest {
         printStatus(completableFuture);
     }
 
-    public static void thenCombineAsync() {
+    public void thenCombineAsync() {
         CompletableFuture<Void> completableFuture = CompletableFuture
           .supplyAsync(LONG_RUNNING::performAndReturn)
           .thenCombine(CompletableFuture.supplyAsync(LONG_RUNNING::performAndReturn), (first, second) -> first + second)
@@ -128,7 +128,7 @@ public class CompletableFutureTest {
         printStatus(completableFuture);
     }
 
-    public static void handle() {
+    public void handle() {
         CompletableFuture<Void> completableFuture = CompletableFuture
           .supplyAsync(LONG_RUNNING::performAndThrow)
           .handle((result, exception) -> {
@@ -143,7 +143,7 @@ public class CompletableFutureTest {
         printStatus(completableFuture);
     }
 
-    public static void exceptionally() {
+    public void exceptionally() {
         CompletableFuture<String> completableFuture = CompletableFuture
           .supplyAsync(LONG_RUNNING::performAndThrow)
           .exceptionally(exception -> "Unknown");
@@ -157,7 +157,7 @@ public class CompletableFutureTest {
         printStatus(completableFuture);
     }
 
-    private static void printStatus(CompletableFuture<?> completableFuture) {
+    private void printStatus(CompletableFuture<?> completableFuture) {
         System.out.printf("Is done? : %s%n", completableFuture.isDone());
         System.out.printf("Is cancelled? : %s%n", completableFuture.isCancelled());
         System.out.printf("Is completed exceptionally? : %s%n", completableFuture.isCompletedExceptionally());

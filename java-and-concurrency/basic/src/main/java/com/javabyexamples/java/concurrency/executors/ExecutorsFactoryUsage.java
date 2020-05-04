@@ -1,14 +1,14 @@
 package com.javabyexamples.java.concurrency.executors;
 
-import com.javabyexamples.java.concurrency.utils.ConcurrencyUtils;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
-public class ExecutorsFactoryClassTest {
+public class ExecutorsFactoryUsage {
 
     public static void main(String[] args) {
-        ConcurrencyUtils.runStaticMethods(ExecutorsFactoryClassTest.class, 1000);
+//        ConcurrencyUtils.runStaticMethods(ExecutorsFactoryUsage.class, 1000);
+        final ExecutorsFactoryUsage executorsFactoryUsage = new ExecutorsFactoryUsage();
     }
 
     public static void singleThreaded() {

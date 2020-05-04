@@ -9,30 +9,32 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 
-public class FutureTest {
+public class FutureUsage {
 
     private static final String RESULT = "Test result";
 
     public static void main(String[] args) {
-        ConcurrencyUtils.runStaticMethods(FutureTest.class, 1000);
+//        ConcurrencyUtils.runStaticMethods(FutureUsage.class, 1000);
+        final FutureUsage futureUsage = new FutureUsage();
     }
 
-    public static void executeCallableInNewThread() throws Exception {
+    public void executeCallableInNewThread() throws Exception {
         String result = Executors.newSingleThreadExecutor().submit(getCallable()).get();
 
         System.out.printf("Result: %s%n", result);
     }
 
-    public static void executeRunnableInNewThread() {
+    public void executeRunnableInNewThread() {
         Executors.newSingleThreadExecutor().execute(getRunnable());
     }
 
-    public static void executeRunnableInNewDedicatedThread() {
+    public void executeRunnableInNewDedicatedThread() {
         new Thread(getRunnable()).start();
     }
 
-    public static void executeFutureTaskInNewThread() throws ExecutionException, InterruptedException {
+    public void executeFutureTaskInNewThread() throws ExecutionException, InterruptedException {
         FutureTask<String> futureTask = getFutureTask();
+        futureTask.run();
         Executors.newSingleThreadExecutor().execute(futureTask);
         System.out.printf("Is Done: %s%n", futureTask.isDone());
         String result = futureTask.get();
@@ -41,7 +43,7 @@ public class FutureTest {
         System.out.printf("Result: %s%n", result);
     }
 
-    private static Runnable getRunnable() {
+    private Runnable getRunnable() {
         return new Runnable() {
             @Override
             public void run() {
@@ -52,7 +54,7 @@ public class FutureTest {
         };
     }
 
-    private static Callable<String> getCallable() {
+    private Callable<String> getCallable() {
         return new Callable<String>() {
             public String call() throws Exception {
                 printThreadName();
@@ -62,7 +64,7 @@ public class FutureTest {
         };
     }
 
-    private static FutureTask<String> getFutureTask() {
+    private FutureTask<String> getFutureTask() {
         return new FutureTask<>(getCallable());
     }
 }

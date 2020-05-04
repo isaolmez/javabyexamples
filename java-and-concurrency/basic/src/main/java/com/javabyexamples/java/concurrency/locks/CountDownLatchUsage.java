@@ -1,37 +1,38 @@
 package com.javabyexamples.java.concurrency.locks;
 
-import com.javabyexamples.java.concurrency.utils.ConcurrencyUtils;
+import static com.javabyexamples.java.concurrency.utils.ConcurrencyUtils.sleep;
+
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 /**
  * A synchronization aid that allows one or more threads to wait until a set of operations being performed in other
  * threads completes.
  */
-public class CountDownLatchTest {
+public class CountDownLatchUsage {
 
-    public static void main(String[] args) {
-        ConcurrencyUtils.runStaticMethods(CountDownLatchTest.class, 1000);
+    public static void main(String[] args) throws InterruptedException {
+        final CountDownLatchUsage usage = new CountDownLatchUsage();
+        usage.countDownLatch();
     }
 
-    public static void countDownLatch() throws InterruptedException {
-        final int executionCount = 5;
+    public void countDownLatch() throws InterruptedException {
+        final int executionCount = 3;
         final CountDownLatch startSignal = new CountDownLatch(1);
         final CountDownLatch doneSignal = new CountDownLatch(executionCount);
-        final ExecutorService threadPool = Executors.newFixedThreadPool(5);
+        final ExecutorService threadPool = Executors.newFixedThreadPool(executionCount);
 
         for (int i = 0; i < executionCount; ++i) {
             threadPool.execute(new Worker(startSignal, doneSignal));
         }
 
-        startSignal.countDown();      // Let all threads proceed
-        doneSignal.await();           // Wait for all to finish
-        System.out.println("All done");
+        sleep(100);
+        startSignal.countDown();      // Let all workers proceed
+        doneSignal.await();           // Wait for all workers to finish
+        System.out.println("All done.");
+
         threadPool.shutdown();
-        threadPool.awaitTermination(10, TimeUnit.SECONDS);
-//        ConcurrencyUtils.shutdownAndAwaitTermination(threadPool);
     }
 
     static class Worker implements Runnable {
@@ -46,9 +47,11 @@ public class CountDownLatchTest {
 
         public void run() {
             try {
+                System.out.println("Ready to start.");
                 startSignal.await();
+
                 doWork();
-                System.out.println("Done");
+
                 doneSignal.countDown();
             } catch (InterruptedException ex) {
                 System.out.println("Error");
@@ -56,7 +59,7 @@ public class CountDownLatchTest {
         }
 
         void doWork() {
-            System.out.println("Doing work");
+            System.out.println("Doing work.");
         }
     }
 }

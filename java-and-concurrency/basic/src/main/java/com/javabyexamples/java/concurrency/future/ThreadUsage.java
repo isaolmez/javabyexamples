@@ -2,13 +2,14 @@ package com.javabyexamples.java.concurrency.future;
 
 import com.javabyexamples.java.concurrency.utils.ConcurrencyUtils;
 
-public class ThreadTest {
+public class ThreadUsage {
 
     public static void main(String[] args) {
-        ConcurrencyUtils.runStaticMethods(ThreadTest.class, 1000);
+//        ConcurrencyUtils.runStaticMethods(ThreadUsage.class, 1000);
+        final ThreadUsage threadUsage = new ThreadUsage();
     }
 
-    public static void join() throws InterruptedException {
+    public void join() throws InterruptedException {
         Thread thread = new Thread(() -> ConcurrencyUtils.sleep(3000));
         thread.start();
         System.out.println("Thread started");
@@ -16,13 +17,13 @@ public class ThreadTest {
         System.out.println("Joined with spawned thread");
     }
 
-    public static void sleepZero() {
+    public void sleepZero() {
         System.out.printf("Sleeping at: %s for %s %n", System.currentTimeMillis(), 0);
         ConcurrencyUtils.sleep(0);
         System.out.printf("Woke up at: %s%n", System.currentTimeMillis());
     }
 
-    public static void sleep() {
+    public void sleep() {
         System.out.printf("Sleeping at: %s for %s %n", System.currentTimeMillis(), 1);
         ConcurrencyUtils.sleep(1);
         System.out.printf("Woke up at: %s%n", System.currentTimeMillis());

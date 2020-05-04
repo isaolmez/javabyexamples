@@ -5,13 +5,14 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-public class ExecutorShutdownTest {
+public class ExecutorShutdownDetails {
 
     public static void main(String[] args) {
-        ConcurrencyUtils.runStaticMethods(ExecutorShutdownTest.class, 2000);
+//        ConcurrencyUtils.runStaticMethods(ExecutorShutdownDetails.class, 2000);
+        final ExecutorShutdownDetails executorShutdownDetails = new ExecutorShutdownDetails();
     }
 
-    public static void shutdownTheSleeper() {
+    public void shutdownTheSleeper() {
         ThreadPoolExecutor threadPool = new ThreadPoolExecutor(5, 5, 60, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
         threadPool.execute(() -> ConcurrencyUtils.sleep(10000));
 
@@ -20,7 +21,7 @@ public class ExecutorShutdownTest {
         printStatus(threadPool);
     }
 
-    public static void shutdownNowTheSleeper() {
+    public void shutdownNowTheSleeper() {
         ThreadPoolExecutor threadPool = new ThreadPoolExecutor(5, 5, 60, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
         threadPool.execute(() -> ConcurrencyUtils.sleep(10000));
 
@@ -29,7 +30,7 @@ public class ExecutorShutdownTest {
         printStatus(threadPool);
     }
 
-    public static void shutdownNowTheLooper() {
+    public void shutdownNowTheLooper() {
         ThreadPoolExecutor threadPool = new ThreadPoolExecutor(5, 5, 60, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
         threadPool.execute(() -> {
             while (true) {
@@ -42,7 +43,7 @@ public class ExecutorShutdownTest {
         printStatus(threadPool);
     }
 
-    public static void shutdownNowTheLooperRespectingInterrupt() {
+    public void shutdownNowTheLooperRespectingInterrupt() {
         ThreadPoolExecutor threadPool = new ThreadPoolExecutor(5, 5, 60, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
         threadPool.execute(() -> {
             while (true) {
@@ -57,7 +58,7 @@ public class ExecutorShutdownTest {
         printStatus(threadPool);
     }
 
-    public static void shutdownTheSleeperAndAwaitTermination() throws InterruptedException {
+    public void shutdownTheSleeperAndAwaitTermination() throws InterruptedException {
         ThreadPoolExecutor threadPool = new ThreadPoolExecutor(5, 5, 60, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
         threadPool.execute(() -> ConcurrencyUtils.sleep(10000));
 
@@ -67,7 +68,7 @@ public class ExecutorShutdownTest {
         printStatus(threadPool);
     }
 
-    public static void shutdownNowTheSleeperAndAwaitTermination() throws InterruptedException {
+    public void shutdownNowTheSleeperAndAwaitTermination() throws InterruptedException {
         ThreadPoolExecutor threadPool = new ThreadPoolExecutor(5, 5, 60, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
         threadPool.execute(() -> ConcurrencyUtils.sleep(10000));
 
@@ -77,7 +78,7 @@ public class ExecutorShutdownTest {
         printStatus(threadPool);
     }
 
-    public static void shutdownNowTheLooperAndAwaitTermination() throws InterruptedException {
+    public void shutdownNowTheLooperAndAwaitTermination() throws InterruptedException {
         ThreadPoolExecutor threadPool = new ThreadPoolExecutor(5, 5, 60, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
         threadPool.execute(() -> {
             while (true) {

@@ -2,23 +2,23 @@ package com.javabyexamples.java.concurrency.locks;
 
 import static com.javabyexamples.java.concurrency.utils.ConcurrencyUtils.sleep;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-public class ReadWriteLockTest {
+public class ReadWriteLockUsage {
 
-    public static void main(String[] args) throws InterruptedException {
-        readWriteLock();
+    public static void main(String[] args) {
+        final ReadWriteLockUsage readWriteLockUsage = new ReadWriteLockUsage();
+        readWriteLockUsage.readWriteLock();
     }
 
-    public static void readWriteLock() throws InterruptedException {
-        final RWDictionary dictionary = new RWDictionary();
+    public void readWriteLock() {
+        final ThreadSafeDictionary dictionary = new ThreadSafeDictionary();
         final AtomicInteger index = new AtomicInteger();
         final ExecutorService threadPool = Executors.newFixedThreadPool(10);
         class Putter implements Runnable {
@@ -43,16 +43,13 @@ public class ReadWriteLockTest {
         threadPool.execute(new Putter());
         threadPool.execute(new Getter());
         threadPool.execute(new Getter());
+
         threadPool.shutdown();
-        threadPool.awaitTermination(10, TimeUnit.SECONDS);
     }
 
-    /**
-     * Taken from javadoc of ReentrantReadWriteLock
-     */
-    private static class RWDictionary {
+    private static class ThreadSafeDictionary {
 
-        private final Map<String, Object> map = new TreeMap<>();
+        private final Map<String, Object> map = new HashMap<>();
         private final ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock();
         private final Lock readLock = readWriteLock.readLock();
         private final Lock writeLock = readWriteLock.writeLock();
@@ -68,15 +65,6 @@ public class ReadWriteLockTest {
             }
         }
 
-        public String[] allKeys() {
-            readLock.lock();
-            try {
-                return map.keySet().toArray(new String[0]);
-            } finally {
-                readLock.unlock();
-            }
-        }
-
         public Object put(String key, Object value) {
             System.out.println("Attempting to acquire write lock");
             writeLock.lock();
@@ -84,15 +72,6 @@ public class ReadWriteLockTest {
             try {
                 sleep(100);
                 return map.put(key, value);
-            } finally {
-                writeLock.unlock();
-            }
-        }
-
-        public void clear() {
-            writeLock.lock();
-            try {
-                map.clear();
             } finally {
                 writeLock.unlock();
             }

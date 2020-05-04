@@ -7,13 +7,14 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class LockConditionTest {
+public class LockConditionUsage {
 
     public static void main(String[] args) throws InterruptedException {
-        newCondition();
+        final LockConditionUsage lockConditionUsage = new LockConditionUsage();
+        lockConditionUsage.newCondition();
     }
 
-    public static void newCondition() throws InterruptedException {
+    public void newCondition() throws InterruptedException {
         final BlockingQueue blockingQueue = new BlockingQueue(2);
         ExecutorService threadPool = Executors.newFixedThreadPool(10);
         class Putter implements Runnable {
