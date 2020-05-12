@@ -14,7 +14,6 @@ public class FutureUsage {
     private static final String RESULT = "Test result";
 
     public static void main(String[] args) {
-//        ConcurrencyUtils.runStaticMethods(FutureUsage.class, 1000);
         final FutureUsage futureUsage = new FutureUsage();
     }
 

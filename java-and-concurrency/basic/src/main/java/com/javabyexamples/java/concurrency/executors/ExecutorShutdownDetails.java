@@ -7,17 +7,25 @@ import java.util.concurrent.TimeUnit;
 
 public class ExecutorShutdownDetails {
 
-    public static void main(String[] args) {
-//        ConcurrencyUtils.runStaticMethods(ExecutorShutdownDetails.class, 2000);
+    public static void main(String[] args) throws InterruptedException {
         final ExecutorShutdownDetails executorShutdownDetails = new ExecutorShutdownDetails();
+        executorShutdownDetails.shutdownTheSleeper();
     }
 
-    public void shutdownTheSleeper() {
+    public void shutdownTheSleeper() throws InterruptedException {
         ThreadPoolExecutor threadPool = new ThreadPoolExecutor(5, 5, 60, TimeUnit.SECONDS, new LinkedBlockingQueue<>());
-        threadPool.execute(() -> ConcurrencyUtils.sleep(10000));
 
-        System.out.println("Shutting down");
+        threadPool.execute(() -> {
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                System.out.println("Interrupted.");
+            }
+        });
+
         threadPool.shutdown();
+        threadPool.awaitTermination(1, TimeUnit.SECONDS);
+
         printStatus(threadPool);
     }
 

@@ -7,7 +7,6 @@ import java.util.concurrent.ScheduledExecutorService;
 public class ExecutorsFactoryUsage {
 
     public static void main(String[] args) {
-//        ConcurrencyUtils.runStaticMethods(ExecutorsFactoryUsage.class, 1000);
         final ExecutorsFactoryUsage executorsFactoryUsage = new ExecutorsFactoryUsage();
     }
 

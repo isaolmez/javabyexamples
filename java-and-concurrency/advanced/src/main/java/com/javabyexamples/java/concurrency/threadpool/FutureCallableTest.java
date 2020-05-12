@@ -1,4 +1,4 @@
-package com.javabyexamples.java.concurrency.taskexecution;
+package com.javabyexamples.java.concurrency.threadpool;
 
 import com.javabyexamples.java.concurrency.common.ExecutorUtils;
 import java.util.concurrent.Callable;

@@ -80,33 +80,21 @@ public class ConcurrencyUtils {
         }
     }
 
-    public static Runnable getPrintingRunnable(final int order) {
+    public static Runnable getPrintingRunnable(final int id) {
         return () -> {
-            System.out.printf("Runnable: %s, in thread: %s%n", order, Thread.currentThread().getName());
+            System.out.printf("Task: %s, in thread: %s%n", id, Thread.currentThread().getName());
         };
     }
 
     public static Runnable getRunnable(final int id) {
-        return getRunnable(id, 100);
-    }
-
-    public static Runnable getRunnable(final int id, final int sleepPeriod) {
         return () -> {
-            printThreadName();
-            sleep(sleepPeriod);
-            System.out.printf("Runnable: %s, in thread: %s%n", id, Thread.currentThread().getName());
+            System.out.printf("Task: %s, in thread: %s%n", id, Thread.currentThread().getName());
         };
     }
 
     public static Callable<String> getCallable(final int order) {
-        return getCallable(order, 100);
-    }
-
-    public static Callable<String> getCallable(final int order, final long sleepPeriod) {
         return () -> {
-            printThreadName();
-            sleep(sleepPeriod);
-            return String.format("Callable result: %s, in thread: %s", order, Thread.currentThread().getName());
+            return String.format("Task: %s, in thread: %s", order, Thread.currentThread().getName());
         };
     }
 }

@@ -1,4 +1,4 @@
-package com.javabyexamples.java.concurrency.taskexecution;
+package com.javabyexamples.java.concurrency.threadpool;
 
 import java.util.concurrent.FutureTask;
 

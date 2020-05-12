@@ -15,6 +15,7 @@ public class Main {
     public void run(List<Integer> list, int capacity) {
         final int threadCount = 100;
         final BoundedListWithBlockingQueue<Integer> boundedList = new BoundedListWithBlockingQueue<>(list, capacity);
+
         final ExecutorService executorService = Executors.newFixedThreadPool(threadCount);
         for (int i = 0; i < threadCount; i++) {
             final int current = i;
@@ -24,7 +25,8 @@ public class Main {
 
                     System.out.println("Added: " + current);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    Thread.currentThread().interrupt();
+                    System.out.println("Interrupted.");
                 }
             });
         }
@@ -46,7 +48,8 @@ public class Main {
         try {
             TimeUnit.SECONDS.sleep(seconds);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
+            System.out.println("Interrupted.");
         }
     }
 }

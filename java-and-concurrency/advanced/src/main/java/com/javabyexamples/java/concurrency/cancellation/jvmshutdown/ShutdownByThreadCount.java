@@ -1,15 +1,15 @@
-package com.javabyexamples.java.concurrency.taskexecution;
+package com.javabyexamples.java.concurrency.cancellation.jvmshutdown;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class JvmTerminationTest {
+public class ShutdownByThreadCount {
 
     public static void main(String[] args) {
-//        new JvmTerminationTest().runWithPool();
-//        new JvmTerminationTest().runWithSingleThreadedPool();
-//        new JvmTerminationTest().runWithThread();
-        new JvmTerminationTest().runWithDaemonThread();
+        new ShutdownByThreadCount().runWithPool();
+//        new ThreadCount().runWithSingleThreadedPool();
+//        new ThreadCount().runWithThread();
+//        new ThreadCount().runWithDaemonThread();
     }
 
     public void runWithPool() {
@@ -38,19 +38,5 @@ public class JvmTerminationTest {
         daemonThread.start();
 
         System.out.println("Exiting main thread!");
-    }
-
-    private static class InfiniteRunner implements Runnable {
-
-        @Override
-        public void run() {
-            while (true) {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 }

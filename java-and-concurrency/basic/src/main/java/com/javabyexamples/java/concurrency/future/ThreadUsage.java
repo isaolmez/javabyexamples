@@ -5,7 +5,6 @@ import com.javabyexamples.java.concurrency.utils.ConcurrencyUtils;
 public class ThreadUsage {
 
     public static void main(String[] args) {
-//        ConcurrencyUtils.runStaticMethods(ThreadUsage.class, 1000);
         final ThreadUsage threadUsage = new ThreadUsage();
     }
 
