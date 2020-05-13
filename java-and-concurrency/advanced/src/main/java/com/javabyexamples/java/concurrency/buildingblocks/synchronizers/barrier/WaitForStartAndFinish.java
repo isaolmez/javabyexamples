@@ -6,11 +6,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class CyclicBarrierUsage {
+public class WaitForStartAndFinish {
 
     public static void main(String[] args) throws InterruptedException {
-        final CyclicBarrierUsage cyclicBarrierUsage = new CyclicBarrierUsage();
-        cyclicBarrierUsage.startAndDoneBarriers();
+        final WaitForStartAndFinish waitForStartAndFinish = new WaitForStartAndFinish();
+        waitForStartAndFinish.startAndDoneBarriers();
     }
 
     public void startAndDoneBarriers() throws InterruptedException {
