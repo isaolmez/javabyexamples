@@ -8,10 +8,10 @@ import java.util.concurrent.Executors;
  * A synchronization aid that allows one or more threads to wait until a set of operations being performed in other
  * threads completes.
  */
-public class CountDownLatchUsage {
+public class WaitForStartAndFinish {
 
     public static void main(String[] args) throws InterruptedException {
-        final CountDownLatchUsage usage = new CountDownLatchUsage();
+        final WaitForStartAndFinish usage = new WaitForStartAndFinish();
         usage.countDownLatch();
     }
 

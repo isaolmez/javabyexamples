@@ -2,15 +2,15 @@ package com.javabyexamples.java.concurrency.buildingblocks.synchronizers.latch;
 
 import java.util.concurrent.CountDownLatch;
 
-public class LatchDetails {
+public class CountDownLatchDetails {
 
     public static void main(String[] args) {
-        final LatchDetails latchDetails = new LatchDetails();
-        latchDetails.countDownMultipleTimesOnTheSameThread();
+        final CountDownLatchDetails countDownLatchDetails = new CountDownLatchDetails();
+        countDownLatchDetails.countDownMultipleTimesOnTheSameThread();
     }
 
     public void countDownMultipleTimesOnTheSameThread() {
-        final CountDownLatch latch = new CountDownLatch(10);
+        final CountDownLatch latch = new CountDownLatch(3);
 
         latch.countDown();
         System.out.println("Latch count: " + latch.getCount());
