@@ -1,9 +1,12 @@
 package com.javabyexamples.java.concurrency.threadpool.create;
 
 import com.javabyexamples.java.concurrency.common.ExecutorUtils;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.RejectedExecutionHandler;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.ThreadPoolExecutor.AbortPolicy;
@@ -19,21 +22,33 @@ public class ConfigureThreadPoolExecutor {
     public static void main(String[] args) {
         final ConfigureThreadPoolExecutor configure = new ConfigureThreadPoolExecutor();
 //        configure.configureThreadPool();
-//        configure.configurePreConfiguredThreadPool();
+//        configure.configureFactoryReturnedThreadPool();
+        configure.configureScheduledThreadPool();
 
 //        configure.executeOne();
 //        configure.executeEqualToCoreSize();
 //        configure.executeGreaterThanCoreSize();
 //        configure.executeGreaterThanQueueSize();
-
-        configure.preStartCoreThreads();
-
+//
+//        configure.preStartCoreThreads();
+//
 //        configure.rejectTask();
     }
 
     public void configureThreadPool() {
-        final ThreadPoolExecutor threadPool = new ThreadPoolExecutor(10, 10, 0, TimeUnit.SECONDS,
-          new LinkedBlockingQueue<>(), Executors.defaultThreadFactory(), new AbortPolicy());
+        final int corePoolSize = 10;
+        final int maximumPoolSize = 10;
+        final int keepAliveTime = 0;
+        final BlockingQueue<Runnable> taskQueue = new LinkedBlockingQueue<>();
+        final ThreadFactory threadFactory = Executors.defaultThreadFactory();
+        final RejectedExecutionHandler handler = new AbortPolicy();
+        final ThreadPoolExecutor threadPool = new ThreadPoolExecutor(corePoolSize,
+          maximumPoolSize,
+          keepAliveTime, TimeUnit.SECONDS,
+          taskQueue,
+          threadFactory,
+          handler);
+
         threadPool.setMaximumPoolSize(12);
         threadPool.setCorePoolSize(11);
         threadPool.setKeepAliveTime(1, TimeUnit.SECONDS);
@@ -44,9 +59,33 @@ public class ConfigureThreadPoolExecutor {
                 return new Thread(r);
             }
         });
+
+        threadPool.shutdown();
     }
 
-    public void configurePreConfiguredThreadPool() {
+    public void configureScheduledThreadPool() {
+        final int corePoolSize = 10;
+        final ThreadFactory threadFactory = Executors.defaultThreadFactory();
+        final RejectedExecutionHandler handler = new AbortPolicy();
+        final ScheduledThreadPoolExecutor threadPool = new ScheduledThreadPoolExecutor(corePoolSize,
+          threadFactory,
+          handler);
+
+        threadPool.setMaximumPoolSize(100);
+        threadPool.setCorePoolSize(20);
+        threadPool.setKeepAliveTime(1, TimeUnit.SECONDS);
+        threadPool.setRejectedExecutionHandler(new CallerRunsPolicy());
+        threadPool.setThreadFactory(new ThreadFactory() {
+            @Override
+            public Thread newThread(Runnable r) {
+                return new Thread(r);
+            }
+        });
+
+        threadPool.shutdown();
+    }
+
+    public void configureFactoryReturnedThreadPool() {
         final ExecutorService executorService = Executors.newFixedThreadPool(10);
         if (executorService instanceof ThreadPoolExecutor) {
             final ThreadPoolExecutor threadPool = (ThreadPoolExecutor) executorService;
@@ -64,9 +103,10 @@ public class ConfigureThreadPoolExecutor {
     }
 
     public void unconfigurableThreadPool() {
-        final ThreadPoolExecutor threadPool = new ThreadPoolExecutor(10, 10, 0, TimeUnit.SECONDS,
-          new LinkedBlockingQueue<>());
+        final ExecutorService threadPool = Executors.newFixedThreadPool(5);
         final ExecutorService unconfigurableThreadPool = Executors.unconfigurableExecutorService(threadPool);
+
+        unconfigurableThreadPool.shutdown();
     }
 
     public void executeOne() {
@@ -151,6 +191,7 @@ public class ConfigureThreadPoolExecutor {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
                 System.out.println("Interrupted.");
             }
 
