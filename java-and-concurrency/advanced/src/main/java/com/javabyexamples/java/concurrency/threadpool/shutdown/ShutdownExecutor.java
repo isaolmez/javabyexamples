@@ -1,8 +1,10 @@
 package com.javabyexamples.java.concurrency.threadpool.shutdown;
 
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -11,41 +13,59 @@ public class ShutdownExecutor {
     public static void main(String[] args) throws InterruptedException {
         final ShutdownExecutor shutdownExecutor = new ShutdownExecutor();
 
-//        shutdownExecutor.shutdownTheSleeperWithoutAwait();
+//        shutdownExecutor.shutdown();
+//        shutdownExecutor.shutdownTheBlocker();
+//        shutdownExecutor.shutdownTheLooper();
+        shutdownExecutor.shutdownTheLooperRespectingInterrupt();
 
-//        shutdownExecutor.shutdownTheSleeper();
-//        shutdownExecutor.shutdownNowTheSleeper();
-
+//        shutdownExecutor.shutdownNow();
+//        shutdownExecutor.shutdownNowTheBlocker();
 //        shutdownExecutor.shutdownNowTheLooper();
 //        shutdownExecutor.shutdownNowTheLooperRespectingInterrupt();
-
-        shutdownExecutor.shutdownNowWhenThereAreTasksInQueue();
+//
+//        shutdownExecutor.shutdownAndAwaitTermination();
     }
 
-    public void shutdownTheSleeperWithoutAwait() throws InterruptedException {
+    //** shutdown
+
+    public void shutdown() throws InterruptedException {
         final ExecutorService threadPool = Executors.newFixedThreadPool(5);
 
-        threadPool.execute(() -> {
-            try {
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException e) {
-                System.out.println("Interrupted.");
-            }
-        });
+        for (int i = 0; i < 100; i++) {
+            threadPool.execute(() -> {
+                if (threadPool.isShutdown()) {
+                    System.out.println("Pool is terminating.");
+                }
+
+                System.out.println("Doing work.");
+            });
+        }
 
         threadPool.shutdown();
+        threadPool.awaitTermination(2, TimeUnit.SECONDS);
 
         printStatus(threadPool);
     }
 
-    public void shutdownTheSleeper() throws InterruptedException {
+    public void shutdownTheBlocker() throws InterruptedException {
         final ExecutorService threadPool = Executors.newFixedThreadPool(5);
+        final BlockingQueue<String> values = new LinkedBlockingQueue<>();
 
+        threadPool.submit(() -> {
+            return values.take();
+        });
+
+        threadPool.shutdown();
+        threadPool.awaitTermination(2, TimeUnit.SECONDS);
+
+        printStatus(threadPool);
+    }
+
+    public void shutdownTheLooper() throws InterruptedException {
+        final ExecutorService threadPool = Executors.newFixedThreadPool(5);
         threadPool.execute(() -> {
-            try {
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException e) {
-                System.out.println("Interrupted.");
+            while (true) {
+                doWork();
             }
         });
 
@@ -55,14 +75,48 @@ public class ShutdownExecutor {
         printStatus(threadPool);
     }
 
-    public void shutdownNowTheSleeper() throws InterruptedException {
+    public void shutdownTheLooperRespectingInterrupt() throws InterruptedException {
         final ExecutorService threadPool = Executors.newFixedThreadPool(5);
-        threadPool.submit(() -> {
-            try {
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException e) {
-                System.out.println("Interrupted.");
+        threadPool.execute(() -> {
+            while (!Thread.currentThread().isInterrupted()) {
+                doWork();
             }
+        });
+
+        threadPool.shutdown();
+        threadPool.awaitTermination(2, TimeUnit.SECONDS);
+
+        printStatus(threadPool);
+    }
+
+    //** shutdownNow
+
+    public void shutdownNow() throws InterruptedException {
+        final ExecutorService threadPool = Executors.newFixedThreadPool(5);
+
+        for (int i = 0; i < 100; i++) {
+            threadPool.execute(() -> {
+                if (threadPool.isShutdown()) {
+                    System.out.println("Pool is terminating.");
+                }
+
+                System.out.println("Doing work.");
+            });
+        }
+
+        final List<Runnable> awaitingTasks = threadPool.shutdownNow();
+        System.out.println("Tasks that didn't start: " + awaitingTasks.size());
+        threadPool.awaitTermination(2, TimeUnit.SECONDS);
+
+        printStatus(threadPool);
+    }
+
+    public void shutdownNowTheBlocker() throws InterruptedException {
+        final ExecutorService threadPool = Executors.newFixedThreadPool(5);
+        final BlockingQueue<String> values = new LinkedBlockingQueue<>();
+
+        threadPool.submit(() -> {
+            return values.take();
         });
 
         threadPool.shutdownNow();
@@ -75,7 +129,7 @@ public class ShutdownExecutor {
         final ExecutorService threadPool = Executors.newFixedThreadPool(5);
         threadPool.execute(() -> {
             while (true) {
-                doSomething();
+                doWork();
             }
         });
 
@@ -88,10 +142,8 @@ public class ShutdownExecutor {
     public void shutdownNowTheLooperRespectingInterrupt() throws InterruptedException {
         final ExecutorService threadPool = Executors.newFixedThreadPool(5);
         threadPool.execute(() -> {
-            while (true) {
-                if (Thread.interrupted()) {
-                    break;
-                }
+            while (!Thread.currentThread().isInterrupted()) {
+                doWork();
             }
         });
 
@@ -101,28 +153,20 @@ public class ShutdownExecutor {
         printStatus(threadPool);
     }
 
-    public void shutdownNowWhenThereAreTasksInQueue() throws InterruptedException {
+    private void doWork() {
+    }
+
+    public void shutdownAndAwaitTermination() throws InterruptedException {
         final ExecutorService threadPool = Executors.newFixedThreadPool(1);
 
-        for (int i = 0; i < 100; i++) {
-            threadPool.execute(() -> doSomething());
-        }
-
-        final List<Runnable> notStartedTasks = threadPool.shutdownNow();
-        System.out.println("The count of not started tasks: " + notStartedTasks.size());
-        threadPool.awaitTermination(1, TimeUnit.SECONDS);
-
-        printStatus(threadPool);
-    }
-
-    private void doSomething() {
-    }
-
-    private void doSomethingInterruptibly() {
-        try {
-            TimeUnit.SECONDS.sleep(10);
-        } catch (InterruptedException e) {
-            System.out.println("Interrupted.");
+        threadPool.shutdown(); // Disable new tasks from being submitted
+        // Wait a while for existing tasks to terminate
+        if (!threadPool.awaitTermination(5, TimeUnit.SECONDS)) {
+            threadPool.shutdownNow(); // Cancel currently executing tasks
+            // Wait a while for tasks to respond to being cancelled
+            if (!threadPool.awaitTermination(5, TimeUnit.SECONDS)) {
+                System.out.println("Pool did not terminate");
+            }
         }
     }
 

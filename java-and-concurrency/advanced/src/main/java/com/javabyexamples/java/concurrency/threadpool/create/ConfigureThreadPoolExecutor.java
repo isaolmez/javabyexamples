@@ -21,10 +21,10 @@ public class ConfigureThreadPoolExecutor {
 
     public static void main(String[] args) {
         final ConfigureThreadPoolExecutor configure = new ConfigureThreadPoolExecutor();
-//        configure.configureThreadPool();
+        configure.configureThreadPool();
 //        configure.configureFactoryReturnedThreadPool();
-        configure.configureScheduledThreadPool();
-
+//        configure.configureScheduledThreadPool();
+//
 //        configure.executeOne();
 //        configure.executeEqualToCoreSize();
 //        configure.executeGreaterThanCoreSize();
