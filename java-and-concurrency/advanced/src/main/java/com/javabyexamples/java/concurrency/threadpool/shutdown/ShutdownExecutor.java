@@ -16,14 +16,14 @@ public class ShutdownExecutor {
 //        shutdownExecutor.shutdown();
 //        shutdownExecutor.shutdownTheBlocker();
 //        shutdownExecutor.shutdownTheLooper();
-        shutdownExecutor.shutdownTheLooperRespectingInterrupt();
+//        shutdownExecutor.shutdownTheLooperRespectingInterrupt();
 
 //        shutdownExecutor.shutdownNow();
 //        shutdownExecutor.shutdownNowTheBlocker();
 //        shutdownExecutor.shutdownNowTheLooper();
 //        shutdownExecutor.shutdownNowTheLooperRespectingInterrupt();
 //
-//        shutdownExecutor.shutdownAndAwaitTermination();
+        shutdownExecutor.shutdownAndAwaitTermination(5);
     }
 
     //** shutdown
@@ -156,15 +156,15 @@ public class ShutdownExecutor {
     private void doWork() {
     }
 
-    public void shutdownAndAwaitTermination() throws InterruptedException {
+    public void shutdownAndAwaitTermination(int timeout) throws InterruptedException {
         final ExecutorService threadPool = Executors.newFixedThreadPool(1);
 
         threadPool.shutdown(); // Disable new tasks from being submitted
         // Wait a while for existing tasks to terminate
-        if (!threadPool.awaitTermination(5, TimeUnit.SECONDS)) {
+        if (!threadPool.awaitTermination(timeout, TimeUnit.SECONDS)) {
             threadPool.shutdownNow(); // Cancel currently executing tasks
             // Wait a while for tasks to respond to being cancelled
-            if (!threadPool.awaitTermination(5, TimeUnit.SECONDS)) {
+            if (!threadPool.awaitTermination(timeout, TimeUnit.SECONDS)) {
                 System.out.println("Pool did not terminate");
             }
         }
