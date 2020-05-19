@@ -23,7 +23,7 @@ public class SubmitTasks {
         final SubmitTasks submitTasks = new SubmitTasks();
 
 //        submitTasks.submitRunnable();
-//        submitTasks.submitCallable();
+        submitTasks.submitCallable();
 //
 //        submitTasks.execute();
 
