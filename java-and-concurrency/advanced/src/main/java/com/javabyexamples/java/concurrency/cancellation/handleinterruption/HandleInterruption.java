@@ -8,34 +8,63 @@ import java.util.concurrent.TimeUnit;
 
 public class HandleInterruption {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         final HandleInterruption handleInterruption = new HandleInterruption();
+//        handleInterruption.interruptThread();
+//        handleInterruption.tryToInterruptWhenThreadTerminated();
+
 //        handleInterruption.checkInterruption();
-        handleInterruption.checkInterruptionFromAnother();
+        handleInterruption.checkInterruptionByClearing();
+//        handleInterruption.checkInterruptionFromAnother();
 
 //        handleInterruption.handleAndThrowException();
 //        handleInterruption.handleAndSetStatus();
+//        handleInterruption.handleExceptionAndSetStatus();
 
     }
 
-    public void checkInterruption() throws InterruptedException {
-        final ExecutorService executorService = Executors.newSingleThreadExecutor();
+    public void interruptThread() {
+        final Runnable task = () -> {
+            int i = 0;
+            while (true) {
+                i++;
+            }
+        };
+        final Thread thread = new Thread(task);
+        thread.start();
 
-        executorService.execute(() -> {
+        System.out.println("Is thread interrupted: " + thread.isInterrupted());
+        thread.interrupt();
+        System.out.println("Is thread interrupted: " + thread.isInterrupted());
+    }
+
+    public void tryToInterruptWhenThreadTerminated() throws InterruptedException {
+        final Runnable task = () -> {
+            System.out.println("Done.");
+        };
+        final Thread thread = new Thread(task);
+        thread.start();
+
+        TimeUnit.SECONDS.sleep(1);
+
+        thread.interrupt();
+        System.out.println("Is thread interrupted: " + thread.isInterrupted());
+    }
+
+    public void checkInterruption() {
+        new Thread(() -> {
             Thread.currentThread().interrupt();
             System.out.println("Is thread interrupted: " + Thread.currentThread().isInterrupted());
             System.out.println("Is thread interrupted: " + Thread.currentThread().isInterrupted());
-        });
+        }).start();
+    }
 
-        executorService.execute(() -> {
+    public void checkInterruptionByClearing() {
+        new Thread(() -> {
             Thread.currentThread().interrupt();
-            System.out.println("Is thread interrupted: " + Thread.currentThread().isInterrupted());
-            System.out.println("Is thread interrupted: " + Thread.currentThread().isInterrupted());
-        });
-
-        TimeUnit.SECONDS.sleep(1); // Wait for some time
-
-        executorService.shutdown();
+            System.out.println("Is thread interrupted: " + Thread.interrupted());
+            System.out.println("Is thread interrupted: " + Thread.interrupted());
+        }).start();
     }
 
     public void checkInterruptionFromAnother() {
@@ -43,6 +72,7 @@ public class HandleInterruption {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
                 System.out.println("Interrupted.");
             }
         });
@@ -82,12 +112,37 @@ public class HandleInterruption {
         final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
         final Callable<String> task = () -> {
+            while (true) {
+                if (Thread.interrupted()) {
+                    System.out.println("Interrupted, cleaning up and then throwing exception.");
+                    Thread.currentThread().interrupt();
+                    return "Canceled";
+                }
+
+                // Do work.
+            }
+        };
+
+        final Future<?> future = executorService.submit(task);
+
+        TimeUnit.SECONDS.sleep(1); // Wait for some time
+
+        final boolean cancel = future.cancel(true);
+        System.out.println("Is cancelled?: " + cancel);
+
+        executorService.shutdown();
+    }
+
+    public void handleExceptionAndSetStatus() throws InterruptedException {
+        final ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+        final Callable<String> task = () -> {
             try {
                 TimeUnit.SECONDS.sleep(1);
             } catch (InterruptedException e) {
                 System.out.println("Interrupted, cleaning up and then setting the interrupt status.");
                 Thread.currentThread().interrupt();
-                return "Cleaned";
+                return "Canceled";
             }
 
             return "Ok";
