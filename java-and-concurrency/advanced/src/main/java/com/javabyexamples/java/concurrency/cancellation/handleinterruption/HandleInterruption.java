@@ -10,11 +10,11 @@ public class HandleInterruption {
 
     public static void main(String[] args) {
         final HandleInterruption handleInterruption = new HandleInterruption();
-//        handleInterruption.interruptThread();
+        handleInterruption.interruptThread();
 //        handleInterruption.tryToInterruptWhenThreadTerminated();
 
 //        handleInterruption.checkInterruption();
-        handleInterruption.checkInterruptionByClearing();
+//        handleInterruption.checkInterruptionByClearing();
 //        handleInterruption.checkInterruptionFromAnother();
 
 //        handleInterruption.handleAndThrowException();
@@ -26,7 +26,7 @@ public class HandleInterruption {
     public void interruptThread() {
         final Runnable task = () -> {
             int i = 0;
-            while (true) {
+            while (i < Integer.MAX_VALUE) {
                 i++;
             }
         };
