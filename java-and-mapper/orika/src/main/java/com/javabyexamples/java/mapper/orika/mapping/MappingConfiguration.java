@@ -1,144 +1,121 @@
 package com.javabyexamples.java.mapper.orika.mapping;
 
-import com.javabyexamples.java.mapper.orika.shared.ImmutablePersonTarget;
-import com.javabyexamples.java.mapper.orika.shared.PersonHelper;
-import com.javabyexamples.java.mapper.orika.shared.PersonSource;
-import com.javabyexamples.java.mapper.orika.shared.PersonTarget;
 import ma.glasnost.orika.BoundMapperFacade;
-import ma.glasnost.orika.CustomConverter;
 import ma.glasnost.orika.CustomMapper;
 import ma.glasnost.orika.MappingContext;
-import ma.glasnost.orika.converter.ConverterFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory.Builder;
-import ma.glasnost.orika.metadata.Type;
+import ma.glasnost.orika.metadata.MappingDirection;
 
 public class MappingConfiguration {
 
-    private final PersonSource personSource = PersonHelper.getPersonSource();
-
-    public static void main(String[] args) {
-        final MappingConfiguration mappingConfiguration = new MappingConfiguration();
-        mappingConfiguration.mapWithoutDefaults();
-        mappingConfiguration.mapWithDefaults();
-        mappingConfiguration.mapWithFields();
-        mappingConfiguration.mapWithFieldsOneWay();
-        mappingConfiguration.mapWithCustomMapper();
-        mappingConfiguration.mapWithConstructor();
-        mappingConfiguration.mapWithConverter();
+    public BoundMapperFacade<Person, PersonDto> mapWithoutDefaults() {
+        final DefaultMapperFactory mapperFactory = new Builder().build();
+        mapperFactory.classMap(Person.class, PersonDto.class)
+          .register();
+        return mapperFactory.getMapperFacade(Person.class, PersonDto.class);
     }
 
-    public void mapWithDefaults() {
-        System.out.println("mapWithDefaults");
+    public BoundMapperFacade<Person, PersonDto> mapWithDefaults() {
         final DefaultMapperFactory mapperFactory = new Builder().build();
-        mapperFactory.classMap(PersonSource.class, PersonTarget.class)
+        mapperFactory.classMap(Person.class, PersonDto.class)
           .byDefault()
           .register();
-        final BoundMapperFacade<PersonSource, PersonTarget> mapperFacade = mapperFactory
-          .getMapperFacade(PersonSource.class, PersonTarget.class);
-
-        executeMapping(mapperFacade);
+        return mapperFactory.getMapperFacade(Person.class, PersonDto.class);
     }
 
-    public void mapWithoutDefaults() {
-        System.out.println("mapWithoutDefaults");
+    public BoundMapperFacade<Person, PersonDto> mapWithFields() {
         final DefaultMapperFactory mapperFactory = new Builder().build();
-        mapperFactory.classMap(PersonSource.class, PersonTarget.class)
-          .register();
-        final BoundMapperFacade<PersonSource, PersonTarget> mapperFacade = mapperFactory
-          .getMapperFacade(PersonSource.class, PersonTarget.class);
-
-        executeMapping(mapperFacade);
-    }
-
-    public void mapWithFields() {
-        System.out.println("mapWithFields");
-        final DefaultMapperFactory mapperFactory = new Builder().build();
-        mapperFactory.classMap(PersonSource.class, PersonTarget.class)
+        mapperFactory.classMap(Person.class, PersonDto.class)
           .field("firstName", "name")
           .field("lastName", "surname")
           .byDefault()
           .register();
-        final BoundMapperFacade<PersonSource, PersonTarget> mapperFacade = mapperFactory
-          .getMapperFacade(PersonSource.class, PersonTarget.class);
-
-        executeMapping(mapperFacade);
+        return mapperFactory.getMapperFacade(Person.class, PersonDto.class);
     }
 
-    public void mapWithFieldsOneWay() {
-        System.out.println("mapWithFieldsOneWay");
+    public BoundMapperFacade<Person, PersonDto> mapWithFieldsDetailed() {
         final DefaultMapperFactory mapperFactory = new Builder().build();
-        mapperFactory.classMap(PersonSource.class, PersonTarget.class)
-          .fieldAToB("firstName", "name")
-          .fieldAToB("lastName", "surname")
+        mapperFactory.classMap(Person.class, PersonDto.class)
+          .fieldMap("firstName", "name").direction(MappingDirection.BIDIRECTIONAL).add()
+          .fieldMap("lastName", "surname").direction(MappingDirection.BIDIRECTIONAL).add()
           .byDefault()
           .register();
-        final BoundMapperFacade<PersonSource, PersonTarget> mapperFacade = mapperFactory
-          .getMapperFacade(PersonSource.class, PersonTarget.class);
-
-        executeMapping(mapperFacade);
+        return mapperFactory.getMapperFacade(Person.class, PersonDto.class);
     }
 
-    public void mapWithCustomMapper() {
-        System.out.println("mapWithCustomMapper");
+    public BoundMapperFacade<Person, PersonDto> mapWithNestedObjects() {
         final DefaultMapperFactory mapperFactory = new Builder().build();
-        mapperFactory.classMap(PersonSource.class, PersonTarget.class)
+        mapperFactory.classMap(Person.class, PersonDto.class)
           .field("firstName", "name")
-          .customize(new CustomMapper<PersonSource, PersonTarget>() {
+          .field("lastName", "surname")
+          .field("address.city", "city")
+          .byDefault()
+          .register();
+        return mapperFactory.getMapperFacade(Person.class, PersonDto.class);
+    }
+
+    public BoundMapperFacade<Person, PersonDto> mapWithMultipleMappers() {
+        final DefaultMapperFactory mapperFactory = new Builder().build();
+        mapperFactory.classMap(Person.class, PersonDto.class)
+          .field("firstName", "name")
+          .field("lastName", "surname")
+          .byDefault()
+          .register();
+        mapperFactory.classMap(Address.class, AddressDto.class)
+          .field("postalCode", "zipCode")
+          .byDefault()
+          .register();
+        return mapperFactory.getMapperFacade(Person.class, PersonDto.class);
+    }
+
+    public BoundMapperFacade<Person, PersonDto> mapByExcludingFields() {
+        final DefaultMapperFactory mapperFactory = new Builder().build();
+        mapperFactory.classMap(Person.class, PersonDto.class)
+          .field("firstName", "name")
+          .field("lastName", "surname")
+          .exclude("age")
+          .byDefault()
+          .register();
+        return mapperFactory.getMapperFacade(Person.class, PersonDto.class);
+    }
+
+    public BoundMapperFacade<Person, PersonDto> mapWithFieldsOneWay() {
+        final DefaultMapperFactory mapperFactory = new Builder().build();
+        mapperFactory.classMap(Person.class, PersonDto.class)
+          .fieldAToB("firstName", "name")
+          .fieldAToB("lastName", "surname")
+          .fieldBToA("age", "age")
+          .byDefault()
+          .register();
+        return mapperFactory.getMapperFacade(Person.class, PersonDto.class);
+    }
+
+    public BoundMapperFacade<Person, PersonDto> mapWithCustomMapper() {
+        final DefaultMapperFactory mapperFactory = new Builder().build();
+        mapperFactory.classMap(Person.class, PersonDto.class)
+          .field("firstName", "name")
+          .field("lastName", "surname")
+          .customize(new CustomMapper<Person, PersonDto>() {
               @Override
-              public void mapAtoB(PersonSource personSource, PersonTarget personTarget, MappingContext context) {
-                  personTarget.setSurname(personSource.getLastName());
+              public void mapAtoB(Person person, PersonDto personDto, MappingContext context) {
+                  if (person.getAge() > 21) {
+                      personDto.setAge(person.getAge());
+                  }
               }
           })
           .byDefault()
           .register();
-        final BoundMapperFacade<PersonSource, PersonTarget> mapperFacade = mapperFactory
-          .getMapperFacade(PersonSource.class, PersonTarget.class);
-
-        executeMapping(mapperFacade);
+        return mapperFactory.getMapperFacade(Person.class, PersonDto.class);
     }
 
-    public void mapWithConstructor() {
-        System.out.println("mapWithConstructor");
+    public BoundMapperFacade<Person, ImmutablePersonDto> mapWithConstructor() {
         final DefaultMapperFactory mapperFactory = new Builder().build();
-        mapperFactory.classMap(PersonSource.class, ImmutablePersonTarget.class)
+        mapperFactory.classMap(Person.class, ImmutablePersonDto.class)
           .field("firstName", "name")
           .fieldAToB("lastName", "surname")
           .byDefault()
           .register();
-        final BoundMapperFacade<PersonSource, ImmutablePersonTarget> mapperFacade = mapperFactory
-          .getMapperFacade(PersonSource.class, ImmutablePersonTarget.class);
-
-        executeMapping(mapperFacade);
-    }
-
-    public void mapWithConverter() {
-        class MyConverter extends CustomConverter<String, String> {
-
-            @Override
-            public String convert(String source, Type<? extends String> destinationType,
-              MappingContext mappingContext) {
-                return source;
-            }
-        }
-
-        System.out.println("mapWithConverter");
-        final DefaultMapperFactory mapperFactory = new Builder().build();
-        ConverterFactory converterFactory = mapperFactory.getConverterFactory();
-        converterFactory.registerConverter("convert1", new MyConverter());
-        mapperFactory.classMap(PersonSource.class, PersonTarget.class)
-          .field("firstName", "name")
-          .fieldMap("lastName", "surname").converter("convert1").add()
-          .byDefault()
-          .register();
-        final BoundMapperFacade<PersonSource, PersonTarget> mapperFacade = mapperFactory
-          .getMapperFacade(PersonSource.class, PersonTarget.class);
-
-        executeMapping(mapperFacade);
-    }
-
-    private <T> void executeMapping(BoundMapperFacade<PersonSource, T> mapperFacade) {
-        final T mapped = mapperFacade.map(personSource);
-        System.out.println(mapped);
+        return mapperFactory.getMapperFacade(Person.class, ImmutablePersonDto.class);
     }
 }

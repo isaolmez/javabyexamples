@@ -1,10 +1,13 @@
-package com.javabyexamples.java.mapper.orika.shared;
+package com.javabyexamples.java.mapper.orika.mappingwithcollections;
 
-public class PersonSource {
+import java.util.List;
+
+public class Person {
 
     private String firstName;
     private String lastName;
     private int age;
+    private List<Pet> pets;
 
     public String getFirstName() {
         return firstName;
@@ -28,5 +31,13 @@ public class PersonSource {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public List<Pet> getPets() {
+        return pets;
+    }
+
+    public void setPets(List<Pet> pets) {
+        this.pets = pets;
     }
 }

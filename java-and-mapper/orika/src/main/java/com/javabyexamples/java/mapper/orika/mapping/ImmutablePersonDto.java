@@ -1,12 +1,12 @@
-package com.javabyexamples.java.mapper.orika.shared;
+package com.javabyexamples.java.mapper.orika.mapping;
 
-public final class ImmutablePersonTarget {
+public final class ImmutablePersonDto {
 
     private final String name;
     private final String surname;
     private final int age;
 
-    public ImmutablePersonTarget(String name, String surname, int age) {
+    public ImmutablePersonDto(String name, String surname, int age) {
         this.name = name;
         this.surname = surname;
         this.age = age;

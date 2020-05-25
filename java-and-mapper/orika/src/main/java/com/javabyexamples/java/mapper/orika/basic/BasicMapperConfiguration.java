@@ -1,50 +1,69 @@
 package com.javabyexamples.java.mapper.orika.basic;
 
-import com.javabyexamples.java.mapper.orika.shared.PersonHelper;
-import com.javabyexamples.java.mapper.orika.shared.PersonSource;
-import com.javabyexamples.java.mapper.orika.shared.PersonTarget;
 import ma.glasnost.orika.BoundMapperFacade;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
-import ma.glasnost.orika.impl.DefaultMapperFactory.Builder;
 
 public class BasicMapperConfiguration {
 
-    private final PersonSource personSource = PersonHelper.getPersonSource();
-    private final PersonTarget existingPersonTarget = PersonHelper.getPersonTarget();
-
     public static void main(String[] args) {
+        final Person person = PersonHelper.getPerson();
+
         final BasicMapperConfiguration basicMapperConfiguration = new BasicMapperConfiguration();
-        basicMapperConfiguration.mapWithMapperFacade();
-        basicMapperConfiguration.mapWithBoundedMapperFacade();
+        basicMapperConfiguration.mapWithMapperFacade(person);
+        basicMapperConfiguration.mapWithBoundedMapperFacade(person);
     }
 
-    public void mapWithMapperFacade() {
-        final DefaultMapperFactory mapperFactory = new Builder().build();
-        mapperFactory.classMap(PersonSource.class, PersonTarget.class)
+    public PersonDto mapWithMapperFacade(Person person) {
+        final DefaultMapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
+        mapperFactory.classMap(Person.class, PersonDto.class)
+          .field("firstName", "name")
+          .field("lastName", "surname")
           .byDefault()
           .register();
         final MapperFacade mapperFacade = mapperFactory.getMapperFacade();
 
-        final PersonTarget personTarget = mapperFacade.map(personSource, PersonTarget.class);
-        System.out.println(personTarget);
-
-        mapperFacade.map(personSource, existingPersonTarget);
-        System.out.println(existingPersonTarget);
+        return mapperFacade.map(person, PersonDto.class);
     }
 
-    public void mapWithBoundedMapperFacade() {
-        final DefaultMapperFactory mapperFactory = new Builder().build();
-        mapperFactory.classMap(PersonSource.class, PersonTarget.class)
+    public PersonDto mapExistingWithMapperFacade(Person person, PersonDto existingPersonDto) {
+        final DefaultMapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
+        mapperFactory.classMap(Person.class, PersonDto.class)
+          .field("firstName", "name")
+          .field("lastName", "surname")
           .byDefault()
           .register();
-        final BoundMapperFacade<PersonSource, PersonTarget> mapperFacade = mapperFactory
-          .getMapperFacade(PersonSource.class, PersonTarget.class);
+        final MapperFacade mapperFacade = mapperFactory.getMapperFacade();
 
-        final PersonTarget personTarget = mapperFacade.map(personSource);
-        System.out.println(personTarget);
+        mapperFacade.map(person, existingPersonDto);
+        return existingPersonDto;
+    }
 
-        mapperFacade.map(personSource, existingPersonTarget);
-        System.out.println(existingPersonTarget);
+    public PersonDto mapWithBoundedMapperFacade(Person person) {
+        final DefaultMapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
+        mapperFactory.classMap(Person.class, PersonDto.class)
+          .field("firstName", "name")
+          .field("lastName", "surname")
+          .byDefault()
+          .register();
+        final BoundMapperFacade<Person, PersonDto> boundMapper = mapperFactory
+          .getMapperFacade(Person.class, PersonDto.class);
+
+        return boundMapper.map(person);
+    }
+
+    public PersonDto mapExistingWithBoundedMapperFacade(Person person,
+      PersonDto existingPersonDto) {
+        final DefaultMapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
+        mapperFactory.classMap(Person.class, PersonDto.class)
+          .field("firstName", "name")
+          .field("lastName", "surname")
+          .byDefault()
+          .register();
+        final BoundMapperFacade<Person, PersonDto> boundMapper = mapperFactory
+          .getMapperFacade(Person.class, PersonDto.class);
+
+        boundMapper.map(person, existingPersonDto);
+        return existingPersonDto;
     }
 }
