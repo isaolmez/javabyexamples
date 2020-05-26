@@ -4,13 +4,13 @@ import java.util.List;
 
 public class Family {
 
-    private List<Person> members;
+    private List<Person> parents;
 
-    public List<Person> getMembers() {
-        return members;
+    public List<Person> getParents() {
+        return parents;
     }
 
-    public void setMembers(List<Person> members) {
-        this.members = members;
+    public void setParents(List<Person> parents) {
+        this.parents = parents;
     }
 }

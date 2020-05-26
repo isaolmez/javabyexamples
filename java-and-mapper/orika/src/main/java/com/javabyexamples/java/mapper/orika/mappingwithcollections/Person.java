@@ -1,13 +1,12 @@
 package com.javabyexamples.java.mapper.orika.mappingwithcollections;
 
-import java.util.List;
+import java.util.Map;
 
 public class Person {
 
     private String firstName;
     private String lastName;
-    private int age;
-    private List<Pet> pets;
+    private Map<String, Pet> petsBySpecies;
 
     public String getFirstName() {
         return firstName;
@@ -25,19 +24,11 @@ public class Person {
         this.lastName = lastName;
     }
 
-    public int getAge() {
-        return age;
+    public Map<String, Pet> getPetsBySpecies() {
+        return petsBySpecies;
     }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public List<Pet> getPets() {
-        return pets;
-    }
-
-    public void setPets(List<Pet> pets) {
-        this.pets = pets;
+    public void setPetsBySpecies(Map<String, Pet> petsBySpecies) {
+        this.petsBySpecies = petsBySpecies;
     }
 }
