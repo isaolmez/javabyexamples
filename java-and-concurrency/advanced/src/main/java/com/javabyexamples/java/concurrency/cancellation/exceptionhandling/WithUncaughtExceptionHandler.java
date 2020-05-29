@@ -4,17 +4,16 @@ import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.TimeUnit;
 
 public class WithUncaughtExceptionHandler {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         final WithUncaughtExceptionHandler exceptionHandler = new WithUncaughtExceptionHandler();
         exceptionHandler.executeThenThrowUnchecked();
 //        exceptionHandler.submitThenThrowUnchecked();
     }
 
-    public void executeThenThrowUnchecked() throws InterruptedException {
+    public void executeThenThrowUnchecked() {
         final ExecutorService executorService = Executors.newFixedThreadPool(1, new AppThreadFactory());
         executorService.execute(() -> {
             System.out.println("I will throw RuntimeException now.");
@@ -22,10 +21,9 @@ public class WithUncaughtExceptionHandler {
         });
 
         executorService.shutdown();
-        executorService.awaitTermination(1, TimeUnit.SECONDS);
     }
 
-    public void submitThenThrowUnchecked() throws InterruptedException {
+    public void submitThenThrowUnchecked() {
         final ExecutorService executorService = Executors.newFixedThreadPool(1, new AppThreadFactory());
         executorService.submit(() -> {
             System.out.println("I will throw RuntimeException now.");
@@ -33,7 +31,6 @@ public class WithUncaughtExceptionHandler {
         });
 
         executorService.shutdown();
-        executorService.awaitTermination(1, TimeUnit.SECONDS);
     }
 
     public static class AppThreadFactory implements ThreadFactory {

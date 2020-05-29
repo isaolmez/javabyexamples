@@ -10,13 +10,14 @@ public class DefaultBehavior {
     public static void main(String[] args) {
         final DefaultBehavior defaultBehavior = new DefaultBehavior();
 
-//        defaultBehavior.executeThenThrowUnchecked();
+        defaultBehavior.executeThenThrowUnchecked();
 //        defaultBehavior.submitThenThrowUnchecked();
 //        defaultBehavior.submitThenThrowUncheckedThenGet();
     }
 
     public void executeThenThrowUnchecked() {
         final ExecutorService executorService = Executors.newFixedThreadPool(1);
+
         executorService.execute(() -> {
             System.out.println("I will throw RuntimeException now.");
             throw new RuntimeException("Planned exception after execute()");
@@ -27,7 +28,8 @@ public class DefaultBehavior {
 
     public void submitThenThrowUnchecked() {
         final ExecutorService executorService = Executors.newFixedThreadPool(1);
-        final Future<Object> future = executorService.submit(() -> {
+
+        final Future<Object> futureHandle = executorService.submit(() -> {
             System.out.println("I will throw RuntimeException now.");
             throw new RuntimeException("Planned exception after submit()");
         });

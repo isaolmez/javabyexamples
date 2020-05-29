@@ -2,16 +2,15 @@ package com.javabyexamples.java.concurrency.cancellation.exceptionhandling;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 public class WithWrappingTask {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         final WithWrappingTask withWrappingTask = new WithWrappingTask();
         withWrappingTask.executeThenThrowUnchecked();
     }
 
-    public void executeThenThrowUnchecked() throws InterruptedException {
+    public void executeThenThrowUnchecked() {
         final ExecutorService executorService = Executors.newFixedThreadPool(1);
         final CatchingRunnable catchingRunnable = new CatchingRunnable(() -> {
             System.out.println("I will throw RuntimeException now.");
@@ -20,23 +19,22 @@ public class WithWrappingTask {
         executorService.execute(catchingRunnable);
 
         executorService.shutdown();
-        executorService.awaitTermination(1, TimeUnit.SECONDS);
     }
 
     public static class CatchingRunnable implements Runnable {
 
-        private final Runnable runnable;
+        private final Runnable delegate;
 
-        public CatchingRunnable(Runnable runnable) {
-            this.runnable = runnable;
+        public CatchingRunnable(Runnable delegate) {
+            this.delegate = delegate;
         }
 
         @Override
         public void run() {
             try {
-                runnable.run();
+                delegate.run();
             } catch (RuntimeException e) {
-                System.out.println(e.getMessage());
+                System.out.println(e.getMessage()); // Log, notify etc...
                 throw e;
             }
         }

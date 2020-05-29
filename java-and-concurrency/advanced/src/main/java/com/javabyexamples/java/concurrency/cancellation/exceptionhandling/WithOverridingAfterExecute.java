@@ -8,12 +8,12 @@ import java.util.concurrent.TimeUnit;
 
 public class WithOverridingAfterExecute {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         final WithOverridingAfterExecute withWrappingTask = new WithOverridingAfterExecute();
         withWrappingTask.executeThenThrowUnchecked();
     }
 
-    public void executeThenThrowUnchecked() throws InterruptedException {
+    public void executeThenThrowUnchecked() {
         final ExecutorService executorService = new MonitoringThreadPoolExecutor(1, 1, 0, TimeUnit.SECONDS,
           new LinkedBlockingQueue<>());
         executorService.execute(() -> {
@@ -22,7 +22,6 @@ public class WithOverridingAfterExecute {
         });
 
         executorService.shutdown();
-        executorService.awaitTermination(1, TimeUnit.SECONDS);
     }
 
     public static class MonitoringThreadPoolExecutor extends ThreadPoolExecutor {
@@ -35,7 +34,9 @@ public class WithOverridingAfterExecute {
         @Override
         protected void afterExecute(Runnable r, Throwable t) {
             super.afterExecute(r, t);
-            System.out.println("Exception message: " + t.getMessage());
+            if (t != null) {
+                System.out.println("Exception message: " + t.getMessage());
+            }
         }
     }
 }
