@@ -9,3 +9,5 @@
 - [ReentrantReadWriteLock in Java](http://www.javabyexamples.com/readwritelock-in-java)
 - [ReentrantLock in Java](http://www.javabyexamples.com/lock-and-reentrantlock-in-java)
 - [CountDownLatch in Java](http://www.javabyexamples.com/countdownlatch-in-java)
+- [Task Cancellation in Java](http://www.javabyexamples.com/task-cancellation-in-java)
+- [Guide to Thread Interruption in Java](http://www.javabyexamples.com/guide-to-thread-interruption-in-java)
