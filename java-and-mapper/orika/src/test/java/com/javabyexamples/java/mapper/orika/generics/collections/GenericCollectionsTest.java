@@ -25,9 +25,15 @@ public class GenericCollectionsTest {
         Group<Person> group = new Group<>();
         group.setMembers(Arrays.asList(person));
 
-        final GroupDto<?> groupDto = factory.getMapperFacade().map(group, GroupDto.class);
+        final GroupDto<PersonDto> groupDto = factory.getMapperFacade().map(group, GroupDto.class);
 
         assertThat(groupDto.getMembers().get(0)).isNotInstanceOfAny(Person.class, PersonDto.class);
+        try {
+            final PersonDto personDto = groupDto.getMembers().get(0); // Throws ClassCastException
+        } catch (Exception e) {
+            e.printStackTrace();
+            assertThat(e).isInstanceOf(ClassCastException.class);
+        }
     }
 
     @Test
@@ -47,23 +53,22 @@ public class GenericCollectionsTest {
         GroupDto<PersonDto> groupDto = factory.getMapperFacade().map(group, sourceType, targetType);
 
         assertThat(groupDto.getMembers().get(0)).isInstanceOf(PersonDto.class);
-        assertThat(groupDto.getMembers().get(0).getName()).isEqualTo(group.getMembers().get(0).getName());
     }
 
-@Test
-public void testParameterizedCollection() {
-    MapperFactory factory = new DefaultMapperFactory.Builder().build();
-    factory.classMap(Inventory.class, InventoryDto.class).byDefault().register();
+    @Test
+    public void testParameterizedCollection() {
+        MapperFactory factory = new DefaultMapperFactory.Builder().build();
+        factory.classMap(Inventory.class, InventoryDto.class).byDefault().register();
 
-    final Inventory inventory = new Inventory();
-    final HashMap<String, Object> map = new HashMap<>();
-    map.put("numbers", Arrays.asList("1", "2", "3"));
-    inventory.setData(map);
+        final Inventory inventory = new Inventory();
+        final HashMap<String, Object> map = new HashMap<>();
+        map.put("numbers", Arrays.asList("1", "2", "3"));
+        inventory.setData(map);
 
-    final InventoryDto inventoryDto = factory.getMapperFacade().map(inventory, InventoryDto.class);
+        final InventoryDto inventoryDto = factory.getMapperFacade().map(inventory, InventoryDto.class);
 
-    assertThat(inventoryDto.getData().get("numbers")).isNotInstanceOf(List.class);
-}
+        assertThat(inventoryDto.getData().get("numbers")).isNotInstanceOf(List.class);
+    }
 
     @Test
     public void testParameterizedCollection2() {
