@@ -1,15 +1,17 @@
 package com.javabyexamples.java.concurrency.cancellation.jvmshutdown;
 
+import java.lang.Thread.UncaughtExceptionHandler;
+
 public class ShutdownHooks {
 
     public static void main(String[] args) {
 //        new ShutdownHooks().runHooksOnZeroThread();
 
-//        new ShutdownHooks().runHooksOnExit();
+        new ShutdownHooks().runHooksOnExit();
 
 //        new ShutdownHooks().skipHooksOnHalt();
 
-        new ShutdownHooks().skipHooksOnCtrlC();
+//        new ShutdownHooks().exceptionHandlingInHooks();
     }
 
     public void runHooksOnZeroThread() {
@@ -18,8 +20,6 @@ public class ShutdownHooks {
 
         final Thread secondHook = new Thread(() -> System.out.println("Second hook."));
         Runtime.getRuntime().addShutdownHook(secondHook);
-
-        System.out.println("Exiting main thread!");
     }
 
     public void runHooksOnExit() {
@@ -29,8 +29,7 @@ public class ShutdownHooks {
         final Thread secondHook = new Thread(() -> System.out.println("Second hook."));
         Runtime.getRuntime().addShutdownHook(secondHook);
 
-        System.out.println("Exiting main thread!");
-
+        System.out.println("Exiting...");
         System.exit(0); // Runtime.getRuntime().exit(status);
     }
 
@@ -41,20 +40,21 @@ public class ShutdownHooks {
         final Thread secondHook = new Thread(() -> System.out.println("Second hook."));
         Runtime.getRuntime().addShutdownHook(secondHook);
 
-        System.out.println("Exiting main thread!");
-
         Runtime.getRuntime().halt(1);
     }
 
-    public void skipHooksOnCtrlC() {
-        final Thread firstHook = new Thread(() -> System.out.println("First hook."));
-        Runtime.getRuntime().addShutdownHook(firstHook);
+    public void exceptionHandlingInHooks() {
+        final Thread hook = new Thread(() -> {
+            throw new RuntimeException("Planned");
+        });
+        hook.setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread t, Throwable e) {
+                System.out.println("Exception: " + e.getMessage());
+            }
+        });
+        Runtime.getRuntime().addShutdownHook(hook);
 
-        final Thread secondHook = new Thread(() -> System.out.println("Second hook."));
-        Runtime.getRuntime().addShutdownHook(secondHook);
-
-        System.out.println("Exiting main thread!");
-
-        new Thread(new InfiniteRunner()).start();
+        System.exit(0);
     }
 }

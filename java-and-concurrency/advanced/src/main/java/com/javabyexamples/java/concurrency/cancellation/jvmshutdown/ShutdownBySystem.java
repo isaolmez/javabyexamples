@@ -1,10 +1,10 @@
 package com.javabyexamples.java.concurrency.cancellation.jvmshutdown;
 
-public class ShutdownByExit {
+public class ShutdownBySystem {
 
     public static void main(String[] args) {
 //        new ShutdownByExit().exit();
-        new ShutdownByExit().halt();
+        new ShutdownBySystem().halt();
     }
 
     public void exit() {
@@ -20,6 +20,6 @@ public class ShutdownByExit {
 
         System.out.println("Halting main thread!");
 
-        System.exit(1);
+        Runtime.getRuntime().halt(1);
     }
 }
