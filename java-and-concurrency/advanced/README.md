@@ -11,3 +11,4 @@
 - [CountDownLatch in Java](http://www.javabyexamples.com/countdownlatch-in-java)
 - [Task Cancellation in Java](http://www.javabyexamples.com/task-cancellation-in-java)
 - [Guide to Thread Interruption in Java](http://www.javabyexamples.com/guide-to-thread-interruption-in-java)
+- [Guide to JVM Shutdown](http://www.javabyexamples.com/guide-to-jvm-shutdown)
