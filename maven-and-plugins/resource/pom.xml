@@ -30,10 +30,10 @@
                                     <goal>copy-resources</goal>
                                 </goals>
                                 <configuration>
-                                    <outputDirectory>${basedir}/target/extra-resources</outputDirectory>
+                                    <outputDirectory>${build.outputDirectory}/additional-resources</outputDirectory>
                                     <resources>
                                         <resource>
-                                            <directory>extra-resources</directory>
+                                            <directory>additional-resources</directory>
                                             <filtering>true</filtering>
                                         </resource>
                                     </resources>
@@ -45,16 +45,28 @@
             </build>
         </profile>
 
-        <!--Include-exclude resource locations-->
+        <!--Add int resource locations-->
         <profile>
-            <id>include-exclude</id>
+            <id>add-int-resources</id>
             <build>
                 <resources>
                     <resource>
-                        <directory>config/environment/int</directory>
-                        <excludes>
-                            <exclude>**/*.xml</exclude>
-                        </excludes>
+                        <directory>other-resources/environment/int</directory>
+                    </resource>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
+
+        <!--Add prod resource locations-->
+        <profile>
+            <id>add-prod-resources</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>other-resources/environment/prod</directory>
                     </resource>
                     <resource>
                         <directory>src/main/resources</directory>
@@ -69,10 +81,10 @@
             <build>
                 <resources>
                     <resource>
-                        <directory>config/environment/int</directory>
+                        <directory>other-resources/environment/int</directory>
                     </resource>
                     <resource>
-                        <directory>config/environment/prod</directory>
+                        <directory>other-resources/environment/prod</directory>
                     </resource>
                     <resource>
                         <directory>src/main/resources</directory>
