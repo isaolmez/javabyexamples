@@ -5,14 +5,15 @@ import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class WaitForStartAndFinish {
+public class WaitForStart {
 
-    public static void main(String[] args) {
-        final WaitForStartAndFinish waitForStartAndFinish = new WaitForStartAndFinish();
-        waitForStartAndFinish.coordinateStartAndFinish();
+    public static void main(String[] args) throws Exception {
+        final WaitForStart waitForStart = new WaitForStart();
+        waitForStart.coordinateStart();
+        waitForStart.coordinateStartUsingMain();
     }
 
-    public void coordinateStartAndFinish() {
+    public void coordinateStart() {
         final int taskCount = 3;
         final ExecutorService threadPool = Executors.newFixedThreadPool(taskCount);
 
@@ -22,6 +23,22 @@ public class WaitForStartAndFinish {
         for (int i = 0; i < taskCount; ++i) {
             threadPool.execute(new Worker(barrier));
         }
+
+        threadPool.shutdown();
+    }
+
+    public void coordinateStartUsingMain() throws Exception {
+        final int taskCount = 3;
+        final ExecutorService threadPool = Executors.newFixedThreadPool(taskCount);
+
+        final CyclicBarrier barrier = new CyclicBarrier(taskCount + 1,
+          () -> System.out.println("All ready to continue!"));
+
+        for (int i = 0; i < taskCount; ++i) {
+            threadPool.execute(new Worker(barrier));
+        }
+
+        barrier.await();
 
         threadPool.shutdown();
     }
@@ -40,9 +57,6 @@ public class WaitForStartAndFinish {
                 barrier.await();
 
                 doWork();
-
-                barrier.await();
-                System.out.println("Done.");
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
                 System.out.println("Interrupted.");

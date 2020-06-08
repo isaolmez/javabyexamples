@@ -4,32 +4,25 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * A synchronization aid that allows one or more threads to wait until a set of operations being performed in other
- * threads completes.
- */
-public class WaitForStartAndFinish {
+public class WaitForStart {
 
     public static void main(String[] args) throws InterruptedException {
-        final WaitForStartAndFinish usage = new WaitForStartAndFinish();
-        usage.coordinateStartAndFinish();
+        final WaitForStart waitForStart = new WaitForStart();
+        waitForStart.coordinateStart();
     }
 
-    public void coordinateStartAndFinish() throws InterruptedException {
-        final int threadCount = 3;
-        final CountDownLatch readySignal = new CountDownLatch(threadCount);
+    public void coordinateStart() throws InterruptedException {
+        final int taskCount = 3;
+        final CountDownLatch readySignal = new CountDownLatch(taskCount);
         final CountDownLatch startSignal = new CountDownLatch(1);
-        final CountDownLatch doneSignal = new CountDownLatch(threadCount);
-        final ExecutorService threadPool = Executors.newFixedThreadPool(threadCount);
+        final ExecutorService threadPool = Executors.newFixedThreadPool(taskCount);
 
-        for (int i = 0; i < threadCount; ++i) {
-            threadPool.execute(new Worker(readySignal, startSignal, doneSignal));
+        for (int i = 0; i < taskCount; ++i) {
+            threadPool.execute(new Worker(readySignal, startSignal));
         }
 
         readySignal.await();          // Wait for all workers to get ready
         startSignal.countDown();      // Let all workers proceed
-        doneSignal.await();           // Wait for all workers to finish
-        System.out.println("All done.");
 
         threadPool.shutdown();
     }
@@ -38,12 +31,10 @@ public class WaitForStartAndFinish {
 
         private final CountDownLatch readySignal;
         private final CountDownLatch startSignal;
-        private final CountDownLatch doneSignal;
 
-        Worker(CountDownLatch readySignal, CountDownLatch startSignal, CountDownLatch doneSignal) {
+        Worker(CountDownLatch readySignal, CountDownLatch startSignal) {
             this.readySignal = readySignal;
             this.startSignal = startSignal;
-            this.doneSignal = doneSignal;
         }
 
         public void run() {
@@ -54,8 +45,6 @@ public class WaitForStartAndFinish {
                 startSignal.await();
 
                 doWork();
-
-                doneSignal.countDown();
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
                 System.out.println("Interrupted.");
