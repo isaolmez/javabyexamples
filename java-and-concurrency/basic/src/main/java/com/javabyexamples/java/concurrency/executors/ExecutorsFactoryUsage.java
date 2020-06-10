@@ -91,6 +91,8 @@ public class ExecutorsFactoryUsage {
         final Future<Object> future = executorService.submit(callable);
         final Object result = future.get();
         System.out.println(result);
+
+        executorService.shutdown();
     }
 
     public void adaptRunnableToCallableWithReturnValue() throws Exception {
@@ -107,6 +109,8 @@ public class ExecutorsFactoryUsage {
         final Future<Object> future = executorService.submit(callable);
         final Object result = future.get();
         System.out.println(result);
+
+        executorService.shutdown();
     }
 
     public void defaultThreadFactory() {
