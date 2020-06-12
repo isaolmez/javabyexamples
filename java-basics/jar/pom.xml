@@ -7,8 +7,16 @@
     <artifactId>java.jar</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <name>JAR :: Root</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
 
     <modules>
         <module>jar-with-dependencies</module>
+        <module>executable-jar</module>
     </modules>
 </project>

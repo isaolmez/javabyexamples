@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Created-By: Maven Archiver 3.4.0
+Build-Jdk-Spec: 11
+Main-Class: com.javabyexamples.java.jar.Greeting
