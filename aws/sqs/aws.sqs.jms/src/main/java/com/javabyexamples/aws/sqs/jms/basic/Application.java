@@ -11,8 +11,8 @@ import org.springframework.context.annotation.PropertySource;
 @ComponentScan
 public class Application {
 
-  public static void main(String[] args) {
-    final ConfigurableApplicationContext context = new AnnotationConfigApplicationContext(
-        Application.class);
-  }
+    public static void main(String[] args) {
+        final ConfigurableApplicationContext context = new AnnotationConfigApplicationContext(
+          Application.class);
+    }
 }

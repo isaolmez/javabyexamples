@@ -20,43 +20,43 @@ import org.springframework.jms.support.converter.MessageConverter;
 @Import({SqsConfiguration.class, ProducerConfiguration.class})
 public class ConsumerConfiguration {
 
-  @Bean
-  public MessageConverter jsonMessageConverter() {
-    final MappingJackson2MessageConverter messageConverter = new MappingJackson2MessageConverter();
-    messageConverter.setTypeIdPropertyName("msgPayloadType");
-    return messageConverter;
-  }
+    @Bean
+    public MessageConverter jsonMessageConverter() {
+        final MappingJackson2MessageConverter messageConverter = new MappingJackson2MessageConverter();
+        messageConverter.setTypeIdPropertyName("msgPayloadType");
+        return messageConverter;
+    }
 
-  @Bean
-  public MessageListenerA messageListenerA(JmsTemplate jmsTemplate) {
-    return new MessageListenerA(jsonMessageConverter(), jmsTemplate);
-  }
+    @Bean
+    public MessageListenerA messageListenerA(JmsTemplate jmsTemplate) {
+        return new MessageListenerA(jsonMessageConverter(), jmsTemplate);
+    }
 
-  @Bean
-  public JmsTransactionManager jmsTransactionManager(SQSConnectionFactory sqsConnectionFactory) {
-    return new JmsTransactionManager(sqsConnectionFactory);
-  }
+    @Bean
+    public JmsTransactionManager jmsTransactionManager(SQSConnectionFactory sqsConnectionFactory) {
+        return new JmsTransactionManager(sqsConnectionFactory);
+    }
 
-  @Bean
-  public DefaultMessageListenerContainer messageListenerContainerA(
+    @Bean
+    public DefaultMessageListenerContainer messageListenerContainerA(
       ConnectionFactory sqsConnectionFactory,
       MessageListener messageListenerA) {
-    return getMessageListenerContainer(sqsConnectionFactory, messageListenerA, "queue_a");
-  }
+        return getMessageListenerContainer(sqsConnectionFactory, messageListenerA, "queue_a");
+    }
 
-  private DefaultMessageListenerContainer getMessageListenerContainer(
+    private DefaultMessageListenerContainer getMessageListenerContainer(
       ConnectionFactory sqsConnectionFactory,
       MessageListener messageListener,
       String destinationName) {
-    final DefaultMessageListenerContainer listenerContainer = new DefaultMessageListenerContainer();
-    listenerContainer.setConnectionFactory(sqsConnectionFactory);
-    listenerContainer.setDestinationName(destinationName);
-    listenerContainer.setMessageListener(messageListener);
-    listenerContainer.setConcurrentConsumers(5);
-    listenerContainer.setMaxConcurrentConsumers(10);
-    listenerContainer.setAcceptMessagesWhileStopping(true);
-    listenerContainer.setSessionTransacted(false);
-    listenerContainer.setSessionAcknowledgeMode(CLIENT_ACKNOWLEDGE);
-    return listenerContainer;
-  }
+        final DefaultMessageListenerContainer listenerContainer = new DefaultMessageListenerContainer();
+        listenerContainer.setConnectionFactory(sqsConnectionFactory);
+        listenerContainer.setDestinationName(destinationName);
+        listenerContainer.setMessageListener(messageListener);
+        listenerContainer.setConcurrentConsumers(5);
+        listenerContainer.setMaxConcurrentConsumers(10);
+        listenerContainer.setAcceptMessagesWhileStopping(true);
+        listenerContainer.setSessionTransacted(false);
+        listenerContainer.setSessionAcknowledgeMode(CLIENT_ACKNOWLEDGE);
+        return listenerContainer;
+    }
 }

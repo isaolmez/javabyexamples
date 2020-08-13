@@ -17,35 +17,35 @@ import org.springframework.jms.support.converter.MessageConverter;
 @Import(SqsConfiguration.class)
 public class ConsumerConfiguration {
 
-  @Bean
-  public MessageConverter jsonMessageConverter() {
-    final MappingJackson2MessageConverter messageConverter = new MappingJackson2MessageConverter();
-    messageConverter.setTypeIdPropertyName("msgPayloadType");
-    return messageConverter;
-  }
+    @Bean
+    public MessageConverter jsonMessageConverter() {
+        final MappingJackson2MessageConverter messageConverter = new MappingJackson2MessageConverter();
+        messageConverter.setTypeIdPropertyName("msgPayloadType");
+        return messageConverter;
+    }
 
-  @Bean
-  public TestMessageListener testMessageListener() {
-    return new TestMessageListener(jsonMessageConverter());
-  }
+    @Bean
+    public TestMessageListener testMessageListener() {
+        return new TestMessageListener(jsonMessageConverter());
+    }
 
-  @Bean
-  public JmsTransactionManager jmsTransactionManager(SQSConnectionFactory sqsConnectionFactory){
-    return new JmsTransactionManager(sqsConnectionFactory);
-  }
+    @Bean
+    public JmsTransactionManager jmsTransactionManager(SQSConnectionFactory sqsConnectionFactory) {
+        return new JmsTransactionManager(sqsConnectionFactory);
+    }
 
-  @Bean
-  public DefaultMessageListenerContainer messageListenerContainer(
+    @Bean
+    public DefaultMessageListenerContainer messageListenerContainer(
       ConnectionFactory sqsConnectionFactory) {
-    final DefaultMessageListenerContainer listenerContainer = new DefaultMessageListenerContainer();
-    listenerContainer.setConnectionFactory(sqsConnectionFactory);
-    listenerContainer.setDestinationName("test_queue_1");
-    listenerContainer.setMessageListener(testMessageListener());
-    listenerContainer.setConcurrentConsumers(5);
-    listenerContainer.setMaxConcurrentConsumers(10);
-    listenerContainer.setAcceptMessagesWhileStopping(true);
-    listenerContainer.setSessionTransacted(false);
-    listenerContainer.setSessionAcknowledgeMode(CLIENT_ACKNOWLEDGE);
-    return listenerContainer;
-  }
+        final DefaultMessageListenerContainer listenerContainer = new DefaultMessageListenerContainer();
+        listenerContainer.setConnectionFactory(sqsConnectionFactory);
+        listenerContainer.setDestinationName("test_queue_1");
+        listenerContainer.setMessageListener(testMessageListener());
+        listenerContainer.setConcurrentConsumers(5);
+        listenerContainer.setMaxConcurrentConsumers(10);
+        listenerContainer.setAcceptMessagesWhileStopping(true);
+        listenerContainer.setSessionTransacted(false);
+        listenerContainer.setSessionAcknowledgeMode(CLIENT_ACKNOWLEDGE);
+        return listenerContainer;
+    }
 }

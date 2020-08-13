@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TestMessage {
 
-  private String name;
-  private String uuid;
+    private String name;
+    private String uuid;
 }

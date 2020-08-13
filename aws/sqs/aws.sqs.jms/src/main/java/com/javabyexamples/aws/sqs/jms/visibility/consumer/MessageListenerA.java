@@ -15,33 +15,33 @@ import org.springframework.jms.support.converter.MessageConverter;
 @Slf4j
 public class MessageListenerA extends BaseMessageListener<MessageA> {
 
-  private final JmsTemplate jmsTemplate;
+    private final JmsTemplate jmsTemplate;
 
-  public MessageListenerA(MessageConverter messageConverter,
+    public MessageListenerA(MessageConverter messageConverter,
       JmsTemplate jmsTemplate) {
-    super(messageConverter);
-    this.jmsTemplate = jmsTemplate;
-  }
-
-  @Override
-  protected void process(MessageA jmsEnvelope) {
-    final CountDownLatch countDownLatch = new CountDownLatch(120);
-    AtomicInteger count = new AtomicInteger();
-    final String id = UUID.randomUUID().toString();
-    final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-    executorService.scheduleAtFixedRate(() -> {
-      log.info("Seconds: {}, Id: {}", count.incrementAndGet(), id);
-      countDownLatch.countDown();
-    }, 0, 1, TimeUnit.SECONDS);
-
-    try {
-      countDownLatch.await();
-    } catch (InterruptedException e) {
-      log.error("Error occurred.", e);
+        super(messageConverter);
+        this.jmsTemplate = jmsTemplate;
     }
 
-    if (1 < 2) {
-      throw new RuntimeException("Planned");
+    @Override
+    protected void process(MessageA jmsEnvelope) {
+        final CountDownLatch countDownLatch = new CountDownLatch(120);
+        AtomicInteger count = new AtomicInteger();
+        final String id = UUID.randomUUID().toString();
+        final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+        executorService.scheduleAtFixedRate(() -> {
+            log.info("Seconds: {}, Id: {}", count.incrementAndGet(), id);
+            countDownLatch.countDown();
+        }, 0, 1, TimeUnit.SECONDS);
+
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            log.error("Error occurred.", e);
+        }
+
+        if (1 < 2) {
+            throw new RuntimeException("Planned");
+        }
     }
-  }
 }

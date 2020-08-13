@@ -8,14 +8,14 @@ import org.springframework.jms.support.converter.MessageConverter;
 @Slf4j
 public class TestMessageListener extends BaseMessageListener<TestMessage> {
 
-  public TestMessageListener(MessageConverter messageConverter) {
-    super(messageConverter);
-  }
-
-  @Override
-  protected void process(TestMessage jmsEnvelope) {
-    if (1 < 2) {
-      throw new RuntimeException("Planned");
+    public TestMessageListener(MessageConverter messageConverter) {
+        super(messageConverter);
     }
-  }
+
+    @Override
+    protected void process(TestMessage jmsEnvelope) {
+        if (1 < 2) {
+            throw new RuntimeException("Planned");
+        }
+    }
 }

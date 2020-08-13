@@ -16,27 +16,27 @@ import org.springframework.jms.support.converter.MessageConverter;
 @Import(SqsConfiguration.class)
 public class ProducerConfiguration {
 
-  @Bean
-  public JmsTemplate jmsTemplate(SQSConnectionFactory sqsConnectionFactory) {
-    final JmsTemplate jmsTemplate = new JmsTemplate(sqsConnectionFactory);
-    jmsTemplate.setMessageConverter(jsonMessageConverter());
-    return jmsTemplate;
-  }
+    @Bean
+    public JmsTemplate jmsTemplate(SQSConnectionFactory sqsConnectionFactory) {
+        final JmsTemplate jmsTemplate = new JmsTemplate(sqsConnectionFactory);
+        jmsTemplate.setMessageConverter(jsonMessageConverter());
+        return jmsTemplate;
+    }
 
-  @Bean
-  public InitializingBean initializingBean(JmsTemplate jmsTemplate) {
-    return new InitializingBean() {
-      @Override
-      public void afterPropertiesSet() throws Exception {
-        jmsTemplate.convertAndSend("test_queue_1",
-            new TestMessage("First message", UUID.randomUUID().toString()));
-      }
-    };
-  }
+    @Bean
+    public InitializingBean initializingBean(JmsTemplate jmsTemplate) {
+        return new InitializingBean() {
+            @Override
+            public void afterPropertiesSet() throws Exception {
+                jmsTemplate.convertAndSend("test_queue_1",
+                  new TestMessage("First message", UUID.randomUUID().toString()));
+            }
+        };
+    }
 
-  private MessageConverter jsonMessageConverter() {
-    final MappingJackson2MessageConverter messageConverter = new MappingJackson2MessageConverter();
-    messageConverter.setTypeIdPropertyName("msgPayloadType");
-    return messageConverter;
-  }
+    private MessageConverter jsonMessageConverter() {
+        final MappingJackson2MessageConverter messageConverter = new MappingJackson2MessageConverter();
+        messageConverter.setTypeIdPropertyName("msgPayloadType");
+        return messageConverter;
+    }
 }
