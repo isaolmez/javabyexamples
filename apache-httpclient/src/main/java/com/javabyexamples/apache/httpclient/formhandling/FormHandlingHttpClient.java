@@ -4,6 +4,7 @@ import static com.javabyexamples.apache.httpclient.Constants.POST_URL;
 
 import java.io.File;
 import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.Consts;
@@ -55,7 +56,8 @@ public class FormHandlingHttpClient {
     public void postFormWithFile() throws Exception {
         try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
 
-            File file = new File("/notes/todo.txt");
+            URL resource = Thread.currentThread().getContextClassLoader().getResource("notes/todo.txt");
+            File file = new File(resource.getFile());
             FileEntity fileEntity = new FileEntity(file, ContentType.create("text/plain", "UTF-8"));
             HttpPost httpPost = new HttpPost(POST_URL);
             httpPost.setEntity(fileEntity);
