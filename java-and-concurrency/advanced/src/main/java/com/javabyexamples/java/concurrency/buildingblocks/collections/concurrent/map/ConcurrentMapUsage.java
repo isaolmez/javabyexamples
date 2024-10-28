@@ -29,7 +29,7 @@ public class ConcurrentMapUsage {
     }
 
     public void run(Map<Object, Object> map) throws InterruptedException {
-        final int threadCount = 100;
+        final int threadCount = 1000;
         final ExecutorService executorService = Executors.newFixedThreadPool(threadCount);
         final CountDownLatch done = new CountDownLatch(threadCount);
 

@@ -24,7 +24,7 @@ public class ConcurrentListUsage {
     }
 
     public void run(List<Object> list) throws InterruptedException {
-        final int threadCount = 100;
+        final int threadCount = 1000;
         final ExecutorService executorService = Executors.newFixedThreadPool(threadCount);
         final CountDownLatch done = new CountDownLatch(10000);
 

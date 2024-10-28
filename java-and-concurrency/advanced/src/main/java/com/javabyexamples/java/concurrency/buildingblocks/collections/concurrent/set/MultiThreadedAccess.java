@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 public class MultiThreadedAccess {
 
     public void doInsert(Set<Object> set) throws InterruptedException {
-        final int taskCount = 100;
+        final int taskCount = 1000;
         final ExecutorService executorService = Executors.newFixedThreadPool(taskCount);
         final CyclicBarrier startBarrier = new CyclicBarrier(taskCount);
 
