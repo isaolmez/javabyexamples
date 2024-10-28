@@ -1,0 +1,21 @@
+public void configureScheduledThreadPool() {
+    final int corePoolSize = 10;
+    final ThreadFactory threadFactory = Executors.defaultThreadFactory();
+    final RejectedExecutionHandler handler = new AbortPolicy();
+    final ScheduledThreadPoolExecutor threadPool = new ScheduledThreadPoolExecutor(corePoolSize,
+      threadFactory,
+      handler);
+
+    threadPool.setMaximumPoolSize(100);
+    threadPool.setCorePoolSize(20);
+    threadPool.setKeepAliveTime(1, TimeUnit.SECONDS);
+    threadPool.setRejectedExecutionHandler(new CallerRunsPolicy());
+    threadPool.setThreadFactory(new ThreadFactory() {
+        @Override
+        public Thread newThread(Runnable r) {
+            return new Thread(r);
+        }
+    });
+
+    threadPool.shutdown();
+}
