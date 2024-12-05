@@ -12,7 +12,7 @@
     <guava.version>26.0-jre</guava.version>
     <junit.version>4.12</junit.version>
     <commons.lang.version>3.8.1</commons.lang.version>
-    <commons.io.version>2.6</commons.io.version>
+    <commons.io.version>2.7</commons.io.version>
     <lombok.version>1.18.2</lombok.version>
   </properties>
 
